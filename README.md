@@ -1,8 +1,8 @@
 # PORTAIL
 
-[Initialisation du projet](initialisation-du-projet)
+[Initialisation du projet](#initialisation-du-projet)
 
-[Swagger](swagger)
+[Swagger](#swagger)
 
 
 ## Initialisation du projet
