@@ -20,7 +20,7 @@ Ajouter la dépendance au starter web
     </dependency>
 ```
 
-Créer une première classe : `Application.java`. Elle sera chargée de lancer l'application grâce à la méthode *main*. Elle est annotée `@SpringBootApplication`, cela correspond aux trois annotations suivantes :
+Créer une première classe : [Application.java](../master/src/main/java/fr/deroffal/Application.java). Elle sera chargée de lancer l'application grâce à la méthode *main*. Elle est annotée `@SpringBootApplication`, cela correspond aux trois annotations suivantes :
  * `@Configuration` : La classe va pouvoir contenir des beans Spring et pourra donc être utilisée pour les définir.
  * `@EnableAutoConfiguration` Active une configuration "intelligente" de Springboot qui va scanner ce qu'il y a dans notre classpath pour activer des configurations qui pourront nous être utiles.
  * `@ComponentScan` Indique les packages dans lesquels on va scanner à la recherche de bean. S'il n'y a rien d'indiqué, on va partir du package de la classe annotée.
