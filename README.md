@@ -1,8 +1,9 @@
 # PORTAIL
 
-[Initialisation du projet](#initialisation-du-projet)
-
-[Swagger](#swagger)
+* [Initialisation du projet](#initialisation-du-projet)
+* [Swagger](#swagger)
+  - [Configuration](#configuration)
+  - [Documentation des APIs](#documentation-des-apis)
 
 
 ## Initialisation du projet
@@ -35,5 +36,13 @@ Créer une première classe : [Application.java](../master/src/main/java/fr/dero
 L'application est prête à être lancée. On peut créer un premier point d'entré pour vérifier que l'application : Voir la classe [PingController.java](../master/src/main/java/fr/deroffal/controller/PingController.java). Nous avons deux solutions pour tester le service créé :
  1. Appeler simplement l'application à l'aide du navigateur (facile, car il s'agit d'un GET) : http://localhost:8080/ping
  2. Ajouter Swagger au projet pour nous permettre de tester simplement nos services.
-La configuration est simple : il faut ajouter au pom.xml les deux dépendances relatives à `io.springfox` et créer la classe [SwaggerConfiguration.java](../master/src/main/java/fr/deroffal/SwaggerConfiguration.java)
+ 
+ ### Configuration
+La configuration de Swagger est simple : il faut ajouter au pom.xml les deux dépendances relatives à `io.springfox` et créer la classe [SwaggerConfiguration.java](../master/src/main/java/fr/deroffal/SwaggerConfiguration.java). Dans cette classe, on définit un bean `Docket` dont la méthode *select()* va nous permettre de choisir les services que nous allons présenter, soit par contrôleur (méthode *api()* qui peut permettre de filtrer selon des expressions régulières des classes/packages, filtrer des classes annotées, ... ) ou par URL (méthode *paths()*). 
+
+TODO : [voir les groupes](https://springfox.github.io/springfox/docs/snapshot/#configuring-springfox)
+
 On peut ensuite aller sur [l'url](http://localhost:8080/swagger-ui.html) pour tester les services.
+
+ ### Documentation des APIs
+ [TODO](https://springfox.github.io/springfox/docs/snapshot/#support-for-documentation-from-property-file-lookup)
