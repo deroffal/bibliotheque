@@ -1,5 +1,5 @@
-INSERT INTO ROLE(ID,ROLE) VALUES (1,'ADMIN');
-INSERT INTO ROLE(ID,ROLE) VALUES (2,'USER');
+INSERT INTO ROLE(ID,ROLE_NAME) VALUES (1,'ADMIN');
+INSERT INTO ROLE(ID,ROLE_NAME) VALUES (2,'USER');
 
 --Mots de passe crypté par BCryptPasswordEncoder (en clair, il s'agit des logins)
 INSERT INTO UTILISATEUR(ID, LOGIN, PASSWORD) values (1, 'admin', '$2a$10$3AoDzKHV.ExSwFXq8SPjK.3qSozxVVngcB0Xd4iAQcVlvz4yBgh1e');

@@ -1,11 +1,12 @@
 package fr.deroffal.user.entity;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-//@Entity
-//@Table(name = "USER_ROLE")
+@Entity
+@Table(name = "USER_ROLE")
 public class UserRoleEntity {
 
 	@Column(name = "USER_ID", nullable = false)

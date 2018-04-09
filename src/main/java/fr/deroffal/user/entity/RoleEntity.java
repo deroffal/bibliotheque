@@ -19,7 +19,7 @@ public class RoleEntity {
 	@Column(name = "ID", updatable = false, nullable = false)
 	private Long id;
 
-	@Column(name = "ROLE")
+	@Column(name = "ROLE_NAME")
 	private String role;
 
 	//UserEntity.roles
