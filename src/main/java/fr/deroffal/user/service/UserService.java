@@ -32,7 +32,7 @@ public class UserService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(final String login) throws UsernameNotFoundException {
-		final UserEntity user = dao.findByLogin(login);
+		final UserEntity user = getByLogin(login);
 		if (user == null) {
 			throw new UsernameNotFoundException("Login " + login + " non trouvé!");
 		}
