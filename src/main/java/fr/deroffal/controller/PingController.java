@@ -23,7 +23,7 @@ public class PingController {
     )
     @GetMapping(value = "/ping")
     public ResponseEntity<String> ping() {
-        LOGGER.info("Démarrage de l'appli OK !");
+        LOGGER.info("OK !");
         return new ResponseEntity<String>("Pong", HttpStatus.OK);
     }
 }
