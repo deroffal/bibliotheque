@@ -3,22 +3,15 @@ package fr.deroffal.user.entity;
 import java.io.Serializable;
 import java.util.Collection;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "UTILISATEUR")
+@Table(name = "UTILISATEUR", schema = "PUBLIC")
 public class UserEntity implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_utilisateur_generator")
+	@SequenceGenerator(name = "seq_utilisateur_generator", sequenceName = "seq_utilisateur", allocationSize = 1)
 	@Column(name = "ID", updatable = false, nullable = false)
 	private Long id;
 
@@ -30,7 +23,7 @@ public class UserEntity implements Serializable {
 
 	@ManyToMany
 	@JoinTable(
-			name = "USER_ROLE",
+			name = "UTILISATEUR_ROLE",
 			joinColumns = @JoinColumn(name = "USER_ID"),
 			inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
 	)
