@@ -1,4 +1,4 @@
-package fr.deroffal.user.mapping;
+package fr.deroffal.authentification.mapping;
 
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
@@ -7,8 +7,8 @@ import org.mapstruct.MappingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import fr.deroffal.user.dto.UserDto;
-import fr.deroffal.user.entity.UserEntity;
+import fr.deroffal.authentification.dto.UserDto;
+import fr.deroffal.authentification.entity.UserEntity;
 
 @Mapper(componentModel = "spring")
 public abstract class UserMapper {

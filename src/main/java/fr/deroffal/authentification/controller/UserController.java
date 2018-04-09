@@ -1,4 +1,4 @@
-package fr.deroffal.user.controller;
+package fr.deroffal.authentification.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.deroffal.user.dto.UserDto;
-import fr.deroffal.user.entity.UserEntity;
-import fr.deroffal.user.service.UserService;
+import fr.deroffal.authentification.dto.UserDto;
+import fr.deroffal.authentification.entity.UserEntity;
+import fr.deroffal.authentification.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 

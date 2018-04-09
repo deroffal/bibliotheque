@@ -1,4 +1,4 @@
-package fr.deroffal.user.dto;
+package fr.deroffal.authentification.dto;
 
 import java.io.Serializable;
 

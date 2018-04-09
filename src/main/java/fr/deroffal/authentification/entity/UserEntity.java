@@ -1,4 +1,4 @@
-package fr.deroffal.user.entity;
+package fr.deroffal.authentification.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
