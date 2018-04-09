@@ -1,0 +1,4 @@
+INSERT INTO UTILISATEUR(ID, LOGIN, PASSWORD) values (1, 'admin', 'admin');
+INSERT INTO UTILISATEUR(ID, LOGIN, PASSWORD) values (2, 'user1', 'user1');
+INSERT INTO UTILISATEUR(ID, LOGIN, PASSWORD) values (3, 'user2', 'user2');
+COMMIT;

@@ -13,11 +13,21 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfiguration {
 
     @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("all")
+                .select()
+                    .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
+                .build();
+    }
+
+    @Bean
     public Docket publicApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("public")
                 .select()
-                    .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
+                    .apis(RequestHandlerSelectors.any())
+                    .paths(s -> s.contains("/public/"))
                 .build();
     }
 
