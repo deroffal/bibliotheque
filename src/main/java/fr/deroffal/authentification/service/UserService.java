@@ -1,5 +1,7 @@
 package fr.deroffal.authentification.service;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,12 +32,13 @@ public class UserService implements UserDetailsService {
 		return userMapper.toDto(dao.save(userEntity));
 	}
 
+	@Transactional
 	@Override
 	public UserDetails loadUserByUsername(final String login) throws UsernameNotFoundException {
 		final UserEntity user = getByLogin(login);
 		if (user == null) {
 			throw new UsernameNotFoundException("Login " + login + " non trouvé!");
 		}
-		return User.withUsername(user.getLogin()).password(user.getPassword()).roles("USER").build();//TODO ajouter les rôles en base!
+		return User.withUsername(user.getLogin()).password(user.getPassword()).roles(user.getRolesAsStrings()).build();
 	}
 }

@@ -3,7 +3,16 @@ package fr.deroffal.authentification.entity;
 import java.io.Serializable;
 import java.util.Collection;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "UTILISATEUR", schema = "PUBLIC")
@@ -22,11 +31,7 @@ public class UserEntity implements Serializable {
 	private String password;
 
 	@ManyToMany
-	@JoinTable(
-			name = "UTILISATEUR_ROLE",
-			joinColumns = @JoinColumn(name = "USER_ID"),
-			inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
-	)
+	@JoinTable(name = "UTILISATEUR_ROLE", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
 	private Collection<RoleEntity> roles;
 
 	public Long getId() {
@@ -59,5 +64,9 @@ public class UserEntity implements Serializable {
 
 	public void setRoles(final Collection<RoleEntity> roles) {
 		this.roles = roles;
+	}
+
+	public String[] getRolesAsStrings() {
+		return roles.stream().map(RoleEntity::getRole).toArray(String[]::new);
 	}
 }

@@ -4,6 +4,7 @@ import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.Mappings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -18,7 +19,10 @@ public abstract class UserMapper {
 
 	public abstract UserDto toDto(final UserEntity user);
 
-	@Mapping(target = "password", ignore = true)
+	@Mappings({
+			@Mapping(target = "password", ignore = true),
+			@Mapping(target = "roles", ignore = true)
+	})
 	public abstract UserEntity toEntityAndEncorePassword(final UserDto user);
 
 	@AfterMapping
