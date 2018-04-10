@@ -1,4 +1,4 @@
-package fr.deroffal.authentification.service;
+package fr.deroffal.portail.authentification.service;
 
 import javax.transaction.Transactional;
 
@@ -9,10 +9,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import fr.deroffal.authentification.dao.UserDao;
-import fr.deroffal.authentification.dto.UserDto;
-import fr.deroffal.authentification.entity.UserEntity;
-import fr.deroffal.authentification.mapping.UserMapper;
+import fr.deroffal.portail.authentification.dao.UserDao;
+import fr.deroffal.portail.authentification.dto.UserDto;
+import fr.deroffal.portail.authentification.entity.UserEntity;
+import fr.deroffal.portail.authentification.mapping.UserMapper;
 
 @Service
 public class UserService implements UserDetailsService {

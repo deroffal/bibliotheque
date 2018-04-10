@@ -1,4 +1,4 @@
-package fr.deroffal.authentification.entity;
+package fr.deroffal.portail.authentification.entity;
 
 import java.util.Collection;
 
