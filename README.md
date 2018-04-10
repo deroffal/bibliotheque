@@ -7,3 +7,4 @@
 * [MapStruct](../master/documentation/mapstruct.md)
 * [Accès à la base de données](../master/documentation/acces_bdd.md)
 * [Authentification](../master/documentation/authentification.md)
+* [Test](../master/documentation/test.md)
