@@ -43,7 +43,7 @@ Procédure d'installation pour une version de java >=8. Ajouter dans le `pom.xml
 
 ## Utilisation
 
-Exemple de l'interface [UserMapper.java](../master/src/main/java/fr/deroffal/user/mapping/UserMapper.java), qui est chargée d'effectuer le mapping entre l'Entity et le DTO représentant un
+Exemple de l'interface [UserMapper.java](../master/src/main/java/fr/deroffal/portail/user/mapping/UserMapper.java), qui est chargée d'effectuer le mapping entre l'Entity et le DTO représentant un
 utilisateur.
  
  L'interface est annotée par `@Mapper`, ce qui signifie qu'une implémentation de celle-ci devra être générée durant la compilation. On peut ajouter la propriété `componentModel = 
