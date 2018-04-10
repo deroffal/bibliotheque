@@ -21,7 +21,8 @@ En appelant les services, on va alors devoir transmettre ce couple d'identifiant
 ### Implémentation
 L'idée est d'utiliser les utilisateurs stockés en base de données pour gérer l'accès aux services. Pour cela, on va d'abord faire implémenter le [service dédié aux utilisateurs](../master/src/main/java/fr/deroffal/user/service/UserService.java) l'interface `UserDetailsService`, qui possède une méthode ` UserDetails loadUserByUsername(final String login)` pour charger un utilisateur de la base de données à partir de son login.
 
-On va ensuite créer une classe [SecurityConfiguration](../master/src/main/java/fr/deroffal/SecurityConfiguration.java) qui sera chargé de la configuration de la sécurisation de notre application.
+On va ensuite créer une classe [SecurityConfiguration](../master/src/main/java/fr/deroffal/portail/SecurityConfiguration.java) qui sera chargé de la configuration de la sécurisation de 
+notre application.
 ```
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
