@@ -1,6 +1,5 @@
 package fr.deroffal.portail.authentification.entity;
 
-import java.io.Serializable;
 import java.util.Collection;
 
 import javax.persistence.Column;
@@ -18,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "UTILISATEUR", schema = "PUBLIC")
-public class UserEntity implements Serializable {
+public class UserEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_utilisateur_generator")

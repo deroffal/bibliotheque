@@ -16,7 +16,7 @@ import fr.deroffal.portail.authentification.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@Api(value = "/user", description = "Contrôleur public")
+@Api(value = "/user")
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {

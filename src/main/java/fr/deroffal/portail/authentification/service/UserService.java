@@ -34,7 +34,7 @@ public class UserService implements UserDetailsService {
 
 	@Transactional
 	@Override
-	public UserDetails loadUserByUsername(final String login) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(final String login) {
 		final UserEntity user = getByLogin(login);
 		if (user == null) {
 			throw new UsernameNotFoundException("Login " + login + " non trouvé!");

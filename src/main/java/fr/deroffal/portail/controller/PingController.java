@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(value = "/public", description = "Contrôleur public")
+@Api(value = "/public")
 @RestController
 @RequestMapping(value = "/public")
 public class PingController {
@@ -24,6 +24,6 @@ public class PingController {
     @GetMapping(value = "/ping")
     public ResponseEntity<String> ping() {
         LOGGER.info("OK !");
-        return new ResponseEntity<String>("Pong", HttpStatus.OK);
+        return new ResponseEntity<>("Pong", HttpStatus.OK);
     }
 }
