@@ -35,7 +35,7 @@ public class UserController {
 	@PostMapping(value = "/")
 	public ResponseEntity<UserDto> createUser(@RequestBody final UserDto userIn) {
 		final UserEntity user = userService.getByLogin(userIn.getLogin());
-		if(user != null){
+		if (user != null) {
 			return new ResponseEntity<>((UserDto) null, HttpStatus.CONFLICT);
 		}
 		return new ResponseEntity<>(userService.createUser(userIn), HttpStatus.CREATED);

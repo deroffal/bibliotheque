@@ -14,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "UTILISATEUR", schema = "PUBLIC")
 public class UserEntity implements Serializable {
@@ -66,6 +68,7 @@ public class UserEntity implements Serializable {
 		this.roles = roles;
 	}
 
+	@JsonIgnore
 	public String[] getRolesAsStrings() {
 		return roles.stream().map(RoleEntity::getRole).toArray(String[]::new);
 	}
