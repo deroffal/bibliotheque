@@ -11,16 +11,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+//@formatter:off
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-	/** Les pattern d'URL autorisée sans authentification. */
+	/**
+	 * Les pattern d'URL autorisée sans authentification.
+	 * <li>
+	 *     <ul>url commencant par public</ul>
+	 *     <ul>swagger-ui</ul>
+	 * </li>
+	 */
 	private static final String[] AUTH_WHITELIST = {
-			//url commencant par public
 			"/public/**",
-			//swagger-ui
 			"/swagger-resources/**", "/swagger-ui.html", "/v2/api-docs", "/webjars/**"
-			//
 	};
 
 	@Autowired
@@ -39,6 +43,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(AUTH_WHITELIST).permitAll().antMatchers("/**/*").denyAll();
+		http.authorizeRequests()
+				.antMatchers(AUTH_WHITELIST).permitAll()
+				.antMatchers("/**/*").denyAll();
 	}
 }

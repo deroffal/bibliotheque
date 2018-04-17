@@ -18,6 +18,7 @@
 
     <!--fuite mémoire sur le 2.20.0 pour junit5-->
     <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
+    <dbunit.version>2.4.9</dbunit.version>
   </properties>
 
   <parent>
@@ -95,6 +96,19 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.dbunit</groupId>
+      <artifactId>dbunit</artifactId>
+      <version>${dbunit.version}</version>
+      <!--<scope>test</scope>-->
+    </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+
 
   </dependencies>
 
