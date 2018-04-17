@@ -16,23 +16,27 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "UTILISATEUR", schema = "PUBLIC")
+@Table(name = "utilisateur", schema = "portail")
 public class UserEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_utilisateur_generator")
 	@SequenceGenerator(name = "seq_utilisateur_generator", sequenceName = "seq_utilisateur", allocationSize = 1)
-	@Column(name = "ID", updatable = false, nullable = false)
+	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 
-	@Column(name = "LOGIN", unique = true, nullable = false)
+	@Column(name = "login", unique = true, nullable = false)
 	private String login;
 
-	@Column(name = "PASSWORD", nullable = false)
+	@Column(name = "password", nullable = false)
 	private String password;
 
 	@ManyToMany
-	@JoinTable(name = "UTILISATEUR_ROLE", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
+	@JoinTable(
+			schema = "portail",
+			name = "utilisateur_role",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Collection<RoleEntity> roles;
 
 	public Long getId() {

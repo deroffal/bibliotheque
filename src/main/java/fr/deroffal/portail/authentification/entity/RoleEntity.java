@@ -12,16 +12,16 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ROLE")
+@Table(name = "role", schema = "portail")
 public class RoleEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_role_generator")
 	@SequenceGenerator(name = "seq_role_generator", sequenceName = "seq_role", allocationSize = 1)
-	@Column(name = "ID", updatable = false, nullable = false)
+	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 
-	@Column(name = "ROLE_NAME")
+	@Column(name = "role_name")
 	private String role;
 
 	//UserEntity.roles

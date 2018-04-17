@@ -1,13 +1,13 @@
-INSERT INTO ROLE(ID,ROLE_NAME) VALUES (1,'ADMIN');
-INSERT INTO ROLE(ID,ROLE_NAME) VALUES (2,'USER');
+INSERT INTO portail.role(id,role_name) VALUES (1,'ADMIN');
+INSERT INTO portail.role(id,role_name) VALUES (2,'USER');
 
 --Mots de passe crypté par BCryptPasswordEncoder (en clair, il s'agit des logins)
-INSERT INTO UTILISATEUR(ID, LOGIN, PASSWORD) values (1, 'admin', '$2a$10$3AoDzKHV.ExSwFXq8SPjK.3qSozxVVngcB0Xd4iAQcVlvz4yBgh1e');
-INSERT INTO UTILISATEUR(ID, LOGIN, PASSWORD) values (2, 'user1', '$2a$10$6joC/UrDxKR4CZtkDEOi9uovbsM7nt1RA7TsFczudmr7Ir5dHPImK');
-INSERT INTO UTILISATEUR(ID, LOGIN, PASSWORD) values (3, 'user2', '$2a$10$IvID3zGmRTLpIB/uCnjxleEmk0hUe6Gyr9oKX6UqAZkWrb6xvrmvC');
+INSERT INTO portail.utilisateur(id, login, password) values (1, 'admin', '$2a$10$3AoDzKHV.ExSwFXq8SPjK.3qSozxVVngcB0Xd4iAQcVlvz4yBgh1e');
+INSERT INTO portail.utilisateur(id, login, password) values (2, 'user1', '$2a$10$6joC/UrDxKR4CZtkDEOi9uovbsM7nt1RA7TsFczudmr7Ir5dHPImK');
+INSERT INTO portail.utilisateur(id, login, password) values (3, 'user2', '$2a$10$IvID3zGmRTLpIB/uCnjxleEmk0hUe6Gyr9oKX6UqAZkWrb6xvrmvC');
 
-INSERT INTO UTILISATEUR_ROLE(ID, USER_ID,ROLE_ID) VALUES (1, 1,1);
-INSERT INTO UTILISATEUR_ROLE(ID, USER_ID,ROLE_ID) VALUES (2, 1,2);
-INSERT INTO UTILISATEUR_ROLE(ID, USER_ID,ROLE_ID) VALUES (3, 2,2);
-INSERT INTO UTILISATEUR_ROLE(ID, USER_ID,ROLE_ID) VALUES (4, 3,2);
+INSERT INTO portail.utilisateur_role(id, user_id,role_id) VALUES (1, 1,1);
+INSERT INTO portail.utilisateur_role(id, user_id,role_id) VALUES (2, 1,2);
+INSERT INTO portail.utilisateur_role(id, user_id,role_id) VALUES (3, 2,2);
+INSERT INTO portail.utilisateur_role(id, user_id,role_id) VALUES (4, 3,2);
 COMMIT;
