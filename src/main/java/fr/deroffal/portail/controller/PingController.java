@@ -32,18 +32,4 @@ public class PingController {
 		return new ResponseEntity<>("Pong", HttpStatus.OK);
 	}
 
-	/**
-	 * Temporaire : génération de la dtd.
-	 */
-	@GetMapping(value = "/dtd")
-	public ResponseEntity<String> dtd() throws Exception {
-		// database connection
-		Connection jdbcConnection = DriverManager.getConnection("jdbc:hsqldb:mem:portail", "sa", "");
-		IDatabaseConnection connection = new DatabaseConnection(jdbcConnection);
-
-		// write DTD file
-		FlatDtdDataSet.write(connection.createDataSet(), new FileOutputStream("database.dtd"));
-		return new ResponseEntity<>("dtd générée!", HttpStatus.OK);
-	}
-
 }
