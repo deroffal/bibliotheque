@@ -18,17 +18,13 @@ import fr.deroffal.portail.PortailConfigutation;
 public class RoleEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_role_generator")
 	@SequenceGenerator(name = "seq_role_generator", sequenceName = "seq_role", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_role_generator")
 	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 
 	@Column(name = "role_name")
 	private String role;
-
-	//UserEntity.roles
-	@ManyToMany(mappedBy = "roles")
-	private Collection<UserEntity> users;
 
 	public Long getId() {
 		return id;
@@ -46,11 +42,4 @@ public class RoleEntity {
 		this.role = role;
 	}
 
-	public Collection<UserEntity> getUsers() {
-		return users;
-	}
-
-	public void setUsers(final Collection<UserEntity> users) {
-		this.users = users;
-	}
 }

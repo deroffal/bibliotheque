@@ -22,8 +22,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class UserEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_utilisateur_generator")
 	@SequenceGenerator(name = "seq_utilisateur_generator", sequenceName = "seq_utilisateur", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_utilisateur_generator")
 	@Column(name = "id", updatable = false, nullable = false)
 	private Long id;
 
@@ -38,7 +38,8 @@ public class UserEntity {
 			schema = PortailConfigutation.SCHEMA_AUTHENTIFICATION,
 			name = "utilisateur_role",
 			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "role_id"))
+			inverseJoinColumns = @JoinColumn(name = "role_id")
+	)
 	private Collection<RoleEntity> roles;
 
 	public Long getId() {
