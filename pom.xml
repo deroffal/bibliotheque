@@ -15,11 +15,11 @@
     <mapstruct.version>1.2.0.Final</mapstruct.version>
 
     <junit-platform.version>1.1.1</junit-platform.version>
+    <dbunit.version>2.4.9</dbunit.version>
+    <openpojo.version>0.8.10</openpojo.version>
 
     <!--fuite mémoire sur le 2.20.0 pour junit5-->
     <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
-    <dbunit.version>2.4.9</dbunit.version>
-    <openpojo.version>0.8.10</openpojo.version>
   </properties>
 
   <parent>
@@ -106,7 +106,7 @@
       <groupId>org.dbunit</groupId>
       <artifactId>dbunit</artifactId>
       <version>${dbunit.version}</version>
-      <!--<scope>test</scope>-->
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.openpojo</groupId>
