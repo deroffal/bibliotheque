@@ -19,6 +19,7 @@
     <!--fuite mémoire sur le 2.20.0 pour junit5-->
     <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
     <dbunit.version>2.4.9</dbunit.version>
+    <openpojo.version>0.8.10</openpojo.version>
   </properties>
 
   <parent>
@@ -82,18 +83,23 @@
 
     <!-- Tests-->
     <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -103,10 +109,12 @@
       <!--<scope>test</scope>-->
     </dependency>
     <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
+      <groupId>com.openpojo</groupId>
+      <artifactId>openpojo</artifactId>
+      <version>${openpojo.version}</version>
       <scope>test</scope>
     </dependency>
+
 
   </dependencies>
 
