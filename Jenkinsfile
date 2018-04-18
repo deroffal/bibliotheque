@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        jdk 'jdk9'
+    }
+
     parameters {
         booleanParam(defaultValue: false, description: 'Skip tests', name: 'SkipTests')
     }
