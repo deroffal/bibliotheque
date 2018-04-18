@@ -30,8 +30,8 @@ import fr.deroffal.portail.authentification.service.UserService;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebMvcTest(UserController.class)
 @ExtendWith(SpringExtension.class)
+@WebMvcTest(UserController.class)
 class UserControllerTest {
 
 	@Autowired

@@ -46,6 +46,22 @@ les tests.
 ```
 
 ### Couche de persistance
+Pour tester unitairement nos DAO, on va annoter la classe de test par : 
+```
+@ExtendWith(SpringExtension.class)
+@TestPropertySource(locations = "classpath:application-test.properties")
+@DataJpaTest
+```
+ * `@ExtendWith(SpringExtension.class)` permet d'initialiser un contexte Spring.
+ * `@TestPropertySource(locations = "classpath:application-test.properties")` va fournir à ce contexte la bonne configuration (sinon il chargerait la configuration du *main* à la place de
+  celle du *test*).
+ * `@DataJpaTest` va nous permettre d'injecter un `TestEntityManager`.
+ 
+ Cas d'exemple : [UserDaoTest.java](../../master/src/test/java/fr/deroffal/portail/authentification/dao/UserDaoTest.java)
+ 
+ Afin d'effectuer des tests on peut initialiser des données en les persistant (par exemple dans une méthode *beforeEach()*). Il ne reste plus qu'à appeler notre DAO et vérifier que les 
+ données qu'il retourne sont celles persistée précédemment.
+
 ### Couche de service
 Cas d'exemple : [UserServiceTest.java](../../master/src/test/java/fr/deroffal/portail/authentification/service/UserServiceTest.java)
 
@@ -53,4 +69,30 @@ On va utiliser Mockito pour bouchonner les injections des dépendances de nos se
 Il n'existe pas encore de runner pour remplacer le `@RunWith` de Junit4. On va utiliser la classe [MockitoExtension.java](../../master/src/main/java/fr/portail/deroffal/util/MockitoExtension.java)
 qui est reprise de [Junit](https://github.com/junit-team/junit5-samples/blob/master/junit5-mockito-extension/src/main/java/com/example/mockito/MockitoExtension.java) pour 
 initiliser automatiquement nos mocks à l'aide de l'annotation : `@ExtendWith(MockitoExtension.class)`.
+
 ### Couche de contrôleur
+Pour tester unitairement nos contrôleurs REST, on va annoter la classe de test par : 
+```
+@ExtendWith(SpringExtension.class)
+@WebMvcTest(UserController.class)
+```
+ * `@ExtendWith(SpringExtension.class)` permet d'initialiser un contexte Spring.
+ * `@WebMvcTest(UserController.class)` indique le contrôleur qui est testé.
+ 
+ Pour initialiser nos tests, il va falloir créer un `MockMvc` à partir du `WebApplicationContext` de l'application. Il va nous permettre de simuler les appels HTTP à notre contôleur.
+ ```
+ 	@Autowired
+ 	private WebApplicationContext wac;
+ 
+ 	private MockMvc mockMvc;
+ 
+ 	@BeforeEach
+ 	void setup() {
+ 		mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+ 	}
+ 	...
+ ```
+ Ce `MockMvc` possède une méthode *perform* qui va être capable d'effectuer une requête (get, post, ...) à une URL donnée.  Il est aussi capable d'effectuer lui-même les assertions sur 
+ ses appels.
+ 
+ Cas d'exemple : [UserControllerTest.java](../../master/src/test/java/fr/deroffal/portail/authentification/controller/UserControllerTest.java)
