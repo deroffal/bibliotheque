@@ -1,13 +1,10 @@
 package fr.deroffal.portail.authentification.entity;
 
-import java.util.Collection;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -25,6 +22,14 @@ public class RoleEntity {
 
 	@Column(name = "role_name")
 	private String role;
+
+	public RoleEntity() {
+		super();
+	}
+
+	public RoleEntity(final String role) {
+		this.role = role;
+	}
 
 	public Long getId() {
 		return id;

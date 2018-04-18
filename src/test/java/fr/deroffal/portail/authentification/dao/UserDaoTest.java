@@ -47,11 +47,9 @@ class UserDaoTest {
 		userAdmin.setLogin("admin");
 		userAdmin.setPassword("azertyuiop");
 
-		roleAdmin = new RoleEntity();
-		roleAdmin.setRole("ADMIN");
+		roleAdmin = new RoleEntity("ADMIN");
 		testEntityManager.persist(roleAdmin);
-		roleUser = new RoleEntity();
-		roleUser.setRole("USER");
+		roleUser = new RoleEntity("USER");
 		testEntityManager.persist(roleUser);
 
 		userAdmin.setRoles(List.of(roleAdmin, roleUser));
