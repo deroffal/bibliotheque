@@ -15,7 +15,6 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -25,7 +24,6 @@ import fr.deroffal.portail.authentification.entity.UserEntity;
 @ExtendWith(SpringExtension.class)
 @TestPropertySource(locations = "classpath:application-test.properties")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@DirtiesContext//FIXME on ne va quand même pas recharger le contexte à chaque fois!
 class UserControllerWithRestIT extends DBTestCase {
 
 	private static final String URL = "http://localhost:";
@@ -35,7 +33,6 @@ class UserControllerWithRestIT extends DBTestCase {
 
 	@LocalServerPort
 	private int port;
-
 
 	UserControllerWithRestIT() {
 		super();

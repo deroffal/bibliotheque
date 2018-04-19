@@ -1,5 +1,5 @@
-# Test
-## Test unitaire
+# Tests
+## Tests unitaires
 On utilise Junit5 comme framework de test unitaire. 
 
 Configuration du pom.xml : 
@@ -91,3 +91,29 @@ Pour tester unitairement nos contrôleurs REST, on va annoter la classe de test 
  ses appels.
  
  Cas d'exemple : [UserControllerTest.java](../../master/src/test/java/fr/deroffal/portail/authentification/controller/UserControllerTest.java)
+
+## Tests d'intégration
+Le but est de tester l'ensemble d'une fonctionnalité, c'est à dire en partant de l'appel REST et en redescendant jusqu'à la récupération des informations en base de données.
+
+Cette fois, c'est le plugin `maven-failsafe-plugin` qui est chargé de l'exécution de ces tests. Si les tests unitaires sont joués dans la phase `test` de Maven, les tests d'intégration 
+sont joués plus tard, lors de la phase `verify `. En effet, il est nécessaire d'avoir construit l'applicatif avant de pouvoir jouer ces tests.
+
+Par défaut, on peut nommer nos tests d'intégration avec le suffixe "IT" pour qu'il soit détecté par le plugin.
+```
+      <plugin>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-surefire-provider</artifactId>
+            <version>${junit-platform.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-jupiter.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+```

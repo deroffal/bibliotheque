@@ -28,3 +28,11 @@ Pour définir la stratégie de génération de la clef primaire, on utilise l'an
 ## Génération automatique
 Au démarrage, Springboot va exécuter les scripts `schema.sql` et `data.sql`, situés à la racine du répertoire de resources, pour créer la structure de la base de données et lui fournir des données.
 Il faut alors ajouter dans le fichier `application.properties` la propriété `spring.jpa.hibernate.ddl-auto=validate` pour seulement valider que la structure de la base de données correspond aux entités, et non re-créer la base.
+
+https://docs.spring.io/spring-boot/docs/current/reference/html/howto-database-initialization.html#howto-initialize-a-database-using-spring-jdbc
+
+ It [Spring Boot] loads SQL from the standard root classpath locations: schema.sql and data.sql, respectively. In addition, Spring Boot processes the schema-${platform}.sql and 
+ data-${platform}.sql 
+ files (if present), where platform is the value of spring.datasource.platform.
+ 
+In a JPA-based app, you can choose to let Hibernate create the schema or use schema.sql, but you cannot do both. Make sure to disable spring.jpa.hibernate.ddl-auto if you use schema.sql.

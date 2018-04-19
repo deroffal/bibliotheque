@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +26,6 @@ import fr.deroffal.portail.authentification.entity.UserEntity;
 @ExtendWith(SpringExtension.class)
 @TestPropertySource(locations = "classpath:application-test.properties")
 @SpringBootTest
-@DirtiesContext//FIXME on ne va quand même pas recharger le contexte à chaque fois!
 class UserControllerIT extends DBTestCase {
 
 	@Autowired
@@ -63,7 +61,7 @@ class UserControllerIT extends DBTestCase {
 	 */
 	@Test
 	@Transactional
-	@DisplayName("Intégration Controller -> BDD dbunit")
+	@DisplayName("Integration Controller -> BDD dbunit")
 	void tout_d_un_coup() {
 		final ResponseEntity<UserEntity> response = userController.getUserByLogin("user2");
 
@@ -82,3 +80,4 @@ class UserControllerIT extends DBTestCase {
 	}
 
 }
+
