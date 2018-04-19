@@ -11,8 +11,8 @@ import fr.deroffal.portail.authentification.entity.UserEntity;
 class UserControllerIT extends AbstractIntegrationTest {
 
 	@Test
-	@DisplayName("Integration avec appel REST")
-	void avec_appel_rest() {
+	@DisplayName("Recherche d'un utilisateur : l'utilisateur est connu.")
+	void rechercherUtilisateur_loginConnu() {
 		ResponseEntity<UserEntity> response = restTemplate.getForEntity(buildUrl("/user/user2"), UserEntity.class);
 		assertNotNull(response);
 
@@ -25,6 +25,16 @@ class UserControllerIT extends AbstractIntegrationTest {
 		assertEquals("$2a$10$IvID3zGmRTLpIB/uCnjxleEmk0hUe6Gyr9oKX6UqAZkWrb6xvrmvC", actualUser.getPassword());
 
 		//TODO : vérifier les rôles (besoin d'entitygraph sur l'entity)
+	}
+
+	@Test
+	@DisplayName("Recherche d'un utilisateur : l'utilisateur est inconnu.")
+	void rechercherUtilisateur_loginInconnu() {
+		ResponseEntity<UserEntity> response = restTemplate.getForEntity(buildUrl("/user/user3"), UserEntity.class);
+		assertNotNull(response);
+
+		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+		assertNull(response.getBody());
 	}
 
 	@Override
