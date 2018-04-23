@@ -23,13 +23,14 @@ pipeline {
         stage('Tests') {
         	when { expression { !params.SkipTests } }
             steps {
-                sh "mvn -B surefire:test -DtestFailureIgnore=true"
-            }
-        }
-        stage('IT') {
-        	when { expression { !params.SkipTests } }
-            steps {
-                sh "mvn -B failsafe:integration-test -DskipAfterFailureCount=999"
+                parallel (
+                        "unit" : {
+				sh "mvn -B surefire:test -DtestFailureIgnore=true"
+			},
+                        "integration" : {
+				sh "mvn -B failsafe:integration-test -DskipAfterFailureCount=999"
+			}
+                    )
             }
         }
         stage('SonarQube analysis') {
