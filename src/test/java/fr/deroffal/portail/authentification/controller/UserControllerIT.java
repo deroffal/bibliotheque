@@ -7,13 +7,14 @@ import org.springframework.http.ResponseEntity;
 
 import fr.deroffal.portail.AbstractIntegrationTest;
 import fr.deroffal.portail.authentification.entity.UserEntity;
+import fr.deroffal.portail.exception.ExceptionMessage;
 
 class UserControllerIT extends AbstractIntegrationTest {
 
 	@Test
 	@DisplayName("Recherche d'un utilisateur : l'utilisateur est connu.")
 	void rechercherUtilisateur_loginConnu() {
-		ResponseEntity<UserEntity> response = restTemplate.getForEntity(buildUrl("/user/user2"), UserEntity.class);
+		final ResponseEntity<UserEntity> response = restTemplate.getForEntity(buildUrl("/user/user2"), UserEntity.class);
 		assertNotNull(response);
 
 		assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -30,11 +31,16 @@ class UserControllerIT extends AbstractIntegrationTest {
 	@Test
 	@DisplayName("Recherche d'un utilisateur : l'utilisateur est inconnu.")
 	void rechercherUtilisateur_loginInconnu() {
-		ResponseEntity<UserEntity> response = restTemplate.getForEntity(buildUrl("/user/user3"), UserEntity.class);
+		final ResponseEntity<UserEntity> response = restTemplate.getForEntity(buildUrl("/user/user3"), UserEntity.class);
 		assertNotNull(response);
 
 		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-		assertNull(response.getBody());
+		//TODO comment vérifier que l'on reçoit bien le message d'erreur?
+//		final Object body = response.getBody();
+//		assertTrue(body instanceof ExceptionMessage);
+//		final ExceptionMessage actualMessage = (ExceptionMessage) body;
+//		assertEquals("/user/user3", actualMessage.getUri());
+//		assertEquals("Utilisateur non-existant : user3", actualMessage.getMessage());
 	}
 
 	@Override

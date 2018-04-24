@@ -13,12 +13,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import fr.deroffal.portail.PortailConfigutation;
+import fr.deroffal.portail.PortailConfiguration;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "utilisateur", schema = PortailConfigutation.SCHEMA_AUTHENTIFICATION)
+@Table(name = "utilisateur", schema = PortailConfiguration.SCHEMA_AUTHENTIFICATION)
 public class UserEntity {
 
 	@Id
@@ -35,7 +35,7 @@ public class UserEntity {
 
 	@ManyToMany
 	@JoinTable(
-			schema = PortailConfigutation.SCHEMA_AUTHENTIFICATION,
+			schema = PortailConfiguration.SCHEMA_AUTHENTIFICATION,
 			name = "utilisateur_role",
 			joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "role_id")

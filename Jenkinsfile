@@ -24,12 +24,8 @@ pipeline {
         	when { expression { !params.SkipTests } }
             steps {
                 parallel (
-                        "unit" : {
-				sh "mvn -B surefire:test -DtestFailureIgnore=true"
-			},
-                        "integration" : {
-				sh "mvn -B failsafe:integration-test -DskipAfterFailureCount=999"
-			}
+                    "unit" : {sh "mvn -B surefire:test -DtestFailureIgnore=true"},
+                    "integration" : {sh "mvn -B failsafe:integration-test -DskipAfterFailureCount=999"}
                     )
             }
         }

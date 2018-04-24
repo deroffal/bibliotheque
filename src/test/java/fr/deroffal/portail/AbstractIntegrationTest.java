@@ -33,7 +33,7 @@ public abstract class AbstractIntegrationTest extends DBTestCase {
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, "jdbc:h2:mem:portailtest");
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, "sa");
 		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD, "");
-		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_SCHEMA, PortailConfigutation.SCHEMA_AUTHENTIFICATION);
+		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_SCHEMA, PortailConfiguration.SCHEMA_AUTHENTIFICATION);
 	}
 
 	@BeforeEach

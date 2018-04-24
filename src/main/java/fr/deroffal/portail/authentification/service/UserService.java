@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import fr.deroffal.portail.authentification.exception.UserNotExistingException;
 import fr.deroffal.portail.authentification.dao.UserDao;
 import fr.deroffal.portail.authentification.dto.UserDto;
 import fr.deroffal.portail.authentification.entity.UserEntity;
@@ -24,7 +25,11 @@ public class UserService implements UserDetailsService {
 	private UserMapper userMapper;
 
 	public UserEntity getByLogin(final String login) {
-		return dao.findByLogin(login);
+		final UserEntity user = dao.findByLogin(login);
+		if(user == null){
+			throw new UserNotExistingException(login);
+		}
+		return user;
 	}
 
 	public UserDto createUser(final UserDto user) {
@@ -35,7 +40,7 @@ public class UserService implements UserDetailsService {
 	@Transactional
 	@Override
 	public UserDetails loadUserByUsername(final String login) {
-		final UserEntity user = getByLogin(login);
+		final UserEntity user = dao.findByLogin(login);
 		if (user == null) {
 			throw new UsernameNotFoundException("Login " + login + " non trouvé!");
 		}

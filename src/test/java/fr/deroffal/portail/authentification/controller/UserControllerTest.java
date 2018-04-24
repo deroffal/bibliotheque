@@ -3,6 +3,7 @@ package fr.deroffal.portail.authentification.controller;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -26,6 +27,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import fr.deroffal.portail.authentification.dto.UserDto;
 import fr.deroffal.portail.authentification.entity.UserEntity;
+import fr.deroffal.portail.authentification.exception.UserNotExistingException;
 import fr.deroffal.portail.authentification.service.UserService;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -53,7 +55,7 @@ class UserControllerTest {
 	@DisplayName("getUserByLogin : L'utilisateur n'existe pas.")
 	void getUserByLogin_retourne404_quandLoginInconnu() throws Exception {
 		final String login = "toto";
-		when(userService.getByLogin(login)).thenReturn(null);
+		doThrow(new UserNotExistingException(login)).when(userService).getByLogin(login);
 
 		mockMvc.perform(get("/user/"+login))
 				.andExpect(status().isNotFound());

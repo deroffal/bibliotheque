@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.deroffal.portail.authentification.dto.UserDto;
 import fr.deroffal.portail.authentification.entity.UserEntity;
+import fr.deroffal.portail.authentification.exception.UserAlreadyExistsException;
 import fr.deroffal.portail.authentification.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,7 +29,7 @@ public class UserController {
 	@GetMapping(value = "/{login}")
 	public ResponseEntity<UserEntity> getUserByLogin(@PathVariable final String login) {
 		final UserEntity user = userService.getByLogin(login);
-		return new ResponseEntity<>(user, user != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
 	@ApiOperation(httpMethod = "POST", value = "Création d'un utilisateur")
@@ -36,7 +37,7 @@ public class UserController {
 	public ResponseEntity<UserDto> createUser(@RequestBody final UserDto userIn) {
 		final UserEntity user = userService.getByLogin(userIn.getLogin());
 		if (user != null) {
-			return new ResponseEntity<>((UserDto) null, HttpStatus.CONFLICT);
+			throw new UserAlreadyExistsException(userIn.getLogin());
 		}
 		return new ResponseEntity<>(userService.createUser(userIn), HttpStatus.CREATED);
 	}

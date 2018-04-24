@@ -8,10 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import fr.deroffal.portail.PortailConfigutation;
+import fr.deroffal.portail.PortailConfiguration;
 
 @Entity
-@Table(name = "role_applicatif", schema = PortailConfigutation.SCHEMA_AUTHENTIFICATION)
+@Table(name = "role_applicatif", schema = PortailConfiguration.SCHEMA_AUTHENTIFICATION)
 public class RoleEntity {
 
 	@Id
