@@ -2,6 +2,7 @@ package fr.deroffal.portail.authentification.controller;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
@@ -29,6 +30,7 @@ import fr.deroffal.portail.authentification.dto.UserDto;
 import fr.deroffal.portail.authentification.entity.UserEntity;
 import fr.deroffal.portail.authentification.exception.UserNotExistingException;
 import fr.deroffal.portail.authentification.service.UserService;
+import fr.deroffal.portail.exception.ExceptionMessage;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -76,6 +78,22 @@ class UserControllerTest {
 				.andExpect(jsonPath("$.id", is(expectedUser.getId().intValue())))
 				.andExpect(jsonPath("$.login", is(expectedUser.getLogin())))
 				.andExpect(jsonPath("$.password", is(expectedUser.getPassword())));
+	}
+
+	@Test
+	@DisplayName("getUserByLogin : Erreur interne.")
+	void getUserByLogin_retourne500_quandErreurInterne() throws Exception {
+		final String login = "toto";
+		doThrow(new NullPointerException("Ça a pété quelque part!")).when(userService).getByLogin(login);
+
+		final MvcResult mvcResult = mockMvc.perform(get("/user/" + login))
+				.andExpect(status().isInternalServerError())
+				.andReturn();
+
+		ExceptionMessage em = om.readValue(mvcResult.getResponse().getContentAsString(), ExceptionMessage.class);
+		assertEquals("/user/toto", em.getUri());
+		final String message = em.getMessage();
+		assertEquals("Une erreur interne est survenue :\nÇa a pété quelque part!", message);
 	}
 
 	@Test

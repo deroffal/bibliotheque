@@ -37,7 +37,7 @@ public class UserService implements UserDetailsService {
 		return userMapper.toDto(dao.save(userEntity));
 	}
 
-	@Transactional
+//	@Transactional
 	@Override
 	public UserDetails loadUserByUsername(final String login) {
 		final UserEntity user = dao.findByLogin(login);

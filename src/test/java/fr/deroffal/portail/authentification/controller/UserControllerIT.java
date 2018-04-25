@@ -1,11 +1,17 @@
 package fr.deroffal.portail.authentification.controller;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+
+import java.util.Collection;
+import java.util.Map;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import fr.deroffal.portail.AbstractIntegrationTest;
+import fr.deroffal.portail.authentification.entity.RoleEntity;
 import fr.deroffal.portail.authentification.entity.UserEntity;
 import fr.deroffal.portail.exception.ExceptionMessage;
 
@@ -25,22 +31,27 @@ class UserControllerIT extends AbstractIntegrationTest {
 		assertEquals("user2", actualUser.getLogin());
 		assertEquals("$2a$10$IvID3zGmRTLpIB/uCnjxleEmk0hUe6Gyr9oKX6UqAZkWrb6xvrmvC", actualUser.getPassword());
 
-		//TODO : vérifier les rôles (besoin d'entitygraph sur l'entity)
+		final Collection<RoleEntity> actualUserRoles = actualUser.getRoles();
+		assertAll("Vérififcation des rôles",
+				  () -> assertEquals(1, actualUserRoles.size()),
+				  () -> assertEquals("USER", actualUserRoles.iterator().next().getRole())
+
+		);
 	}
 
 	@Test
 	@DisplayName("Recherche d'un utilisateur : l'utilisateur est inconnu.")
 	void rechercherUtilisateur_loginInconnu() {
-		final ResponseEntity<UserEntity> response = restTemplate.getForEntity(buildUrl("/user/user3"), UserEntity.class);
+		final ResponseEntity<?> response = restTemplate.getForEntity(buildUrl("/user/user3"), Object.class);
 		assertNotNull(response);
 
 		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-		//TODO comment vérifier que l'on reçoit bien le message d'erreur?
-//		final Object body = response.getBody();
-//		assertTrue(body instanceof ExceptionMessage);
-//		final ExceptionMessage actualMessage = (ExceptionMessage) body;
-//		assertEquals("/user/user3", actualMessage.getUri());
-//		assertEquals("Utilisateur non-existant : user3", actualMessage.getMessage());
+
+		//L'objet reçu correspond à un ExceptionMessage.
+		final Object body = response.getBody();
+		Map<String, Object> messages = (Map<String, Object>) body;
+		assertEquals("/user/user3", messages.get("uri"));
+		assertEquals("Utilisateur non-existant : user3", messages.get("message"));
 	}
 
 	@Override

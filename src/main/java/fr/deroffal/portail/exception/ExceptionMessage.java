@@ -17,10 +17,10 @@ public class ExceptionMessage {
 		super();
 	}
 
-	public ExceptionMessage(final LocalDateTime date, final String uri, final PortailException exception) {
+	public ExceptionMessage(final LocalDateTime date, final String uri, final Exception exception) {
 		this.date = date.format(DATE_TIME_FORMATTER);
 		this.uri = uri;
-		this.message = exception.getMessage();
+		this.message = "Une erreur interne est survenue :\n" + exception.getMessage();
 	}
 
 	public ExceptionMessage(final LocalDateTime date, final String uri, final PortailRestException exception) {

@@ -19,8 +19,8 @@ public class PortailRestControllerAdvice {
 		return new ResponseEntity<>(exceptionMessage, exception.getHttpStatus());
 	}
 
-	@ExceptionHandler(PortailException.class)
-	public ResponseEntity<ExceptionMessage> portailExceptionHandler(final HttpServletRequest request, final PortailException exception) {
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<ExceptionMessage> exceptionHandler(final HttpServletRequest request, final Exception exception) {
 		final ExceptionMessage exceptionMessage = new ExceptionMessage(LocalDateTime.now(), request.getRequestURI(), exception);
 		return new ResponseEntity<>(exceptionMessage, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
