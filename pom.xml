@@ -50,6 +50,11 @@
     </dependency>
 
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-aop</artifactId>
+    </dependency>
+
+    <dependency>
       <groupId>org.mapstruct</groupId>
       <artifactId>mapstruct-jdk8</artifactId>
       <version>${mapstruct.version}</version>
@@ -114,8 +119,6 @@
       <version>${openpojo.version}</version>
       <scope>test</scope>
     </dependency>
-
-
   </dependencies>
 
   <build>
