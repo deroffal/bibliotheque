@@ -13,7 +13,7 @@ public class LogExecutionTimeAspect extends AbstractLogingAspect {
 
 	private static final int NANO_TO_MILI_SEC = 1000000;
 
-	@Around(TARGET)
+	@Around(TARGET_BASE_PACKAGE)
 	public Object logExecutionTime(final ProceedingJoinPoint pjp) throws Throwable {
 		final Logger logger = LoggerFactory.getLogger(pjp.getTarget().getClass());
 		final String methodName = pjp.getSignature().getName();
@@ -24,7 +24,7 @@ public class LogExecutionTimeAspect extends AbstractLogingAspect {
 
 		final long time = (after - before) / NANO_TO_MILI_SEC;
 
-		logger.info("Le temps d'exécution de la méthode {} est de {} ms", methodName, time);
+		logger.debug("Le temps d'exécution de la méthode {} est de {} ms", methodName, time);
 		return returnedValue;
 	}
 

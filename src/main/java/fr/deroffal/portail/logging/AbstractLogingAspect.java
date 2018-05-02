@@ -4,10 +4,7 @@ import org.springframework.core.Ordered;
 
 abstract class AbstractLogingAspect implements Ordered {
 
-	/**
-	 * TODO : pour l'instant une seule méthode, à généraliser.
-	 */
-	static final String TARGET = "execution(* fr.deroffal.portail.controller.PingController.*(..))";
+	static final String TARGET_BASE_PACKAGE = "execution(* fr.deroffal.portail..*(..))";
 
 	abstract LogAspectEnum getLogAspectEnum();
 

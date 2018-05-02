@@ -13,21 +13,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class LogMethodAndArgumentAspect extends AbstractLogingAspect {
 
-	@Around(TARGET)
+	@Around(TARGET_BASE_PACKAGE)
 	public Object logMethodAndArgument(final ProceedingJoinPoint pjp) throws Throwable {
 		final Logger logger = LoggerFactory.getLogger(pjp.getTarget().getClass());
 
 		final Signature signature = pjp.getSignature();
 		final String methodName = signature.getName();
 
-		logger.info(concatMethodNameAndArgument(methodName, pjp.getArgs()));
+		logger.debug(concatMethodNameAndArgument(methodName, pjp.getArgs()));
 
 		final Object returnedValue = pjp.proceed();
 
 		if (isVoidMethod(signature)) {
-			logger.info("Fin de la méthode {}", methodName);
+			logger.debug("Fin de la méthode {}", methodName);
 		} else {
-			logger.info("Fin de la méthode {} avec le retour [{}]", methodName, returnedValue);
+			logger.debug("Fin de la méthode {} avec le retour [{}]", methodName, returnedValue);
 		}
 
 		return returnedValue;
