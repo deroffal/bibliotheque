@@ -1,6 +1,7 @@
 package fr.deroffal.portail.authentification.mapping;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.DisplayName;
@@ -9,7 +10,6 @@ import org.mapstruct.factory.Mappers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import fr.deroffal.portail.authentification.dto.UserDto;
@@ -18,7 +18,7 @@ import fr.deroffal.portail.authentification.entity.UserEntity;
 class UserMapperTest {
 
 	@InjectMocks
-	final UserMapper mapper = Mappers.getMapper(UserMapper.class);
+	private final UserMapper mapper = Mappers.getMapper(UserMapper.class);
 
 	@Mock
 	private PasswordEncoder passwordEncoder;
@@ -65,7 +65,7 @@ class UserMapperTest {
 
 	@Test
 	@DisplayName("Test des cas où l'entrée est null.")
-	void test_entree_null(){
+	void test_entree_null() {
 		assertNull(mapper.toDto(null));
 		assertNull(mapper.toEntityAndEncorePassword(null));
 	}

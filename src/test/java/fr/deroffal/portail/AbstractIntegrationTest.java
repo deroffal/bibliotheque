@@ -21,11 +21,11 @@ public abstract class AbstractIntegrationTest extends DBTestCase {
 
 	private static final String URL = "http://localhost:";
 
-	@Autowired
-	protected TestRestTemplate restTemplate;
-
 	@LocalServerPort
 	protected int port;
+
+	@Autowired
+	protected TestRestTemplate restTemplate;
 
 	public AbstractIntegrationTest() {
 		super();
@@ -48,8 +48,7 @@ public abstract class AbstractIntegrationTest extends DBTestCase {
 
 	@Override
 	protected IDataSet getDataSet() throws Exception {
-		final FlatXmlDataSetBuilder builder = new FlatXmlDataSetBuilder();
-		return builder.build(this.getClass().getResourceAsStream("/dataset/" + getDataSetName()));
+		return new FlatXmlDataSetBuilder().build(this.getClass().getResourceAsStream("/dataset/" + getDataSetName()));
 	}
 
 	protected abstract String getDataSetName();

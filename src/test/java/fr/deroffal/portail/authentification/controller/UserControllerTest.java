@@ -2,7 +2,6 @@ package fr.deroffal.portail.authentification.controller;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
@@ -12,46 +11,25 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatcher;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
+import fr.deroffal.portail.AbstractControllerTest;
 import fr.deroffal.portail.authentification.dto.UserDto;
 import fr.deroffal.portail.authentification.entity.UserEntity;
 import fr.deroffal.portail.authentification.exception.UserNotExistingException;
 import fr.deroffal.portail.authentification.service.UserService;
 import fr.deroffal.portail.exception.ExceptionMessage;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-@ExtendWith(SpringExtension.class)
 @WebMvcTest(UserController.class)
-class UserControllerTest {
-
-	@Autowired
-	private WebApplicationContext wac;
-
-	private MockMvc mockMvc;
+class UserControllerTest extends AbstractControllerTest {
 
 	@MockBean
 	private UserService userService;
-
-	private final ObjectMapper om = new ObjectMapper();
-
-	@BeforeEach
-	void setup() {
-		mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-	}
 
 	@Test
 	@DisplayName("getUserByLogin : L'utilisateur n'existe pas.")
@@ -59,8 +37,7 @@ class UserControllerTest {
 		final String login = "toto";
 		doThrow(new UserNotExistingException(login)).when(userService).getByLogin(login);
 
-		mockMvc.perform(get("/user/"+login))
-				.andExpect(status().isNotFound());
+		mockMvc.perform(get("/user/" + login)).andExpect(status().isNotFound());
 	}
 
 	@Test
@@ -73,11 +50,8 @@ class UserControllerTest {
 		expectedUser.setPassword("clm#^`|'!(,;''rt321201'");
 		when(userService.getByLogin(login)).thenReturn(expectedUser);
 
-		mockMvc.perform(get("/user/"+login))
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.id", is(expectedUser.getId().intValue())))
-				.andExpect(jsonPath("$.login", is(expectedUser.getLogin())))
-				.andExpect(jsonPath("$.password", is(expectedUser.getPassword())));
+		mockMvc.perform(get("/user/" + login)).andExpect(status().isOk()).andExpect(jsonPath("$.id", is(expectedUser.getId().intValue())))
+				.andExpect(jsonPath("$.login", is(expectedUser.getLogin()))).andExpect(jsonPath("$.password", is(expectedUser.getPassword())));
 	}
 
 	@Test
@@ -86,9 +60,7 @@ class UserControllerTest {
 		final String login = "toto";
 		doThrow(new NullPointerException("Ça a pété quelque part!")).when(userService).getByLogin(login);
 
-		final MvcResult mvcResult = mockMvc.perform(get("/user/" + login))
-				.andExpect(status().isInternalServerError())
-				.andReturn();
+		final MvcResult mvcResult = mockMvc.perform(get("/user/" + login)).andExpect(status().isInternalServerError()).andReturn();
 
 		ExceptionMessage em = om.readValue(mvcResult.getResponse().getContentAsString(), ExceptionMessage.class);
 		assertEquals("/user/toto", em.getUri());
@@ -107,10 +79,7 @@ class UserControllerTest {
 		userToCreate.setLogin(login);
 		final String userJson = om.writeValueAsString(userToCreate);
 
-		final MvcResult mvcResult = mockMvc.perform(
-				post("/user/").content(userJson).contentType(APPLICATION_JSON_UTF8))
-				.andExpect(status().isConflict())
-				.andReturn();
+		final MvcResult mvcResult = mockMvc.perform(post("/user/").content(userJson).contentType(APPLICATION_JSON_UTF8)).andExpect(status().isConflict()).andReturn();
 
 		assertEquals(0, mvcResult.getResponse().getContentLength());
 	}
@@ -130,12 +99,8 @@ class UserControllerTest {
 		newUser.setLogin(login);
 		when(userService.createUser(argThat(sameLoginThan(newUser)))).thenReturn(newUser);
 
-		mockMvc.perform(
-				post("/user/").content(userJson).contentType(APPLICATION_JSON_UTF8))
-				.andExpect(status().isCreated())
-				.andExpect(jsonPath("$.id", is(newUser.getId().intValue())))
-				.andExpect(jsonPath("$.login", is(newUser.getLogin())))
-				.andReturn();
+		mockMvc.perform(post("/user/").content(userJson).contentType(APPLICATION_JSON_UTF8)).andExpect(status().isCreated()).andExpect(jsonPath("$.id", is(newUser.getId().intValue())))
+				.andExpect(jsonPath("$.login", is(newUser.getLogin()))).andReturn();
 	}
 
 	private ArgumentMatcher<UserDto> sameLoginThan(final UserDto newUser) {

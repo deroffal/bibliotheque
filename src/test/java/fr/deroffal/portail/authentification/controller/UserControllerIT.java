@@ -13,9 +13,13 @@ import org.springframework.http.ResponseEntity;
 import fr.deroffal.portail.AbstractIntegrationTest;
 import fr.deroffal.portail.authentification.entity.RoleEntity;
 import fr.deroffal.portail.authentification.entity.UserEntity;
-import fr.deroffal.portail.exception.ExceptionMessage;
 
 class UserControllerIT extends AbstractIntegrationTest {
+
+	@Override
+	protected String getDataSetName() {
+		return "authentification.xml";
+	}
 
 	@Test
 	@DisplayName("Recherche d'un utilisateur : l'utilisateur est connu.")
@@ -32,9 +36,7 @@ class UserControllerIT extends AbstractIntegrationTest {
 		assertEquals("$2a$10$IvID3zGmRTLpIB/uCnjxleEmk0hUe6Gyr9oKX6UqAZkWrb6xvrmvC", actualUser.getPassword());
 
 		final Collection<RoleEntity> actualUserRoles = actualUser.getRoles();
-		assertAll("Vérififcation des rôles",
-				  () -> assertEquals(1, actualUserRoles.size()),
-				  () -> assertEquals("USER", actualUserRoles.iterator().next().getRole())
+		assertAll("Vérififcation des rôles", () -> assertEquals(1, actualUserRoles.size()), () -> assertEquals("USER", actualUserRoles.iterator().next().getRole())
 
 		);
 	}
@@ -49,13 +51,8 @@ class UserControllerIT extends AbstractIntegrationTest {
 
 		//L'objet reçu correspond à un ExceptionMessage.
 		final Object body = response.getBody();
-		Map<String, Object> messages = (Map<String, Object>) body;
+		final Map<String, Object> messages = (Map<String, Object>) body;
 		assertEquals("/user/user3", messages.get("uri"));
 		assertEquals("Utilisateur non-existant : user3", messages.get("message"));
-	}
-
-	@Override
-	protected String getDataSetName() {
-		return "authentification.xml";
 	}
 }

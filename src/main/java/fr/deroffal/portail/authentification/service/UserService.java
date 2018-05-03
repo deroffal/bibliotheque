@@ -1,7 +1,5 @@
 package fr.deroffal.portail.authentification.service;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,10 +7,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import fr.deroffal.portail.authentification.exception.UserNotExistingException;
 import fr.deroffal.portail.authentification.dao.UserDao;
 import fr.deroffal.portail.authentification.dto.UserDto;
 import fr.deroffal.portail.authentification.entity.UserEntity;
+import fr.deroffal.portail.authentification.exception.UserNotExistingException;
 import fr.deroffal.portail.authentification.mapping.UserMapper;
 
 @Service
@@ -26,7 +24,7 @@ public class UserService implements UserDetailsService {
 
 	public UserEntity getByLogin(final String login) {
 		final UserEntity user = dao.findByLogin(login);
-		if(user == null){
+		if (user == null) {
 			throw new UserNotExistingException(login);
 		}
 		return user;
@@ -37,7 +35,6 @@ public class UserService implements UserDetailsService {
 		return userMapper.toDto(dao.save(userEntity));
 	}
 
-//	@Transactional
 	@Override
 	public UserDetails loadUserByUsername(final String login) {
 		final UserEntity user = dao.findByLogin(login);
