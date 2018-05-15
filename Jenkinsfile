@@ -33,7 +33,7 @@ pipeline {
         	when { branch 'master' }
             steps {
             	withSonarQubeEnv('SonarDeroffal') {
-            		sh "mvn -B clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.organization=deroffal-github -DskipTests"
+            		sh "mvn -B clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.organization=deroffal-github"
             	}
             }
 		}
