@@ -16,7 +16,9 @@ public class LogMethodAndArgumentAspect extends AbstractLogingAspect {
 	@Around(TARGET_BASE_PACKAGE)
 	public Object logMethodAndArgument(final ProceedingJoinPoint pjp) throws Throwable {
 		final Logger logger = LoggerFactory.getLogger(pjp.getTarget().getClass());
-
+		if (!logger.isDebugEnabled()) {
+			return pjp.proceed();
+		}
 		final Signature signature = pjp.getSignature();
 		final String methodName = signature.getName();
 
@@ -46,7 +48,7 @@ public class LogMethodAndArgumentAspect extends AbstractLogingAspect {
 	}
 
 	private boolean isVoidMethod(final Signature signature) {
-		return "void".equals(((MethodSignature) signature).getReturnType().getName());
+		return Void.class.equals(((MethodSignature) signature).getReturnType());
 	}
 
 	@Override

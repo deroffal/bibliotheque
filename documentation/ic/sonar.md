@@ -1,6 +1,6 @@
 # Sonar
 ## Configuration du Sonar
-Utilisation de [SonarCloud]()https://sonarcloud.io/organizations/deroffal-github/projects). Je travaille dans une organisation : "deroffal-github"
+Utilisation de [SonarCloud](https://sonarcloud.io/organizations/deroffal-github/projects). Je travaille dans une organisation : "deroffal-github"
 
 ## Lancement de l'analyse via Maven
 Build maven pour exécuter l'analyse Sonar :
