@@ -57,3 +57,5 @@ Il faut alors ajouter dans le fichier `application.properties` la propriété `s
 correspond aux entités, et non re-créer la base. En effet, on ne peut pas à la fois utiliser un fichier *schema\*.sql* et laisser Hibernate générer le schéma de base de données.
 
 Documentation de Spring : [ici](https://docs.spring.io/spring-boot/docs/current/reference/html/howto-database-initialization.html#howto-initialize-a-database-using-spring-jdbc)
+
+Sans passer par SpringBoot, il est possible de charger des scripts sql à l'initialisation de la base de données. Pour ce faire, on peut compléter la propiété renseignant l'URL. Actuellement à `jdbc:hsqldb:mem:portail`, on peut lui fournir plusieurs fichiers placés dans le dossier *resources/sql* en renseignant : `jdbc:hsqldb:mem:portail; INIT=runscript from 'classpath:sql/schema.sql' \; runscript from 'classpath:sql/data.sql'`.
