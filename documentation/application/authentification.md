@@ -48,6 +48,16 @@ L'annotation `@EnableWebSecurity` indique qu'il s'agit de la classe de configura
 On crée un Bean de type `PasswordEncoder` qui va être chargé de crypter les mots de passe qui viendront des utilisateurs qui créent leur compte, ainsi que de comparer des mots de passe soumis à ceux des utilisateurs retournés par notre UserDetailService.
 
 La méthode `void configureGlobal(final AuthenticationManagerBuilder auth)` va nous permettre d'injecter à la configuration notre UserDetailsService que nous avons personnalisé pour qu'il puisse aller chercher nos utilisateurs. On lui fournit de plus le PasswordEncoder, pour lui permettre de vérifier les mots de passe.
+### Authentification lors de l'appel
+Cette authentification requiert à un utilisateur son login et son mot de passe. Pour le fournir, il va falloir :
+ 1. Encoder le couple `{login}:{mot de passe}` (login et mot de passe séparés par un ':') .
+ 2. Ajouter aux headers de la requête exécutée le couple `Authorization : Basic {couple login/mot de passe encodé}`.
+Exemple : 
+
+Pour l'utilisateur 'admin' au mot de passe 'admin', on a `Base64('admin:admin') = YWRtaW46YWRtaW4=` et on passe donc dans les headers :
+ * la clef `Authorization`
+ * la valeur `Basic YWRtaW46YWRtaW4=`
+ 
 ### Configurer les accès aux URLs
 Il est possible de limiter les accès à certains pattern d'URL à des rôles d'utilisateurs, voire même à n'importe qui. Par exemple, on a ici créé une liste blanche de pattern pour permettre à n'importe qui d'accéder aux URLs débutant par /public/... 
 
