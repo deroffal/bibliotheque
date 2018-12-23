@@ -1,14 +1,14 @@
 # PORTAIL
 ## Application
-* [Initialisation du projet](../master/documentation/application/initialisation.md)
-* [Swagger](../master/documentation/application/swagger.md)
-* [MapStruct](../master/documentation/application/mapstruct.md)
-* [Accès aux données](../master/documentation/application/acces_aux_donnees.md)
-* [Authentification](../master/documentation/application/authentification.md)
-* [Gestion des exceptions](../master/documentation/application/gestion-exception.md)
-* [Logging](../master/documentation/application/log.md)
+* [Initialisation du projet](documentation/application/initialisation.md)
+* [Swagger](documentation/application/swagger.md)
+* [MapStruct](documentation/application/mapstruct.md)
+* [Accès aux données](documentation/application/acces_aux_donnees.md)
+* [Authentification](documentation/application/authentification.md)
+* [Gestion des exceptions](documentation/application/gestion-exception.md)
+* [Logging](documentation/application/log.md)
 ## Tests
-* [Test unitaire](../master/documentation/test/test-unitaire.md)
-* [Test d'intégration](../master/documentation/test/test-integration.md)
+* [Test unitaire](documentation/test/test-unitaire.md)
+* [Test d'intégration](documentation/test/test-integration.md)
 ## Intégration continue
-* [Sonar](../master/documentation/ic/sonar.md)
+* [Sonar](documentation/integrationcontinue/sonar.md)

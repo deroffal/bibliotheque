@@ -57,13 +57,13 @@ Pour tester unitairement nos DAO, on va annoter la classe de test par :
   celle du *test*).
  * `@DataJpaTest` va nous permettre d'injecter un `TestEntityManager`.
  
- Cas d'exemple : [UserDaoTest.java](../../../master/src/test/java/fr/deroffal/portail/authentification/dao/UserDaoTest.java)
+ Cas d'exemple : [UserDaoTest.java](../../src/test/java/fr/deroffal/portail/authentification/dao/UserDaoTest.java)
  
  Afin d'effectuer des tests on peut initialiser des données en les persistant (par exemple dans une méthode *beforeEach()*). Il ne reste plus qu'à appeler notre DAO et vérifier que les 
  données qu'il retourne sont celles persistée précédemment.
 
 ## Couche de service
-Cas d'exemple : [UserServiceTest.java](../../../master/src/test/java/fr/deroffal/portail/authentification/service/UserServiceTest.java)
+Cas d'exemple : [UserServiceTest.java](../../src/test/java/fr/deroffal/portail/authentification/service/UserServiceTest.java)
 
 ## Couche de contrôleur
 Pour tester unitairement nos contrôleurs REST, on va annoter la classe de test par : 
@@ -90,11 +90,11 @@ Pour tester unitairement nos contrôleurs REST, on va annoter la classe de test 
  Ce `MockMvc` possède une méthode *perform* qui va être capable d'effectuer une requête (get, post, ...) à une URL donnée.  Il est aussi capable d'effectuer lui-même les assertions sur 
  ses appels.
  
- Cas d'exemple : [UserControllerTest.java](../../../master/src/test/java/fr/deroffal/portail/authentification/controller/UserControllerTest.java)
+ Cas d'exemple : [UserControllerTest.java](../../src/test/java/fr/deroffal/portail/authentification/controller/UserControllerTest.java)
  
  ## Test des POJO
  Que cela soit pour augmenter la couverture de code ou pour avoir une validation des règles de développement (bonne génération, pas d'intelligence des getter/setter), il est possible 
- d'automatiser les test des POJO (*plain old java object*). La classe [GetSetTest.java](../../../master/src/test/java/fr/deroffal/portail/GetSetTest.java) présente le test utilisé pour tester 
+ d'automatiser les test des POJO (*plain old java object*). La classe [GetSetTest.java](../../src/test/java/fr/deroffal/portail/GetSetTest.java) présente le test utilisé pour tester
  tout getter ou setter trouvé dans une classe de l'application.
  
  Plus d'information : [OpenPojo](https://github.com/OpenPojo/openpojo/wiki) sur Github.

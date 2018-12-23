@@ -24,7 +24,7 @@ Par défaut, on peut nommer nos tests d'intégration avec le suffixe "IT" pour q
       </plugin>
 ```
 
-Chaque test d'intégration pourra hériter de la classe [AbstractIntegrationTest.java](../../../master/src/test/java/fr/deroffal/portail/AbstractIntegrationTest.java). Il s'agit de la classe 
+Chaque test d'intégration pourra hériter de la classe [AbstractIntegrationTest.java](../../src/test/java/fr/deroffal/portail/AbstractIntegrationTest.java). Il s'agit de la classe 
 qui va configurer le contexte Spring et la base de données DBUnit.
 
 ## Configuration du test d'intégration

@@ -20,7 +20,7 @@ embarquée hsqldb.
 
 ## Modèle de données
 ### Création d'une entitée.
-On va pouvoir créer la classe [UserEntity.java](../../../master/src/main/java/fr/deroffal/portail/authentification/entity/UserEntity.java) qui va être la représentation d'un utilisateur en 
+On va pouvoir créer la classe [UserEntity.java](../../src/main/java/fr/deroffal/portail/authentification/entity/UserEntity.java) qui va être la représentation d'un utilisateur en
 base de données. On annote la classe des annotations `@Entity` pour signifier que la classe représente une table en base, et l'annotation `@Table` permet de donner des informations à 
 propos de celle-ci (nom, schéma, ...). On peut annoter chaque attribut de `@Column` pour donner les informations des-dites colonnes (nom, longueur, si la valeur peut être null, unique, ...). 
 

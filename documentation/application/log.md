@@ -1,7 +1,7 @@
 # Logging
 ## Logging par aspect.
-Deux exemples d'aspect pour le logging : [LogExecutionTimeAspect.java](../../../master/src/main/java/fr/deroffal/portail/logging/LogExecutionTimeAspect.java) pour logger la durée 
-d'exécution d'une méthode, et [LogMethodAndArgumentAspect.java](../../../master/src/main/java/fr/deroffal/portail/logging/LogMethodAndArgumentAspect.java) pour logger les appels et les 
+Deux exemples d'aspect pour le logging : [LogExecutionTimeAspect.java](../../src/main/java/fr/deroffal/portail/logging/LogExecutionTimeAspect.java) pour logger la durée
+d'exécution d'une méthode, et [LogMethodAndArgumentAspect.java](../../src/main/java/fr/deroffal/portail/logging/LogMethodAndArgumentAspect.java) pour logger les appels et les
 retours des méthodes.
 
 La classe de l'aspect doit être annotée par les annotations `@Aspect` et `@Component` pour être géré comme aspect par Spring. Le fait d'implémenter l'interface `Ordered` permet à Spring 
