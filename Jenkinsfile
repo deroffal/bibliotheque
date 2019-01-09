@@ -29,7 +29,7 @@ pipeline {
         	when { branch 'master' }
             steps {
             	withSonarQubeEnv('SonarDeroffal') {
-            		mvn 'clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar'
+            		mvn 'clean org.jacoco:jacoco-maven-plugin:prepare-agent package failsafe:integration-test sonar:sonar'
             	}
             }
 		}
