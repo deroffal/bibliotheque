@@ -21,7 +21,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import fr.deroffal.portail.AbstractControllerTest;
 import fr.deroffal.portail.authentification.dto.UserDto;
 import fr.deroffal.portail.authentification.entity.UserEntity;
-import fr.deroffal.portail.authentification.exception.UserNotExistingException;
+import fr.deroffal.portail.authentification.exception.UserNotFoundException;
 import fr.deroffal.portail.authentification.service.UserService;
 import fr.deroffal.portail.exception.ExceptionMessage;
 
@@ -35,7 +35,7 @@ class UserControllerTest extends AbstractControllerTest {
 	@DisplayName("getUserByLogin : L'utilisateur n'existe pas.")
 	void getUserByLogin_retourne404_quandLoginInconnu() throws Exception {
 		final String login = "toto";
-		doThrow(new UserNotExistingException(login)).when(userService).getByLogin(login);
+		doThrow(new UserNotFoundException(login)).when(userService).getByLogin(login);
 
 		mockMvc.perform(get("/user/" + login)).andExpect(status().isNotFound());
 	}

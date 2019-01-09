@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        jdk 'JDK9'
-    }
-
     parameters {
         booleanParam(defaultValue: false, description: 'Skip tests', name: 'SkipTests')
     }
@@ -17,15 +13,15 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh "mvn -B clean install -DskipTests"
+                mvn 'clean install -DskipTests'
             }
         }
         stage('Tests') {
         	when { expression { !params.SkipTests } }
             steps {
                 parallel (
-                    "unit" : {sh "mvn -B surefire:test -DtestFailureIgnore=true"},
-                    "integration" : {sh "mvn -B failsafe:integration-test -DskipAfterFailureCount=999"}
+                    "unit" : {mvn 'surefire:test -DtestFailureIgnore=true'},
+                    "integration" : {mvn 'failsafe:integration-test -DskipAfterFailureCount=999'}
                     )
             }
         }
@@ -33,9 +29,19 @@ pipeline {
         	when { branch 'master' }
             steps {
             	withSonarQubeEnv('SonarDeroffal') {
-            		sh "mvn -B clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.organization=deroffal-github"
+            		mvn 'clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar'
             	}
             }
 		}
     }
+}
+
+def mvn(def cmd){
+     def mvnHome = tool 'MAVEN_3.6.0'
+     def javaHome = tool 'JDK9'
+
+     withEnv(["PATH+MAVEN=${mvnHome}/bin", "JAVA_HOME=${javaHome}", "PATH+JDK=${javaHome}/bin"]) {
+        sh "mvn -B $cmd"
+     }
+
 }

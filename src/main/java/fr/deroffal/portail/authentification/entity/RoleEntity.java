@@ -10,8 +10,10 @@ import javax.persistence.Table;
 
 import fr.deroffal.portail.PortailConfiguration;
 
+import static fr.deroffal.portail.PortailConfiguration.SCHEMA_AUTHENTIFICATION;
+
 @Entity
-@Table(name = "role_applicatif", schema = PortailConfiguration.SCHEMA_AUTHENTIFICATION)
+@Table(name = "role_applicatif", schema = SCHEMA_AUTHENTIFICATION)
 public class RoleEntity {
 
 	@Id

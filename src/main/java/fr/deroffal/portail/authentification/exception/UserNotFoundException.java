@@ -4,11 +4,13 @@ import org.springframework.http.HttpStatus;
 
 import fr.deroffal.portail.exception.PortailRestException;
 
-public class UserNotExistingException extends PortailRestException {
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+
+public class UserNotFoundException extends PortailRestException {
 
 	private final String login;
 
-	public UserNotExistingException(final String login) {
+	public UserNotFoundException(final String login) {
 		this.login = login;
 	}
 
@@ -23,6 +25,6 @@ public class UserNotExistingException extends PortailRestException {
 
 	@Override
 	public HttpStatus getHttpStatus() {
-		return HttpStatus.NOT_FOUND;
+		return NOT_FOUND;
 	}
 }

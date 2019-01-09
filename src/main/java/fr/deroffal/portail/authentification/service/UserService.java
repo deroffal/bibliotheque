@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import fr.deroffal.portail.authentification.dao.UserDao;
 import fr.deroffal.portail.authentification.dto.UserDto;
 import fr.deroffal.portail.authentification.entity.UserEntity;
-import fr.deroffal.portail.authentification.exception.UserNotExistingException;
+import fr.deroffal.portail.authentification.exception.UserNotFoundException;
 import fr.deroffal.portail.authentification.mapping.UserMapper;
 
 @Service
@@ -25,7 +25,7 @@ public class UserService implements UserDetailsService {
 	public UserEntity getByLogin(final String login) {
 		final UserEntity user = dao.findByLogin(login);
 		if (user == null) {
-			throw new UserNotExistingException(login);
+			throw new UserNotFoundException(login);
 		}
 		return user;
 	}

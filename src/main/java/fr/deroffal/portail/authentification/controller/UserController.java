@@ -17,6 +17,8 @@ import fr.deroffal.portail.authentification.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+import static org.springframework.http.HttpStatus.CREATED;
+
 @Api(value = "/user")
 @RestController
 @RequestMapping(value = "/user")
@@ -39,7 +41,7 @@ public class UserController {
 		if (user != null) {
 			throw new UserAlreadyExistsException(userIn.getLogin());
 		}
-		return new ResponseEntity<>(userService.createUser(userIn), HttpStatus.CREATED);
+		return new ResponseEntity<>(userService.createUser(userIn), CREATED);
 	}
 
 }
