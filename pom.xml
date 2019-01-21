@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>fr.deroffal</groupId>
@@ -7,18 +6,22 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
+  <scm>
+    <developerConnection>scm:git:git@github.com:deroffal/portail.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+
   <properties>
-    <!--<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>9</java.version>
 
-    <swagger.version>2.8.0</swagger.version>
+    <swagger.version>2.9.2</swagger.version>
     <mapstruct.version>1.2.0.Final</mapstruct.version>
 
     <junit-platform.version>1.1.1</junit-platform.version>
-    <dbunit.version>2.4.9</dbunit.version>
+    <dbunit.version>2.6.0</dbunit.version>
     <openpojo.version>0.8.10</openpojo.version>
 
-    <!--fuite mémoire sur le 2.20.0 pour junit5-->
     <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
   </properties>
 
@@ -79,8 +82,6 @@
       <scope>compile</scope>
     </dependency>
 
-    <!--déprécié dans le jdk9 (donc possiblement retirer des suivants),il faut ajouter
-    la dépendance maven (pour Springboot, Swagger, ... qui en ont besoin)-->
     <dependency>
       <groupId>javax.xml.bind</groupId>
       <artifactId>jaxb-api</artifactId>
