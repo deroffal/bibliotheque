@@ -3,12 +3,12 @@
 
   <groupId>fr.deroffal</groupId>
   <artifactId>portail</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <packaging>jar</packaging>
 
   <scm>
     <developerConnection>scm:git:git@github.com:deroffal/portail.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>portail-1.0</tag>
   </scm>
 
   <properties>
