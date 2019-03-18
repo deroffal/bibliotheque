@@ -65,7 +65,7 @@ class UserMapperTest {
 
 	@Test
 	@DisplayName("Test des cas où l'entrée est null.")
-	void test_entree_null() {
+	void testNullInput() {
 		assertNull(mapper.toDto(null));
 		assertNull(mapper.toEntityAndEncorePassword(null));
 	}

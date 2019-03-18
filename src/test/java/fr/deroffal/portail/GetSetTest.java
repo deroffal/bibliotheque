@@ -14,11 +14,8 @@ class GetSetTest {
 	private static final String BASE_PACKAGE = "fr.deroffal.portail";
 
 	@Test
-	void tester_getter_setter(){
-		Validator validator = ValidatorBuilder.create()
-				.with(new SetterTester())
-				.with(new GetterTester())
-				.build();
+	void testerGetterSetter() {
+		Validator validator = ValidatorBuilder.create().with(new SetterTester()).with(new GetterTester()).build();
 
 		//NonConcrete : pas de filtre sur interface, abstract, enum
 		validator.validate(PojoClassFactory.getPojoClassesRecursively(BASE_PACKAGE, new FilterNonConcrete()));

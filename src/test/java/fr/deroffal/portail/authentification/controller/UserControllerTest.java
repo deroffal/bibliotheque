@@ -14,35 +14,49 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatcher;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import fr.deroffal.portail.AbstractControllerTest;
 import fr.deroffal.portail.authentification.dto.UserDto;
 import fr.deroffal.portail.authentification.entity.UserEntity;
 import fr.deroffal.portail.authentification.exception.UserNotFoundException;
 import fr.deroffal.portail.authentification.service.UserService;
 import fr.deroffal.portail.exception.ExceptionMessage;
 
-@WebMvcTest(UserController.class)
-class UserControllerTest extends AbstractControllerTest {
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+public class UserControllerTest {
+
+	@Autowired
+	private MockMvc mockMvc;
 
 	@MockBean
 	private UserService userService;
 
+	@Autowired
+	private ObjectMapper objectMapper;
+
 	@Test
 	@DisplayName("getUserByLogin : L'utilisateur n'existe pas.")
-	void getUserByLogin_retourne404_quandLoginInconnu() throws Exception {
+	void getUserByLoginRetourne404QuandLoginInconnu() throws Exception {
 		final String login = "toto";
 		doThrow(new UserNotFoundException(login)).when(userService).getByLogin(login);
 
-		mockMvc.perform(get("/user/" + login)).andExpect(status().isNotFound());
+		mockMvc.perform(
+				get("/user/" + login))
+				.andExpect(status().isNotFound()
+				);
 	}
 
 	@Test
 	@DisplayName("getUserByLogin : L'utilisateur existe.")
-	void getUserByLogin_retourne200EtUser_quandLoginConnu() throws Exception {
+	void getUserByLoginRetourne200EtUserQuandLoginConnu() throws Exception {
 		final String login = "toto";
 		final UserEntity expectedUser = new UserEntity();
 		expectedUser.setId(35L);
@@ -50,19 +64,26 @@ class UserControllerTest extends AbstractControllerTest {
 		expectedUser.setPassword("clm#^`|'!(,;''rt321201'");
 		when(userService.getByLogin(login)).thenReturn(expectedUser);
 
-		mockMvc.perform(get("/user/" + login)).andExpect(status().isOk()).andExpect(jsonPath("$.id", is(expectedUser.getId().intValue())))
-				.andExpect(jsonPath("$.login", is(expectedUser.getLogin()))).andExpect(jsonPath("$.password", is(expectedUser.getPassword())));
+		mockMvc.perform(
+				get("/user/" + login)).andExpect(status().isOk())
+				.andExpect(jsonPath("$.id", is(expectedUser.getId().intValue())))
+				.andExpect(jsonPath("$.login", is(expectedUser.getLogin())))
+				.andExpect(jsonPath("$.password", is(expectedUser.getPassword()))
+				);
 	}
 
 	@Test
 	@DisplayName("getUserByLogin : Erreur interne.")
-	void getUserByLogin_retourne500_quandErreurInterne() throws Exception {
+	void getUserByLoginRetourne500QuandErreurInterne() throws Exception {
 		final String login = "toto";
 		doThrow(new NullPointerException("Ça a pété quelque part!")).when(userService).getByLogin(login);
 
-		final MvcResult mvcResult = mockMvc.perform(get("/user/" + login)).andExpect(status().isInternalServerError()).andReturn();
+		final MvcResult mvcResult = mockMvc.perform(
+				get("/user/" + login))
+				.andExpect(status().isInternalServerError())
+				.andReturn();
 
-		ExceptionMessage em = om.readValue(mvcResult.getResponse().getContentAsString(), ExceptionMessage.class);
+		ExceptionMessage em = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), ExceptionMessage.class);
 		assertEquals("/user/toto", em.getUri());
 		final String message = em.getMessage();
 		assertEquals("Une erreur interne est survenue :\nÇa a pété quelque part!", message);
@@ -70,36 +91,42 @@ class UserControllerTest extends AbstractControllerTest {
 
 	@Test
 	@DisplayName("createUser : L'utilisateur existe déjà.")
-	void createUser_retourne409_quandDejaExistant() throws Exception {
+	void createUserRetourne409QuandDejaExistant() throws Exception {
 		final String login = "toto";
 		final UserEntity expectedUser = new UserEntity();
 		when(userService.getByLogin(login)).thenReturn(expectedUser);
 
 		final UserDto userToCreate = new UserDto();
 		userToCreate.setLogin(login);
-		final String userJson = om.writeValueAsString(userToCreate);
+		final String userJson = objectMapper.writeValueAsString(userToCreate);
 
-		final MvcResult mvcResult = mockMvc.perform(post("/user/").content(userJson).contentType(APPLICATION_JSON_UTF8)).andExpect(status().isConflict()).andReturn();
+		final MvcResult mvcResult = mockMvc.perform(
+				post("/user/").content(userJson).contentType(APPLICATION_JSON_UTF8))
+				.andExpect(status().isConflict())
+				.andReturn();
 
 		assertEquals(0, mvcResult.getResponse().getContentLength());
 	}
 
 	@Test
 	@DisplayName("createUser : L'utilisateur n'existe pas encore.")
-	void createUser_retourne201_quandCreation() throws Exception {
+	void createUserRetourne201QuandCreation() throws Exception {
 		final String login = "toto";
 		when(userService.getByLogin(login)).thenReturn(null);
 
 		final UserDto userToCreate = new UserDto();
 		userToCreate.setLogin(login);
-		final String userJson = om.writeValueAsString(userToCreate);
+		final String userJson = objectMapper.writeValueAsString(userToCreate);
 
 		final UserDto newUser = new UserDto();
 		newUser.setId(1L);
 		newUser.setLogin(login);
 		when(userService.createUser(argThat(sameLoginThan(newUser)))).thenReturn(newUser);
 
-		mockMvc.perform(post("/user/").content(userJson).contentType(APPLICATION_JSON_UTF8)).andExpect(status().isCreated()).andExpect(jsonPath("$.id", is(newUser.getId().intValue())))
+		mockMvc.perform(
+				post("/user/").content(userJson).contentType(APPLICATION_JSON_UTF8))
+				.andExpect(status().isCreated())
+				.andExpect(jsonPath("$.id", is(newUser.getId().intValue())))
 				.andExpect(jsonPath("$.login", is(newUser.getLogin()))).andReturn();
 	}
 

@@ -3,6 +3,7 @@ package fr.deroffal.portail.authentification.entity;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
@@ -16,14 +17,13 @@ class UserEntityTest {
 		final UserEntity user = new UserEntity();
 		final RoleEntity roleAdmin = new RoleEntity("ADMIN");
 		final RoleEntity roleUser = new RoleEntity("USER");
-		user.setRoles(List.of(roleAdmin, roleUser));
-
+		user.setRoles(Arrays.asList(roleAdmin, roleUser));
 
 		final String[] rolesAsStrings = user.getRolesAsStrings();
 		assertAll(
 				() -> assertEquals(2, rolesAsStrings.length),
 				() -> assertEquals("ADMIN", rolesAsStrings[0]),
 				() -> assertEquals("USER", rolesAsStrings[1])
- 		);
+		);
 	}
 }

@@ -1,6 +1,6 @@
 @Library('deroffal-library') _
 
 mavenPipeline([
-        javaVersion: 'JDK9',
+        javaVersion: 'JDK8',
         mavenVersion: 'MAVEN_3.6.0'
 ])

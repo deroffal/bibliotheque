@@ -5,15 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,6 +24,7 @@ import fr.deroffal.portail.authentification.entity.RoleEntity;
 import fr.deroffal.portail.authentification.entity.UserEntity;
 import fr.deroffal.portail.authentification.mapping.UserMapper;
 
+@ExtendWith(MockitoExtension.class)
 class UserServiceTest {
 
 	@InjectMocks
@@ -35,14 +36,9 @@ class UserServiceTest {
 	@Mock
 	private UserMapper userMapper;
 
-	@BeforeEach
-	void setUp() {
-		MockitoAnnotations.initMocks(this);
-	}
-
 	@Test
 	@DisplayName("Charger un utilisateur : Pas de user trouvé, on lève une exception.")
-	void loadUserByUsername_leveUsernameNotFoundException_siPasDeResultat() {
+	void loadUserByUsernameLeveUsernameNotFoundExceptionSiPasDeResultat() {
 		final String login = "login";
 
 		when(userDao.findByLogin(login)).thenReturn(null);
@@ -52,7 +48,7 @@ class UserServiceTest {
 
 	@Test
 	@DisplayName("Charger un utilisateur : On trouve un utilisateur, on retourne le UserDetails correspondant.")
-	void loadUserByUsername_retourneUserDetails_siResultat() {
+	void loadUserByUsernameRetourneUserDetailsSiResultat() {
 		final UserEntity user = new UserEntity();
 		user.setId(1L);
 		final String login = "login";
@@ -62,7 +58,7 @@ class UserServiceTest {
 
 		final RoleEntity role = new RoleEntity();
 		role.setRole("SUPER_ADMIN");
-		user.setRoles(List.of(role));
+		user.setRoles(Arrays.asList(role));
 
 		when(userDao.findByLogin(login)).thenReturn(user);
 
@@ -71,8 +67,7 @@ class UserServiceTest {
 		assertEquals(password, actualUser.getPassword());
 
 		final Collection<? extends GrantedAuthority> actualUserAuthorities = actualUser.getAuthorities();
-		assertAll("Un seul rôle : SUPER_ADMIN", () -> assertEquals(1, actualUserAuthorities.size()),
-				  () -> assertEquals("ROLE_SUPER_ADMIN", actualUserAuthorities.iterator().next().getAuthority()));
+		assertAll("Un seul rôle : SUPER_ADMIN", () -> assertEquals(1, actualUserAuthorities.size()), () -> assertEquals("ROLE_SUPER_ADMIN", actualUserAuthorities.iterator().next().getAuthority()));
 	}
 
 	@Test

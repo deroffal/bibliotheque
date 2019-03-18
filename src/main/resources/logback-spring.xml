@@ -5,5 +5,6 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <logger name="org.springframework.web" level="INFO"/>
+    <logger name="org.springframework.security" level="DEBUG"/>
     <logger name="fr.deroffal.portail" level="DEBUG"/>
 </configuration>
