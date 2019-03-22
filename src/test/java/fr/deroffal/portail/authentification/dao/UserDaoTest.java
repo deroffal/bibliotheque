@@ -1,15 +1,7 @@
 package fr.deroffal.portail.authentification.dao;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
+import fr.deroffal.portail.authentification.entity.RoleEntity;
+import fr.deroffal.portail.authentification.entity.UserEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +9,12 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.TestPropertySource;
 
-import fr.deroffal.portail.authentification.entity.RoleEntity;
-import fr.deroffal.portail.authentification.entity.UserEntity;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @TestPropertySource(locations = "classpath:application-test.properties")
 @DataJpaTest
@@ -66,7 +62,7 @@ public class UserDaoTest {
 		UserEntity userAdmin = new UserEntity();
 		userAdmin.setLogin("admin");
 		userAdmin.setPassword("azertyuiop");
-		userAdmin.setRoles(Arrays.asList(roleAdmin, roleUser));
+		userAdmin.setRoles(List.of(roleAdmin, roleUser));
 		testEntityManager.persist(userAdmin);
 
 		final UserEntity actualUser = userDao.findByLogin("admin");

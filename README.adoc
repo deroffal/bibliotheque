@@ -6,7 +6,7 @@ Application démo Springboot. Les technologies utilisées sont dans les versions
 |Outils |Version
 
 |Java
-|1.8.0_192
+|11.0.2-open
 
 |Maven
 |3.6.0

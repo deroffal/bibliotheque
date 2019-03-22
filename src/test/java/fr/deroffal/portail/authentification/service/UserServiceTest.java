@@ -1,13 +1,10 @@
 package fr.deroffal.portail.authentification.service;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
-
-import java.util.Arrays;
-import java.util.Collection;
-
+import fr.deroffal.portail.authentification.dao.UserDao;
+import fr.deroffal.portail.authentification.dto.UserDto;
+import fr.deroffal.portail.authentification.entity.RoleEntity;
+import fr.deroffal.portail.authentification.entity.UserEntity;
+import fr.deroffal.portail.authentification.mapping.UserMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,11 +15,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import fr.deroffal.portail.authentification.dao.UserDao;
-import fr.deroffal.portail.authentification.dto.UserDto;
-import fr.deroffal.portail.authentification.entity.RoleEntity;
-import fr.deroffal.portail.authentification.entity.UserEntity;
-import fr.deroffal.portail.authentification.mapping.UserMapper;
+import java.util.Collection;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
@@ -58,7 +55,7 @@ class UserServiceTest {
 
 		final RoleEntity role = new RoleEntity();
 		role.setRole("SUPER_ADMIN");
-		user.setRoles(Arrays.asList(role));
+		user.setRoles(List.of(role));
 
 		when(userDao.findByLogin(login)).thenReturn(user);
 
