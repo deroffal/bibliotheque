@@ -12,5 +12,5 @@ Application démo Springboot. Les technologies utilisées sont dans les versions
 |3.6.0
 
 |Springboot
-|2.1.3.RELEASE
+|2.1.5.RELEASE
 |===

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html
+    lang="fr"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Portail - Page d'accueil</title>
+    <meta charset="utf-8" />
+    <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}" />
+</head>
+<body>
+<div class="logout" sec:authorize="isAuthenticated()" th:fragment="logout">
+    Logged user: <span sec:authentication="name"></span> | Roles: <span sec:authentication="principal.authorities"></span> |
+    <form method="post" style="display:inline" th:action="@{/logout}"><input type="submit" value="Logout" /></form>
+</div>
+<h1>Portail</h1>
+<p>Application de démonstration</p>
+</body>
+</html>
