@@ -10,7 +10,7 @@
     <groupId>fr.deroffal</groupId>
     <artifactId>portail.webapp</artifactId>
     <name>webapp</name>
-    <version>2.1</version>
+    <version>2.2-SNAPSHOT</version>
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
@@ -155,10 +155,4 @@
             </plugin>
         </plugins>
     </build>
-
-
-
-  <scm>
-    <tag>portail-2.1</tag>
-  </scm>
 </project>
