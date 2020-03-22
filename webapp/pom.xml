@@ -8,7 +8,7 @@
     </parent>
 
     <groupId>fr.deroffal</groupId>
-    <artifactId>portail.webapp</artifactId>
+    <artifactId>bibliotheque.webapp</artifactId>
     <name>webapp</name>
     <version>2.2-SNAPSHOT</version>
     <modelVersion>4.0.0</modelVersion>

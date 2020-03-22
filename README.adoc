@@ -1,4 +1,4 @@
-= PORTAIL
+= Bibliotheque
 
 Application démo Springboot. Les technologies utilisées sont dans les versions suivantes :
 
