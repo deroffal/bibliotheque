@@ -9,9 +9,9 @@ import java.time.ZoneId;
 @Component
 public class DateUtils {
 
-	private static final ZoneId DEFAULT_ZONE_ID = ZoneId.systemDefault();
+	private static final ZoneId DEFAULT_ZONE_ID = ZoneId.of("CET");
 
-	private Clock clock = Clock.systemDefaultZone();
+	private Clock clock = Clock.system(DEFAULT_ZONE_ID);
 
 	public LocalDateTime newLocalDateTime() {
 		return LocalDateTime.now(clock);
@@ -26,7 +26,7 @@ public class DateUtils {
 
 	/** A n'utiliser que dans les tests pour remise à 0 de date et heure. */
 	public void unfixTime() {
-		clock = Clock.systemDefaultZone();
+		clock = Clock.system(DEFAULT_ZONE_ID);
 	}
 
 }
