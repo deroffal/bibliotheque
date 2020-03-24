@@ -1,7 +1,6 @@
 package fr.deroffal.bibliotheque.api.authentification.utilisateur;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import fr.deroffal.bibliotheque.api.authentification.role.RoleEntity;
 
 import javax.persistence.*;
 import java.util.Collection;

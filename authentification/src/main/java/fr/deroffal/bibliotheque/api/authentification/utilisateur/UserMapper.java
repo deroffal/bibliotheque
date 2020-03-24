@@ -1,6 +1,5 @@
 package fr.deroffal.bibliotheque.api.authentification.utilisateur;
 
-import fr.deroffal.bibliotheque.api.authentification.role.RoleEntity;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -1,6 +1,6 @@
 package fr.deroffal.bibliotheque.api.authentification.integration;
 
-import fr.deroffal.bibliotheque.api.authentification.role.RoleEntity;
+import fr.deroffal.bibliotheque.api.authentification.utilisateur.RoleEntity;
 import fr.deroffal.bibliotheque.api.authentification.utilisateur.UserEntity;
 import org.dbunit.DBTestCase;
 import org.dbunit.PropertiesBasedJdbcDatabaseTester;

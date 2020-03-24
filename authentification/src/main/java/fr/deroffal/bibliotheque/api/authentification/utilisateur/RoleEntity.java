@@ -1,4 +1,4 @@
-package fr.deroffal.bibliotheque.api.authentification.role;
+package fr.deroffal.bibliotheque.api.authentification.utilisateur;
 
 import javax.persistence.*;
 

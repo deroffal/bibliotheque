@@ -1,6 +1,5 @@
 package fr.deroffal.bibliotheque.api.authentification.utilisateur;
 
-import fr.deroffal.bibliotheque.api.authentification.role.RoleEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
