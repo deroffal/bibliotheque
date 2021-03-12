@@ -2,33 +2,30 @@ package fr.deroffal.bibliotheque.api.authentification.utilisateur;
 
 import fr.deroffal.bibliotheque.api.authentification.utilisateur.exception.UserAlreadyExistsException;
 import fr.deroffal.bibliotheque.api.authentification.utilisateur.exception.UserNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-	@Autowired
-	private UserDao dao;
+    private final UserDao dao;
 
-	@Autowired
-	private UserMapper userMapper;
+    private final UserMapper userMapper;
 
-	public UserDto getByLogin(final String login) {
-		final UserEntity user = dao.findByLogin(login);
-		if (user == null) {
-			throw new UserNotFoundException(login);
-		}
-		return userMapper.toDto(user);
-	}
+    public UserDto getByLogin(final String login) {
+        return dao.findByLogin(login)
+            .map(userMapper::toDto)
+            .orElseThrow(() ->new UserNotFoundException(login) );
 
-	public UserDto create(final UserDto user) {
-		final String login = user.getLogin();
-		if (dao.existsByLogin(login)) {
-			throw new UserAlreadyExistsException(login);
-		}
-		final UserEntity userEntity = userMapper.toEntityAndEncorePassword(user);
-		return userMapper.toDto(dao.save(userEntity));
-	}
+    }
 
+    public UserDto create(final UserDto user) {
+        final String login = user.getLogin();
+        if (dao.existsByLogin(login)) {
+            throw new UserAlreadyExistsException(login);
+        }
+        final UserEntity userEntity = userMapper.toEntityAndEncorePassword(user);
+        return userMapper.toDto(dao.save(userEntity));
+    }
 }

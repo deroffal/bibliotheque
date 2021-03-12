@@ -14,8 +14,10 @@ class UserEntityTest {
 	@DisplayName("Récupération des rôles sous String[] pour utilisation par SpringSecurity")
 	void getRolesAsStrings() {
 		final UserEntity user = new UserEntity();
-		final RoleEntity roleAdmin = new RoleEntity("ADMIN");
-		final RoleEntity roleUser = new RoleEntity("USER");
+		final RoleEntity roleAdmin = new RoleEntity();
+		roleAdmin.setRole("ADMIN");
+		final RoleEntity roleUser = new RoleEntity();
+		roleUser.setRole("USER");
 		user.setRoles(List.of(roleAdmin, roleUser));
 
 		final String[] rolesAsStrings = user.getRolesAsStrings();

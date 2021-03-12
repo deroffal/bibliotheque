@@ -1,29 +1,25 @@
 package fr.deroffal.bibliotheque.api.authentification.utilisateur.exception;
 
-import fr.deroffal.bibliotheque.api.exception.BibliothequeRestException;
-import org.springframework.http.HttpStatus;
-
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
+import fr.deroffal.bibliotheque.api.exception.BibliothequeRestException;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+
+@Getter
+@RequiredArgsConstructor
 public class UserNotFoundException extends BibliothequeRestException {
 
-	private final String login;
+    private final String login;
 
-	public UserNotFoundException(final String login) {
-		this.login = login;
-	}
+    @Override
+    public String getMessageClient() {
+        return "Utilisateur non-existant : " + getLogin();
+    }
 
-	public String getLogin() {
-		return login;
-	}
-
-	@Override
-	public String getMessageClient() {
-		return "Utilisateur non-existant : " + getLogin();
-	}
-
-	@Override
-	public HttpStatus getHttpStatus() {
-		return NOT_FOUND;
-	}
+    @Override
+    public HttpStatus getHttpStatus() {
+        return NOT_FOUND;
+    }
 }

@@ -13,6 +13,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
+import java.util.Optional;
+
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
 
@@ -32,7 +34,7 @@ class UserServiceTest {
 		final UserEntity user = new UserEntity();
 		user.setLogin(login);
 
-		when(userDao.findByLogin(login)).thenReturn(user);
+		when(userDao.findByLogin(login)).thenReturn(Optional.of(user));
 		final UserDto expectedUser = new UserDto();
 		when(userMapper.toDto(user)).thenReturn(expectedUser);
 
@@ -45,7 +47,7 @@ class UserServiceTest {
 	void getByLoginLanceExceptionSiNonTrouve() {
 		final String login = "login";
 
-		when(userDao.findByLogin(login)).thenReturn(null);
+		when(userDao.findByLogin(login)).thenReturn(Optional.empty());
 
 		assertThrows(UserNotFoundException.class, () -> userService.getByLogin(login));
 	}

@@ -129,7 +129,7 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$.login", is(newUser.getLogin()))).andReturn();
     }
 
-    private ArgumentMatcher<UserDto> sameLoginThan(final UserDto newUser) {
+    private static ArgumentMatcher<UserDto> sameLoginThan(final UserDto newUser) {
         return userDto -> userDto.getLogin().equals(newUser.getLogin());
     }
 

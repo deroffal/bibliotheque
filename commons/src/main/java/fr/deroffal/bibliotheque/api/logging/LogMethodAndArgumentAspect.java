@@ -1,25 +1,25 @@
 package fr.deroffal.bibliotheque.api.logging;
 
+import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static fr.deroffal.bibliotheque.api.logging.LogAspectOrder.LOG_METHOD_NAME;
+import static java.util.stream.Collectors.joining;
 
 @Aspect
 @Component
+@RequiredArgsConstructor
 public class LogMethodAndArgumentAspect extends AbstractLogingAspect {
 
-	@Autowired
-	private AppLoggerFactory appLoggerFactory;
+	private final AppLoggerFactory appLoggerFactory;
 
 	@Around(TARGET_BASE_PACKAGE)
 	public Object logMethodAndArgument(final ProceedingJoinPoint pjp) throws Throwable {
@@ -47,11 +47,11 @@ public class LogMethodAndArgumentAspect extends AbstractLogingAspect {
 		final String joinedArgs = Stream.of(args)
 				.map(Object::toString)
 				.map(s -> "'" + s + "'")
-				.collect(Collectors.joining(", ", "[", "]"));
+				.collect(joining(", ", "[", "]"));
 		return "Appel de la méthode " + methodName + " avec les arguments : " + joinedArgs + "";
 	}
 
-	private boolean isVoidMethod(final Signature signature) {
+	private static boolean isVoidMethod(final Signature signature) {
 		return Void.class.equals(((MethodSignature) signature).getReturnType());
 	}
 

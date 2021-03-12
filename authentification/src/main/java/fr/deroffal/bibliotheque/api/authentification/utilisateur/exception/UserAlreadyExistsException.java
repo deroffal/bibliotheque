@@ -1,21 +1,17 @@
 package fr.deroffal.bibliotheque.api.authentification.utilisateur.exception;
 
 import fr.deroffal.bibliotheque.api.exception.BibliothequeRestException;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 import static org.springframework.http.HttpStatus.CONFLICT;
 
+@Getter
+@RequiredArgsConstructor
 public class UserAlreadyExistsException extends BibliothequeRestException {
 
 	private final String login;
-
-	public UserAlreadyExistsException(final String login) {
-		this.login = login;
-	}
-
-	public String getLogin() {
-		return login;
-	}
 
 	@Override
 	public String getMessageClient() {

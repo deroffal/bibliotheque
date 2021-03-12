@@ -1,5 +1,7 @@
 package fr.deroffal.bibliotheque.api.authentification.utilisateur;
 
+import static java.util.stream.Collectors.toList;
+
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
@@ -20,10 +23,11 @@ public abstract class UserMapper {
     public abstract UserDto toDto(final UserEntity user);
 
     @AfterMapping
-    void afterEntityToDto(final UserEntity userIn, @MappingTarget final UserDto userOut) {
+    static void afterEntityToDto(final UserEntity userIn, @MappingTarget final UserDto userOut) {
         Collection<RoleEntity> roles = userIn.getRoles();
         if (roles != null) {
-            userOut.setRoles(roles.stream().map(RoleEntity::getRole).collect(Collectors.toList()));
+            final List<String> rolesStr = roles.stream().map(RoleEntity::getRole).collect(toList());
+            userOut.setRoles(rolesStr);
         }
     }
 

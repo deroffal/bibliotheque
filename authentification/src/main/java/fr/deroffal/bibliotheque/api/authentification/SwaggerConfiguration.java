@@ -1,5 +1,9 @@
 package fr.deroffal.bibliotheque.api.authentification;
 
+import static springfox.documentation.builders.RequestHandlerSelectors.any;
+import static springfox.documentation.builders.RequestHandlerSelectors.withClassAnnotation;
+import static springfox.documentation.spi.DocumentationType.SWAGGER_2;
+
 import io.swagger.annotations.Api;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,19 +22,19 @@ public class SwaggerConfiguration {
 
     @Bean
     public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
+        return new Docket(SWAGGER_2)
                 .groupName("all")
                 .select()
-                .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
+                .apis(withClassAnnotation(Api.class))
                 .build();
     }
 
     @Bean
     public Docket publicApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
+        return new Docket(SWAGGER_2)
                 .groupName("public")
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(any())
                 .paths(s -> s.contains("/public/"))
                 .build();
     }
