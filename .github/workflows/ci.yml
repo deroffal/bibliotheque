@@ -35,5 +35,4 @@ jobs:
                     GITHUB_USERNAME: x-access-token
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 run: |
-                    mvn --settings .github/workflows/config/settings.xml
-                    clean org.jacoco:jacoco-maven-plugin:prepare-agent package failsafe:integration-test sonar:sonar
+                    mvn --settings .github/workflows/config/settings.xml clean org.jacoco:jacoco-maven-plugin:prepare-agent package failsafe:integration-test sonar:sonar

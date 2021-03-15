@@ -2,6 +2,7 @@ package fr.deroffal.bibliotheque.webapp.security;
 
 import com.auth0.jwt.impl.JWTParser;
 import fr.deroffal.bibliotheque.webapp.http.HttpService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -11,13 +12,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class AuthentificationService {
 
     @Value("${bibliotheque.authentification.url}")
     private String authentificationUrl;
 
-    @Autowired
-    private HttpService httpService;
+    private final HttpService httpService;
 
     public String authentification() {
         if (Tokens.AUTHENTIFICATION.isTokenInvalid()) {
@@ -25,9 +26,7 @@ public class AuthentificationService {
                     authentificationUrl + "/authenticate",
                     Map.of("username", "webapp", "password", "alex"),
                     HashMap.class,
-                    () -> {
-                        throw new RuntimeException();
-                    }
+                    () -> { throw new RuntimeException(); }
             );
             Tokens.AUTHENTIFICATION.setToken((String) post.get("token"));
         }

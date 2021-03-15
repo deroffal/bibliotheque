@@ -1,9 +1,8 @@
 package fr.deroffal.bibliotheque.webapp.http;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
@@ -20,16 +19,13 @@ import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 /**
  * https://blog.codefx.org/java/http-2-api-tutorial/
  */
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class HttpService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HttpService.class);
-
-    @Autowired
-    private HttpClient client;
-
-    @Autowired
-    private ObjectMapper objectMapper;
+    private final HttpClient client;
+    private final ObjectMapper objectMapper;
 
     private static boolean isSuccess(final int statusCode) {
         return statusCode < SC_BAD_REQUEST;
@@ -71,8 +67,8 @@ public class HttpService {
             if (isSuccess(response.statusCode())) {
                 return success.apply(response.body());
             }
-        } catch (Exception e) {
-            LOGGER.warn("GET {} - exception", uri, e);
+        } catch (final Exception e) {
+            log.warn("GET {} - exception", uri, e);
         }
         return failure.get();
     }
@@ -87,8 +83,8 @@ public class HttpService {
             if (isSuccess(response.statusCode())) {
                 return success.apply(response.body());
             }
-        } catch (Exception e) {
-            LOGGER.warn("POST {} - exception", uri, e);
+        } catch (final Exception e) {
+            log.warn("POST {} - exception", uri, e);
         }
         return failure.get();
     }

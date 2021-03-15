@@ -34,7 +34,7 @@ class LoginControllerTest {
 
 	@MethodSource("loginRedirectionArgsProvider")
 	@ParameterizedTest(name = "userLoggedIn ''{0}'' redirects to {1}")
-	void loginRedirection(boolean userLoggedIn, String expectedRedirection) {
+	void loginRedirection(final boolean userLoggedIn,final String expectedRedirection) {
 		when(securityService.isUserLoggedIn()).thenReturn(userLoggedIn);
 
 		assertEquals(expectedRedirection, loginController.login());
