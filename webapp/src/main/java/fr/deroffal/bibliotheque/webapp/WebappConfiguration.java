@@ -10,7 +10,7 @@ import java.net.http.HttpClient;
 @SpringBootApplication
 public class WebappConfiguration {
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		SpringApplication.run(WebappConfiguration.class, args);
 	}
 

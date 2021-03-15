@@ -24,7 +24,7 @@
 
         <swagger.version>2.9.2</swagger.version>
 
-        <openpojo.version>0.8.12</openpojo.version>
+        <openpojo.version>0.8.13</openpojo.version>
         <dbunit.version>2.6.0</dbunit.version>
     </properties>
 

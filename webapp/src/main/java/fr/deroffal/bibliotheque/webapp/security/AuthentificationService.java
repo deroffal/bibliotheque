@@ -34,7 +34,7 @@ public class AuthentificationService {
         return Tokens.AUTHENTIFICATION.getToken();
     }
 
-    private static enum Tokens {
+    private enum Tokens {
         AUTHENTIFICATION;
 
         private String token;

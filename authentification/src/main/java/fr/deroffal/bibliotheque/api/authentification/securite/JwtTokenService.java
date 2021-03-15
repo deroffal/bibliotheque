@@ -37,7 +37,6 @@ public class JwtTokenService {
     private Boolean isTokenExpired(final String token) {
         final Date expiration = getExpirationDateFromToken(token);
         return expiration.before(new Date());
-
     }
 
     public String generateToken(final UserDetails userDetails) {
@@ -54,7 +53,7 @@ public class JwtTokenService {
      * //2. Sign the JWT using the HS512 algorithm and secret key.
      * //3. According to JWS Compact Serialization(https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41#section-3.1) compaction of the JWT to a URL-safe string
      **/
-    private String doGenerateToken(Map<String, Object> claims, String subject) {
+    private String doGenerateToken(final Map<String, Object> claims, final String subject) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
@@ -64,9 +63,8 @@ public class JwtTokenService {
                 .compact();
     }
 
-    public Boolean validateToken(String token, UserDetails userDetails) {
+    public boolean isTokenValid(final String token, final UserDetails userDetails) {
         final String username = getUsernameFromToken(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
-
 }

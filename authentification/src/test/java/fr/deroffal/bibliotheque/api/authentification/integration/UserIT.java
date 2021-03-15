@@ -1,9 +1,19 @@
 package fr.deroffal.bibliotheque.api.authentification.integration;
 
-import fr.deroffal.bibliotheque.api.authentification.utilisateur.RoleEntity;
-import fr.deroffal.bibliotheque.api.authentification.utilisateur.UserEntity;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.dbunit.PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL;
+import static org.dbunit.PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS;
+import static org.dbunit.PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD;
+import static org.dbunit.PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME;
+
+import java.util.Collection;
+import java.util.Map;
+
+import fr.deroffal.bibliotheque.api.authentification.securite.JwtTokenService;
+import fr.deroffal.bibliotheque.api.authentification.securite.details.JwtUserDetails;
+import fr.deroffal.bibliotheque.api.authentification.utilisateur.UserDto;
+import org.assertj.core.api.Assertions;
 import org.dbunit.DBTestCase;
-import org.dbunit.PropertiesBasedJdbcDatabaseTester;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.junit.jupiter.api.AfterEach;
@@ -14,87 +24,96 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
-
-import java.util.Collection;
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.assertAll;
 
 @TestPropertySource(locations = "classpath:application-test.properties")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserIT extends DBTestCase {
 
-	@LocalServerPort
-	private int port;
+    @LocalServerPort
+    private int port;
 
-	@Autowired
-	private TestRestTemplate restTemplate;
+    @Autowired
+    private TestRestTemplate restTemplate;
 
-	public UserIT() {
-		super();
-		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_DRIVER_CLASS, "org.h2.Driver");
-		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_CONNECTION_URL, "jdbc:h2:mem:devDb");
-		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME, "sa");
-		System.setProperty(PropertiesBasedJdbcDatabaseTester.DBUNIT_PASSWORD, "");
-	}
+    @Autowired
+    private JwtTokenService jwtTokenService;
 
-	@BeforeEach
-	void beforeEach() throws Exception {
-		super.setUp();
-	}
+    public UserIT() {
+        super();
+        System.setProperty(DBUNIT_DRIVER_CLASS, "org.h2.Driver");
+        System.setProperty(DBUNIT_CONNECTION_URL, "jdbc:h2:mem:devDb");
+        System.setProperty(DBUNIT_USERNAME, "sa");
+        System.setProperty(DBUNIT_PASSWORD, "");
+    }
 
-	@AfterEach
-	void afterEach() throws Exception {
-		super.tearDown();
-	}
+    @BeforeEach
+    void beforeEach() throws Exception {
+        super.setUp();
+    }
 
-	@Override
-	protected IDataSet getDataSet() throws Exception {
-		return new FlatXmlDataSetBuilder().build(this.getClass().getResourceAsStream("/dataset/authentification.xml"));
-	}
+    @AfterEach
+    void afterEach() throws Exception {
+        super.tearDown();
+    }
 
-	private String buildUrl(String uri) {
-		return "http://localhost:" + port + uri;
-	}
+    @Override
+    protected IDataSet getDataSet() throws Exception {
+        return new FlatXmlDataSetBuilder().build(getClass().getResourceAsStream("/dataset/authentification.xml"));
+    }
 
-	@Test
-	@DisplayName("Recherche d'un utilisateur : l'utilisateur est connu.")
-	void rechercherUtilisateurLoginConnu() {
-		final ResponseEntity<UserEntity> response = restTemplate.getForEntity(buildUrl("/user/user2"), UserEntity.class);
-		assertNotNull(response);
+    private String buildUrl(final String uri) {
+        return "http://localhost:" + port + uri;
+    }
 
-		assertEquals(HttpStatus.OK, response.getStatusCode());
+    @Test
+    @DisplayName("Recherche d'un utilisateur : l'utilisateur est connu.")
+    void rechercherUtilisateurLoginConnu() {
+        final HttpEntity<Object> httpEntity = getObjectHttpEntity();
+        final ResponseEntity<UserDto> response = restTemplate.exchange(buildUrl("/user/user2"), HttpMethod.GET, httpEntity, UserDto.class);
 
-		final UserEntity actualUser = response.getBody();
+        assertNotNull(response);
 
-		assertEquals(3L, actualUser.getId().longValue());
-		assertEquals("user2", actualUser.getLogin());
-		assertEquals("$2a$10$IvID3zGmRTLpIB/uCnjxleEmk0hUe6Gyr9oKX6UqAZkWrb6xvrmvC", actualUser.getPassword());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
 
-		final Collection<RoleEntity> actualUserRoles = actualUser.getRoles();
-		assertAll("Vérififcation des rôles",
-				  () -> assertEquals(1, actualUserRoles.size()),
-				  () -> assertEquals("USER", actualUserRoles.iterator().next().getRole())
-		);
-	}
+        final UserDto actualUser = response.getBody();
 
-	@Test
-	@DisplayName("Recherche d'un utilisateur : l'utilisateur est inconnu.")
-	void rechercherUtilisateurLoginInconnu() {
-		final ResponseEntity<?> response = restTemplate.getForEntity(buildUrl("/user/user3"), Object.class);
-		assertNotNull(response);
+        assertEquals(3L, actualUser.getId().longValue());
+        assertEquals("user2", actualUser.getLogin());
+        assertEquals("$2a$10$IvID3zGmRTLpIB/uCnjxleEmk0hUe6Gyr9oKX6UqAZkWrb6xvrmvC", actualUser.getPassword());
 
-		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        final Collection<String> actualUserRoles = actualUser.getRoles();
+        assertThat(actualUserRoles).containsExactly("USER");
+    }
 
-		//L'objet reçu correspond à un ExceptionMessage.
-		final Object body = response.getBody();
-		final Map<String, Object> messages = (Map<String, Object>) body;
-		assertEquals("/user/user3", messages.get("uri"));
-		assertEquals("Utilisateur non-existant : user3", messages.get("message"));
-	}
+    @Test
+    @DisplayName("Recherche d'un utilisateur : l'utilisateur est inconnu.")
+    void rechercherUtilisateurLoginInconnu() {
+        final HttpEntity<Object> httpEntity = getObjectHttpEntity();
+        final ResponseEntity<?> response = restTemplate.exchange(buildUrl("/user/user3"), HttpMethod.GET, httpEntity, Object.class);
 
+        assertNotNull(response);
 
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+
+        //L'objet reçu correspond à un ExceptionMessage.
+        final Object body = response.getBody();
+        final Map<String, Object> messages = (Map<String, Object>) body;
+        assertEquals("/user/user3", messages.get("uri"));
+        assertEquals("Utilisateur non-existant : user3", messages.get("message"));
+    }
+
+    //Génère un header pour admin/admin
+    private HttpEntity<Object> getObjectHttpEntity() {
+        final HttpHeaders headers = new HttpHeaders();
+        final JwtUserDetails userDetails = new JwtUserDetails("admin", "$2a$10$3AoDzKHV.ExSwFXq8SPjK.3qSozxVVngcB0Xd4iAQcVlvz4yBgh1e");
+        final String token = jwtTokenService.generateToken(userDetails);
+        headers.setBearerAuth(token);
+        return new HttpEntity<>(headers);
+    }
 }

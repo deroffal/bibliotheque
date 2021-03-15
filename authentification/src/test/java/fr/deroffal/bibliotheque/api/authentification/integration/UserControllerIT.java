@@ -1,9 +1,14 @@
-package fr.deroffal.bibliotheque.api.authentification.utilisateur;
+package fr.deroffal.bibliotheque.api.authentification.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.deroffal.bibliotheque.api.authentification.securite.JwtTokenService;
+import fr.deroffal.bibliotheque.api.authentification.securite.details.JwtUserDetails;
+import fr.deroffal.bibliotheque.api.authentification.utilisateur.UserDto;
+import fr.deroffal.bibliotheque.api.authentification.utilisateur.UserService;
 import fr.deroffal.bibliotheque.api.authentification.utilisateur.exception.UserAlreadyExistsException;
 import fr.deroffal.bibliotheque.api.authentification.utilisateur.exception.UserNotFoundException;
 import fr.deroffal.bibliotheque.api.exception.ExceptionMessage;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatcher;
@@ -12,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -30,13 +36,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class UserControllerTest {
+public class UserControllerIT {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
     private UserService userService;
+
+    @Autowired
+    private JwtTokenService jwtTokenService;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -48,9 +57,10 @@ public class UserControllerTest {
         Mockito.doThrow(new UserNotFoundException(login)).when(userService).getByLogin(login);
 
         mockMvc.perform(
-                get("/user/" + login))
-                .andExpect(status().isNotFound()
-                );
+            get("/user/" + login).header("Authorization", generateHeader())
+        ).andExpect(
+            status().isNotFound()
+        );
     }
 
     @Test
@@ -64,11 +74,13 @@ public class UserControllerTest {
         when(userService.getByLogin(login)).thenReturn(expectedUser);
 
         mockMvc.perform(
-                get("/user/" + login)).andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", is(expectedUser.getId().intValue())))
-                .andExpect(jsonPath("$.login", is(expectedUser.getLogin())))
-                .andExpect(jsonPath("$.password", is(expectedUser.getPassword()))
-                );
+                get("/user/" + login).header("Authorization", generateHeader())
+        )
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.id", is(expectedUser.getId().intValue())))
+            .andExpect(jsonPath("$.login", is(expectedUser.getLogin())))
+            .andExpect(jsonPath("$.password", is(expectedUser.getPassword()))
+            );
     }
 
     @Test
@@ -78,9 +90,10 @@ public class UserControllerTest {
         doThrow(new NullPointerException("Ça a pété quelque part!")).when(userService).getByLogin(login);
 
         final MvcResult mvcResult = mockMvc.perform(
-                get("/user/" + login).accept(APPLICATION_JSON))
-                .andExpect(status().isInternalServerError())
-                .andReturn();
+                get("/user/" + login).accept(APPLICATION_JSON).header("Authorization", generateHeader())
+        )
+            .andExpect(status().isInternalServerError())
+            .andReturn();
 
         ExceptionMessage em = objectMapper.readValue(mvcResult.getResponse().getContentAsString(UTF_8), ExceptionMessage.class);
         assertEquals("/user/toto", em.getUri());
@@ -100,7 +113,8 @@ public class UserControllerTest {
         final String userJson = objectMapper.writeValueAsString(userToCreate);
 
         final MvcResult mvcResult = mockMvc.perform(
-                post("/user/").content(userJson).contentType(APPLICATION_JSON))
+                post("/user/").content(userJson).contentType(APPLICATION_JSON).header("Authorization", generateHeader())
+        )
                 .andExpect(status().isConflict())
                 .andReturn();
 
@@ -123,14 +137,21 @@ public class UserControllerTest {
         when(userService.create(argThat(sameLoginThan(newUser)))).thenReturn(newUser);
 
         mockMvc.perform(
-                post("/user/").content(userJson).contentType(APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", is(newUser.getId().intValue())))
-                .andExpect(jsonPath("$.login", is(newUser.getLogin()))).andReturn();
+                post("/user/").content(userJson).contentType(APPLICATION_JSON).header("Authorization", generateHeader())
+        )
+            .andExpect(status().isCreated())
+            .andExpect(jsonPath("$.id", is(newUser.getId().intValue())))
+            .andExpect(jsonPath("$.login", is(newUser.getLogin())))
+            .andReturn();
     }
 
     private static ArgumentMatcher<UserDto> sameLoginThan(final UserDto newUser) {
         return userDto -> userDto.getLogin().equals(newUser.getLogin());
+    }
+
+    //Génère un header pour admin/admin
+    private String generateHeader() {
+        return "Bearer " + jwtTokenService.generateToken(new JwtUserDetails("admin", "$2a$10$3AoDzKHV.ExSwFXq8SPjK.3qSozxVVngcB0Xd4iAQcVlvz4yBgh1e"));
     }
 
 }
