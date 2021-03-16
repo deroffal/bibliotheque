@@ -3,8 +3,8 @@ package fr.deroffal.bibliotheque.webapp.security;
 import com.auth0.jwt.impl.JWTParser;
 import fr.deroffal.bibliotheque.webapp.http.HttpService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -22,13 +22,13 @@ public class AuthentificationService {
 
     public String authentification() {
         if (Tokens.AUTHENTIFICATION.isTokenInvalid()) {
-            HashMap post = httpService.post(
+            Map<String, String> post = httpService.post(
                     authentificationUrl + "/authenticate",
                     Map.of("username", "webapp", "password", "alex"),
                     HashMap.class,
-                    () -> { throw new RuntimeException(); }
+                    () -> { throw new UsernameNotFoundException("Impossible de se connecter !"); }
             );
-            Tokens.AUTHENTIFICATION.setToken((String) post.get("token"));
+            Tokens.AUTHENTIFICATION.setToken( post.get("token"));
         }
         return Tokens.AUTHENTIFICATION.getToken();
     }
@@ -42,7 +42,7 @@ public class AuthentificationService {
             return token;
         }
 
-        public void setToken(String token) {
+        public void setToken(final String token) {
             this.token = token;
         }
 
@@ -50,4 +50,5 @@ public class AuthentificationService {
             return token == null || new JWTParser().parsePayload(token).getExpiresAt().after(new Date());
         }
     }
+
 }
