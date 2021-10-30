@@ -13,7 +13,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.Collection;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Data
@@ -36,9 +35,4 @@ public class UserEntity {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "utilisateur_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<RoleEntity> roles;
-
-    @JsonIgnore
-    public String[] getRolesAsStrings() {
-        return roles.stream().map(RoleEntity::getRole).toArray(String[]::new);
-    }
 }

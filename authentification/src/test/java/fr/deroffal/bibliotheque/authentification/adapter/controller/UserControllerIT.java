@@ -74,9 +74,9 @@ class UserControllerIT {
                 get("/user/" + login).header("Authorization", generateHeader())
         )
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.id", is(expectedUser.getId().intValue())))
-            .andExpect(jsonPath("$.login", is(expectedUser.getLogin())))
-            .andExpect(jsonPath("$.password", is(expectedUser.getPassword()))
+            .andExpect(jsonPath("$.id", is(expectedUser.id().intValue())))
+            .andExpect(jsonPath("$.login", is(expectedUser.login())))
+            .andExpect(jsonPath("$.password", is(expectedUser.password()))
             );
     }
 
@@ -133,13 +133,13 @@ class UserControllerIT {
                 post("/user/").content(userJson).contentType(APPLICATION_JSON).header("Authorization", generateHeader())
         )
             .andExpect(status().isCreated())
-            .andExpect(jsonPath("$.id", is(newUser.getId().intValue())))
-            .andExpect(jsonPath("$.login", is(newUser.getLogin())))
+            .andExpect(jsonPath("$.id", is(newUser.id().intValue())))
+            .andExpect(jsonPath("$.login", is(newUser.login())))
             .andReturn();
     }
 
     private static ArgumentMatcher<UserDto> sameLoginThan(final UserDto newUser) {
-        return userDto -> userDto.getLogin().equals(newUser.getLogin());
+        return userDto -> userDto.login().equals(newUser.login());
     }
 
     //Génère un header pour admin/admin

@@ -46,9 +46,9 @@ class UserRepositoryAdapterImplTest {
         final Optional<UserDto> admin = userRepositoryAdapter.findByLogin("admin");
         assertThat(admin).isNotEmpty();
         final UserDto actualUser = admin.get();
-        assertThat(actualUser.getLogin()).isEqualTo("admin");
-        assertThat(actualUser.getPassword()).isEqualTo("azertyuiop");
-        assertThat(actualUser.getRoles()).containsExactlyInAnyOrder("ADMIN", "USER");
+        assertThat(actualUser.login()).isEqualTo("admin");
+        assertThat(actualUser.password()).isEqualTo("azertyuiop");
+        assertThat(actualUser.roles()).containsExactlyInAnyOrder("ADMIN", "USER");
     }
 
     @Test
@@ -77,9 +77,9 @@ class UserRepositoryAdapterImplTest {
 
         final UserDto user = userRepositoryAdapter.create(userDto);
 
-        final UserEntity userEntity = testEntityManager.find(UserEntity.class, user.getId());
+        final UserEntity userEntity = testEntityManager.find(UserEntity.class, user.id());
 
-        assertThat(userEntity.getLogin()).isEqualTo(userDto.getLogin());
+        assertThat(userEntity.getLogin()).isEqualTo(userDto.login());
         assertThat(userEntity.getPassword()).isNotNull();
     }
 }

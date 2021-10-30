@@ -18,8 +18,10 @@ public interface UserMapper {
      * @param user un utilisateur à créer.
      * @return un {@link UserEntity} initialisé pour l'insertion en base.
      */
+
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "roles", ignore = true)//FIXME ?
     @Mapping(target = "password", source = "password", qualifiedByName = "encodePassword")
-    @Mapping(target = "roles", ignore = true)
+    @Mapping(target = "login", source = "login")
     UserEntity toEntityAndEncorePassword(final UserDto user);
 }

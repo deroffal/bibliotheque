@@ -12,7 +12,7 @@ public class CreationUserService {
     private final UserService userService;
 
     public UserDto create(final UserDto user) {
-        final String login = user.getLogin();
+        final String login = user.login();
         if (userService.existsByLogin(login)) {
             throw new UserAlreadyExistsException(login);
         }
