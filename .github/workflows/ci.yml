@@ -22,7 +22,6 @@ jobs:
         with:
           java-version: 11
 
-      #https://github.com/actions/cache/blob/main/examples.md#java---maven
       - name: Cache local Maven repository
         uses: actions/cache@v2
         with:
