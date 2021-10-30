@@ -30,7 +30,7 @@ public class DateUtils {
     /**
      * A n'utiliser que dans les tests pour fixer date et heure.
      */
-    public void fixTime(LocalDateTime date) {
+    public void fixTime(final LocalDateTime date) {
         clock = Clock.fixed(date.atZone(DEFAULT_ZONE_ID).toInstant(), DEFAULT_ZONE_ID);
     }
 

@@ -7,8 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 class AppLoggerFactory {
 
-	Logger getLogger(Class<?> clazz) {
-		return LoggerFactory.getLogger(clazz);
-	}
-
+    Logger getLogger(final Class<?> clazz) {
+        return LoggerFactory.getLogger(clazz);
+    }
 }

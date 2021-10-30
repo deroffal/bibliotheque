@@ -43,12 +43,12 @@ public class LogMethodAndArgumentAspect extends AbstractLogingAspect {
 		return returnedValue;
 	}
 
-	private String concatMethodNameAndArgument(final String methodName, final Object[] args) {
+	private static String concatMethodNameAndArgument(final String methodName, final Object[] args) {
 		final String joinedArgs = Stream.of(args)
 				.map(Object::toString)
-				.map(s -> "'" + s + "'")
+				.map(s -> '\'' + s + '\'')
 				.collect(joining(", ", "[", "]"));
-		return "Appel de la méthode " + methodName + " avec les arguments : " + joinedArgs + "";
+		return "Appel de la méthode " + methodName + " avec les arguments : " + joinedArgs;
 	}
 
 	private static boolean isVoidMethod(final Signature signature) {
