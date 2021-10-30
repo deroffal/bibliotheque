@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout branche
         uses: actions/checkout@master
+        with:
+          fetch-depth: 0
 
       - name: Set up JDK 11
         uses: actions/setup-java@master
@@ -29,20 +31,22 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Build
-        run: mvn clean install -DskipTests
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
 
-      - name: Unit Tests
-        run: mvn surefire:test -DtestFailureIgnore=true
+      - name: Cache Maven packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
 
-      - name: Integration Tests
-        run: mvn failsafe:integration-test -DskipAfterFailureCount=999
-
-      - name: Sonar Analysis
+      - name: Build and Analyze
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          GITHUB_USERNAME: x-access-token
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          mvn --settings .github/workflows/config/settings.xml \
-          clean org.jacoco:jacoco-maven-plugin:prepare-agent package failsafe:integration-test sonar:sonar
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B -U -P coverage clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
