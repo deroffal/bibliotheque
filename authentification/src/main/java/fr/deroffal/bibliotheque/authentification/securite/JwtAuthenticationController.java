@@ -1,8 +1,9 @@
 package fr.deroffal.bibliotheque.authentification.securite;
 
+import static org.springframework.http.HttpStatus.OK;
+
 import fr.deroffal.bibliotheque.authentification.securite.details.JwtUserDetails;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -23,12 +25,13 @@ public class JwtAuthenticationController {
     private final JwtTokenService jwtTokenService;
 
     @PostMapping("/authenticate")
-    public ResponseEntity<JwtResponse> authenticate(@RequestBody final JwtRequest authenticationRequest) throws Exception {
-        final Authentication auth = authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+    @ResponseStatus(OK)
+    public JwtResponse authenticate(@RequestBody final JwtRequest authenticationRequest) {
+        final Authentication auth = authenticate(authenticationRequest.username(), authenticationRequest.password());
 
         final UserDetails userDetails = (JwtUserDetails) auth.getPrincipal();
         final String token = jwtTokenService.generateToken(userDetails);
-        return ResponseEntity.ok(new JwtResponse(token));
+        return new JwtResponse(token);
     }
 
     private Authentication authenticate(final String username, final String password) {

@@ -2,21 +2,26 @@ package fr.deroffal.bibliotheque.authentification.securite.details;
 
 import static java.util.Collections.emptyList;
 
-import lombok.Data;
+import java.util.Collection;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-
-@Data
-public class JwtUserDetails implements UserDetails {
-
-    private final String username;
-    private final String password;
+public record JwtUserDetails(String username, String password) implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return emptyList();
+    }
+
+    @Override
+    public String getPassword() {
+        return password();
+    }
+
+    @Override
+    public String getUsername() {
+        return username();
     }
 
     @Override
