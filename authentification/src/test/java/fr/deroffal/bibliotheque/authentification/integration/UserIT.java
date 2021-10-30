@@ -11,7 +11,7 @@ import java.util.Map;
 
 import fr.deroffal.bibliotheque.authentification.securite.JwtTokenService;
 import fr.deroffal.bibliotheque.authentification.securite.details.JwtUserDetails;
-import fr.deroffal.bibliotheque.authentification.utilisateur.UserDto;
+import fr.deroffal.bibliotheque.authentification.domain.model.UserDto;
 import org.dbunit.DBTestCase;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;

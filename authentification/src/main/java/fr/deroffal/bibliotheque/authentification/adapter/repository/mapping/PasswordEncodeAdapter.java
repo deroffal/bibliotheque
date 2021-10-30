@@ -1,4 +1,4 @@
-package fr.deroffal.bibliotheque.authentification.utilisateur;
+package fr.deroffal.bibliotheque.authentification.adapter.repository.mapping;
 
 public interface PasswordEncodeAdapter {
 

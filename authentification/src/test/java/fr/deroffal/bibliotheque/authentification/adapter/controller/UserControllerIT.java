@@ -1,23 +1,4 @@
-package fr.deroffal.bibliotheque.authentification.integration;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.deroffal.bibliotheque.authentification.securite.JwtTokenService;
-import fr.deroffal.bibliotheque.authentification.securite.details.JwtUserDetails;
-import fr.deroffal.bibliotheque.authentification.utilisateur.UserDto;
-import fr.deroffal.bibliotheque.authentification.utilisateur.UserService;
-import fr.deroffal.bibliotheque.authentification.utilisateur.exception.UserAlreadyExistsException;
-import fr.deroffal.bibliotheque.authentification.utilisateur.exception.UserNotFoundException;
-import fr.deroffal.bibliotheque.commons.exception.ExceptionMessage;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatcher;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
+package fr.deroffal.bibliotheque.authentification.adapter.controller;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.hamcrest.Matchers.is;
@@ -31,6 +12,27 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.Optional;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.deroffal.bibliotheque.authentification.application.UserAlreadyExistsException;
+import fr.deroffal.bibliotheque.authentification.application.UserNotFoundException;
+import fr.deroffal.bibliotheque.authentification.domain.model.UserDto;
+import fr.deroffal.bibliotheque.authentification.domain.service.UserService;
+import fr.deroffal.bibliotheque.authentification.securite.JwtTokenService;
+import fr.deroffal.bibliotheque.authentification.securite.details.JwtUserDetails;
+import fr.deroffal.bibliotheque.commons.exception.ExceptionMessage;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatcher;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -65,11 +67,8 @@ class UserControllerIT {
     @DisplayName("getByLogin : L'utilisateur existe.")
     void getUserByLoginRetourne200EtUserQuandLoginConnu() throws Exception {
         final String login = "toto";
-        final UserDto expectedUser = new UserDto();
-        expectedUser.setId(35L);
-        expectedUser.setLogin(login);
-        expectedUser.setPassword("clm#^`|'!(,;''rt321201'");
-        when(userService.getByLogin(login)).thenReturn(expectedUser);
+        final UserDto expectedUser = new UserDto(35L, login, "clm#^`|'!(,;''rt321201'", null);
+        when(userService.getByLogin(login)).thenReturn(Optional.of(expectedUser));
 
         mockMvc.perform(
                 get("/user/" + login).header("Authorization", generateHeader())
@@ -103,8 +102,7 @@ class UserControllerIT {
     @DisplayName("create : L'utilisateur existe déjà.")
     void createUserRetourne409QuandDejaExistant() throws Exception {
         final String login = "toto";
-        final UserDto userToCreate = new UserDto();
-        userToCreate.setLogin(login);
+        final UserDto userToCreate = new UserDto(null, login, null, null);
 
         Mockito.doThrow(new UserAlreadyExistsException("login")).when(userService).create(any());
 
@@ -125,13 +123,10 @@ class UserControllerIT {
         final String login = "toto";
         when(userService.getByLogin(login)).thenReturn(null);
 
-        final UserDto userToCreate = new UserDto();
-        userToCreate.setLogin(login);
+        final UserDto userToCreate = new UserDto(null, login, null, null);
         final String userJson = objectMapper.writeValueAsString(userToCreate);
 
-        final UserDto newUser = new UserDto();
-        newUser.setId(1L);
-        newUser.setLogin(login);
+        final UserDto newUser = new UserDto(1L, login, null, null);
         when(userService.create(argThat(sameLoginThan(newUser)))).thenReturn(newUser);
 
         mockMvc.perform(

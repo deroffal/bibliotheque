@@ -1,4 +1,4 @@
-package fr.deroffal.bibliotheque.authentification.utilisateur.exception;
+package fr.deroffal.bibliotheque.authentification.application;
 
 import fr.deroffal.bibliotheque.commons.exception.BibliothequeRestException;
 import lombok.Getter;

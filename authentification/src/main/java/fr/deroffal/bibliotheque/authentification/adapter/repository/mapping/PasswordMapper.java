@@ -1,4 +1,4 @@
-package fr.deroffal.bibliotheque.authentification.utilisateur;
+package fr.deroffal.bibliotheque.authentification.adapter.repository.mapping;
 
 import fr.deroffal.bibliotheque.commons.mapping.MapperConfiguration;
 import org.mapstruct.Mapper;

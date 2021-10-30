@@ -46,22 +46,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/authenticate").permitAll()
-                .antMatchers("/public/**").permitAll()
-                .antMatchers("/swagger-resources/**", "/swagger-ui.html", "/v2/api-docs", "/webjars/**").permitAll()
-                .antMatchers("/dbconsole/**").permitAll()
-                .anyRequest().authenticated()
+        http.authorizeRequests().antMatchers("/authenticate").permitAll().antMatchers("/public/**").permitAll().antMatchers("/swagger-resources/**",
+                "/swagger-ui.html", "/v2/api-docs", "/webjars/**").permitAll().antMatchers("/dbconsole/**").permitAll().anyRequest().authenticated()
 
-                //make sure we use stateless session; session won't be used to store user's state.
-                .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            //make sure we use stateless session; session won't be used to store user's state.
+            .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement().sessionCreationPolicy(
+                SessionCreationPolicy.STATELESS)
 
-                .and().csrf().disable()//TODO Pour les tests
-                .headers().frameOptions().disable();//Permet l'affiche de la dbconsole
+            .and().csrf().disable()//TODO Pour les tests
+            .headers().frameOptions().disable();//Permet l'affiche de la dbconsole
 
         // Add a filter to validate the tokens with every request
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-
     }
 }

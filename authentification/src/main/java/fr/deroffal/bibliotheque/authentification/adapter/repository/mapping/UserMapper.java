@@ -1,5 +1,7 @@
-package fr.deroffal.bibliotheque.authentification.utilisateur;
+package fr.deroffal.bibliotheque.authentification.adapter.repository.mapping;
 
+import fr.deroffal.bibliotheque.authentification.adapter.repository.UserEntity;
+import fr.deroffal.bibliotheque.authentification.domain.model.UserDto;
 import fr.deroffal.bibliotheque.commons.mapping.MapperConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

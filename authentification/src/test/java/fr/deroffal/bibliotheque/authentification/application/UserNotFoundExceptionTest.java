@@ -1,5 +1,6 @@
-package fr.deroffal.bibliotheque.authentification.utilisateur.exception;
+package fr.deroffal.bibliotheque.authentification.application;
 
+import fr.deroffal.bibliotheque.authentification.application.UserNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

@@ -1,13 +1,13 @@
-package fr.deroffal.bibliotheque.authentification.securite;
+package fr.deroffal.bibliotheque.authentification.adapter.security;
 
-import fr.deroffal.bibliotheque.authentification.utilisateur.PasswordEncodeAdapter;
+import fr.deroffal.bibliotheque.authentification.adapter.repository.mapping.PasswordEncodeAdapter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class PasswordEncodeAdapterImpl implements PasswordEncodeAdapter {
+class PasswordEncodeAdapterImpl implements PasswordEncodeAdapter {
 
     private final PasswordEncoder passwordEncoder;
 

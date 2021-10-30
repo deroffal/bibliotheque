@@ -1,4 +1,4 @@
-package fr.deroffal.bibliotheque.authentification.utilisateur.exception;
+package fr.deroffal.bibliotheque.authentification.application;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
