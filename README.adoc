@@ -1,16 +1,1 @@
 = Bibliotheque
-
-Application démo Springboot. Les technologies utilisées sont dans les versions suivantes :
-
-|===
-|Outils |Version
-
-|Java
-|11.0.2-open
-
-|Maven
-|3.6.0
-
-|Springboot
-|2.2.5.RELEASE
-|===
