@@ -8,14 +8,12 @@ import io.swagger.annotations.Api;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Path : /swagger-ui.html
  */
 //@formatter:off
 @Configuration
-@EnableSwagger2
 public class SwaggerConfiguration {
 
     @Bean
