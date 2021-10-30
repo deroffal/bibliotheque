@@ -1,34 +1,13 @@
 package fr.deroffal.bibliotheque.authentification.utilisateur;
 
-import static java.util.stream.Collectors.toList;
-
-import org.mapstruct.AfterMapping;
+import fr.deroffal.bibliotheque.commons.mapping.MapperConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.Collection;
-import java.util.List;
+@Mapper(config = MapperConfiguration.class, uses = { RoleMapper.class, PasswordMapper.class })
+public interface UserMapper {
 
-@Mapper(componentModel = "spring")
-public abstract class UserMapper {
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Mapping(target = "roles", ignore = true)
-    public abstract UserDto toDto(final UserEntity user);
-
-    @AfterMapping
-    static void afterEntityToDto(final UserEntity userIn, @MappingTarget final UserDto userOut) {
-        Collection<RoleEntity> roles = userIn.getRoles();
-        if (roles != null) {
-            final List<String> rolesStr = roles.stream().map(RoleEntity::getRole).collect(toList());
-            userOut.setRoles(rolesStr);
-        }
-    }
+    UserDto toDto(final UserEntity user);
 
     /**
      * Création d'en Entity pour un utilisateur.
@@ -38,12 +17,7 @@ public abstract class UserMapper {
      * @return un {@link UserEntity} initialisé pour l'insertion en base.
      */
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "password", ignore = true)
+    @Mapping(target = "password", source = "password", qualifiedByName = "encodePassword")
     @Mapping(target = "roles", ignore = true)
-    public abstract UserEntity toEntityAndEncorePassword(final UserDto user);
-
-    @AfterMapping
-    void afterDtoToEntity(final UserDto userIn, @MappingTarget final UserEntity userOut) {
-        userOut.setPassword(passwordEncoder.encode(userIn.getPassword()));
-    }
+    UserEntity toEntityAndEncorePassword(final UserDto user);
 }
