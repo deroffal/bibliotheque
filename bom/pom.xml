@@ -15,16 +15,16 @@
     <packaging>pom</packaging>
 
     <properties>
-        <mapstruct.version>1.4.1.Final</mapstruct.version>
-        <lombok.version>1.18.16</lombok.version>
+        <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <lombok.version>1.18.22</lombok.version>
 
         <jjwt.version>0.9.1</jjwt.version>
-        <java-jwt.version>3.10.2</java-jwt.version>
+        <java-jwt.version>3.18.2</java-jwt.version>
 
-        <swagger.version>2.9.2</swagger.version>
+        <swagger.version>2.10.5</swagger.version>
 
-        <openpojo.version>0.8.13</openpojo.version>
-        <dbunit.version>2.6.0</dbunit.version>
+        <openpojo.version>0.9.1</openpojo.version>
+        <dbunit.version>2.7.2</dbunit.version>
     </properties>
 
     <dependencyManagement>
