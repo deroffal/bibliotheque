@@ -9,7 +9,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>fr.deroffal</groupId>
-    <artifactId>bibliotheque.api.commons</artifactId>
+    <artifactId>bibliotheque.commons</artifactId>
     <version>2.2-SNAPSHOT</version>
     <name>commons</name>
     <packaging>jar</packaging>
