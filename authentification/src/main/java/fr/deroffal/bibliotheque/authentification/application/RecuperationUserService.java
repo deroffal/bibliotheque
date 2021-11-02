@@ -12,6 +12,6 @@ public class RecuperationUserService {
     private final UserService userService;
 
     public UserDto getByLogin(final String login) {
-        return userService.getByLogin(login).orElseThrow(() -> new UserNotFoundException(login));
+        return userService.getByUsername(login).orElseThrow(() -> new UserNotFoundException(login));
     }
 }

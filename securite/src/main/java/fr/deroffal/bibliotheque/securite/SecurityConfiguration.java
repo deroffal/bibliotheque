@@ -1,7 +1,5 @@
-package fr.deroffal.bibliotheque.authentification;
+package fr.deroffal.bibliotheque.securite;
 
-import fr.deroffal.bibliotheque.authentification.securite.JwtAuthenticationEntryPoint;
-import fr.deroffal.bibliotheque.authentification.securite.JwtRequestFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -28,10 +26,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final UserDetailsService jwtUserDetailsService;
     private final JwtRequestFilter jwtRequestFilter;
 
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 
     @Bean
     @Override
@@ -41,28 +41,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(final AuthenticationManagerBuilder auth, final PasswordEncoder passwordEncoder) throws Exception {
-        auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder);
+        auth.userDetailsService(jwtUserDetailsService)
+            .passwordEncoder(passwordEncoder);//TODO
     }
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         //@formatter:off
-        http.authorizeRequests()
-            .antMatchers("/authenticate").permitAll()
-            .antMatchers("/public/**").permitAll()
-            .antMatchers("/swagger-resources/**","/swagger-ui.html", "/v2/api-docs", "/webjars/**").permitAll()
-            .antMatchers("/dbconsole/**").permitAll()
-            .anyRequest().authenticated()
-
-            //make sure we use stateless session; session won't be used to store user's state.
-            .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
-            .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-
-            .and().csrf().disable()//
-            .headers().frameOptions().disable();//Permet l'affiche de la dbconsole
-
-        // Add a filter to validate the tokens with every request
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        http
+            .authorizeRequests()
+                .antMatchers("/authenticate").permitAll()
+                .anyRequest().authenticated()
+            .and()
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
+            .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+                .csrf().disable()//
+        ;
         //@formatter:on
     }
 }

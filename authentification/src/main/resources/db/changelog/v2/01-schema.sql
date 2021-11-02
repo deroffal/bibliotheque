@@ -22,7 +22,7 @@ create table utilisateur
     id               bigint       not null
         constraint utilisateur_pkey
             primary key,
-    login            varchar(255) not null
+    username            varchar(255) not null
         constraint uk_18vwp4resqussqmlpqnymfqxk
             unique,
     encoded_password varchar(255) not null

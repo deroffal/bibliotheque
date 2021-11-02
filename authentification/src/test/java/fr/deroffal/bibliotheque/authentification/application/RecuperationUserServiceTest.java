@@ -10,7 +10,6 @@ import fr.deroffal.bibliotheque.authentification.domain.model.UserDto;
 import fr.deroffal.bibliotheque.authentification.domain.service.UserRepositoryAdapter;
 import fr.deroffal.bibliotheque.authentification.domain.service.UserService;
 import org.assertj.core.api.Assertions;
-import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +28,10 @@ class RecuperationUserServiceTest {
     private UserRepositoryAdapter userRepositoryAdapter;
 
     @Test
-    @DisplayName("Récupération d'un utilisateur par son login")
+    @DisplayName("Récupération d'un utilisateur par son username")
     void getByLogin_avecResultat() {
         final UserDto utilisateur = new UserDto(1L, "user", "ahmlzhe", List.of("USER"));
-        when(userRepositoryAdapter.findByLogin("user")).thenReturn(Optional.of(utilisateur));
+        when(userRepositoryAdapter.findByUsername("user")).thenReturn(Optional.of(utilisateur));
 
         final UserDto user = recuperationUserService.getByLogin("user");
 
@@ -40,9 +39,9 @@ class RecuperationUserServiceTest {
     }
 
     @Test
-    @DisplayName("Récupération d'un utilisateur par son login lance une exception si absent")
+    @DisplayName("Récupération d'un utilisateur par son username lance une exception si absent")
     void getByLogin_sansResultat() {
-        when(userRepositoryAdapter.findByLogin("user")).thenReturn(Optional.empty());
+        when(userRepositoryAdapter.findByUsername("user")).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> recuperationUserService.getByLogin("user"))
             .isInstanceOf(UserNotFoundException.class)

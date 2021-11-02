@@ -6,7 +6,9 @@
     <modules>
         <module>bom</module>
         <module>commons</module>
+        <module>securite</module>
         <module>authentification</module>
+        <module>livre</module>
         <module>webapp</module>
     </modules>
 

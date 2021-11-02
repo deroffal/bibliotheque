@@ -26,8 +26,8 @@ public class UserEntity {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "login", unique = true, nullable = false)
-    private String login;
+    @Column(name = "username", unique = true, nullable = false)
+    private String username;
 
     @Column(name = "encoded_password", nullable = false)
     private String password;

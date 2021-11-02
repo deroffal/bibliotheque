@@ -6,9 +6,9 @@ import fr.deroffal.bibliotheque.authentification.domain.model.UserDto;
 
 public interface UserRepositoryAdapter {
 
-    Optional<UserDto> findByLogin(final String login);
+    Optional<UserDto> findByUsername(final String username);
 
-    boolean existsByLogin(final String login);
+    boolean existsByUsername(final String username);
 
     UserDto create(final UserDto userDto);
 }

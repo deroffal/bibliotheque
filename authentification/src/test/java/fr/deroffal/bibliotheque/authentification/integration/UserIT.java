@@ -83,7 +83,7 @@ public class UserIT extends DBTestCase {
         final UserDto actualUser = response.getBody();
 
         assertEquals(3L, actualUser.id().longValue());
-        assertEquals("user2", actualUser.login());
+        assertEquals("user2", actualUser.username());
         assertEquals("$2a$10$IvID3zGmRTLpIB/uCnjxleEmk0hUe6Gyr9oKX6UqAZkWrb6xvrmvC", actualUser.password());
 
         final Collection<String> actualUserRoles = actualUser.roles();

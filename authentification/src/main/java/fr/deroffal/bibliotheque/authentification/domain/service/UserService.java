@@ -12,12 +12,12 @@ public class UserService {
 
     private final UserRepositoryAdapter userRepositoryAdapter;
 
-    public Optional<UserDto> getByLogin(final String login) {
-        return userRepositoryAdapter.findByLogin(login);
+    public Optional<UserDto> getByUsername(final String username) {
+        return userRepositoryAdapter.findByUsername(username);
     }
 
     public boolean existsByLogin(final String login) {
-        return userRepositoryAdapter.existsByLogin(login);
+        return userRepositoryAdapter.existsByUsername(login);
     }
 
     public UserDto create(final UserDto userDto) {

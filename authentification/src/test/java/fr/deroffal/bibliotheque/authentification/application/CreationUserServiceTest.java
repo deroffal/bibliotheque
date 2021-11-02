@@ -31,7 +31,7 @@ class CreationUserServiceTest {
     void createUser_OK() {
         final UserDto demandeCreation = new UserDto(null, "admin", "azerty", List.of("ADMIN"));
 
-        when(userRepositoryAdapter.existsByLogin("admin")).thenReturn(false);
+        when(userRepositoryAdapter.existsByUsername("admin")).thenReturn(false);
 
         final UserDto utilisateurCree = new UserDto(1L, "admin", "azerty", List.of("ADMIN"));
         when(userRepositoryAdapter.create(demandeCreation)).thenReturn(utilisateurCree);
@@ -46,7 +46,7 @@ class CreationUserServiceTest {
     void createUser_KO() {
         final UserDto demandeCreation = new UserDto(null, "admin", "azerty", List.of("ADMIN"));
 
-        when(userRepositoryAdapter.existsByLogin("admin")).thenReturn(true);
+        when(userRepositoryAdapter.existsByUsername("admin")).thenReturn(true);
 
         assertThatThrownBy(() -> creationUserService.create(demandeCreation)).isInstanceOf(UserAlreadyExistsException.class).matches(e -> {
             UserAlreadyExistsException expection = (UserAlreadyExistsException) e;

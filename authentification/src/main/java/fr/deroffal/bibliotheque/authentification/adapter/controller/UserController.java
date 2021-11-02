@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Api("/user")
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/public/user")
 public class UserController {
 
     private final RecuperationUserService recuperationUserService;

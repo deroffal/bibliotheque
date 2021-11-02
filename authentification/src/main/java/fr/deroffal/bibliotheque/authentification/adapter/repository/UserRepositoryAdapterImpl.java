@@ -16,13 +16,13 @@ public class UserRepositoryAdapterImpl implements UserRepositoryAdapter {
     private final UserMapper userMapper;
 
     @Override
-    public Optional<UserDto> findByLogin(final String login) {
-        return dao.findByLogin(login).map(userMapper::toDto);
+    public Optional<UserDto> findByUsername(final String username) {
+        return dao.findByUsername(username).map(userMapper::toDto);
     }
 
     @Override
-    public boolean existsByLogin(final String login) {
-        return dao.existsByLogin(login);
+    public boolean existsByUsername(final String username) {
+        return dao.existsByUsername(username);
     }
 
     @Override

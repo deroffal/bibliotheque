@@ -28,7 +28,7 @@ class UserRepositoryAdapterImplTest {
     private TestEntityManager testEntityManager;
 
     @Test
-    @DisplayName("Récupération d'un utilisateur par son login.")
+    @DisplayName("Récupération d'un utilisateur par son username.")
     void findByLogin() {
         final RoleEntity roleAdmin = new RoleEntity();
         roleAdmin.setRole("ADMIN");
@@ -38,36 +38,36 @@ class UserRepositoryAdapterImplTest {
         testEntityManager.persist(roleUser);
 
         final UserEntity userAdmin = new UserEntity();
-        userAdmin.setLogin("admin");
+        userAdmin.setUsername("admin");
         userAdmin.setPassword("azertyuiop");
         userAdmin.setRoles(List.of(roleAdmin, roleUser));
         testEntityManager.persist(userAdmin);
 
-        final Optional<UserDto> admin = userRepositoryAdapter.findByLogin("admin");
+        final Optional<UserDto> admin = userRepositoryAdapter.findByUsername("admin");
         assertThat(admin).isNotEmpty();
         final UserDto actualUser = admin.get();
-        assertThat(actualUser.login()).isEqualTo("admin");
+        assertThat(actualUser.username()).isEqualTo("admin");
         assertThat(actualUser.password()).isEqualTo("azertyuiop");
         assertThat(actualUser.roles()).containsExactlyInAnyOrder("ADMIN", "USER");
     }
 
     @Test
-    @DisplayName("Vérification de l'existance d'un login.")
+    @DisplayName("Vérification de l'existance d'un username.")
     void existsByLogin() {
         final UserEntity userAdmin = new UserEntity();
-        userAdmin.setLogin("admin");
+        userAdmin.setUsername("admin");
         userAdmin.setPassword("azertyuiop");
 
         final UserEntity user = new UserEntity();
-        user.setLogin("user");
+        user.setUsername("user");
         user.setPassword("qsdfghjklm");
 
         testEntityManager.persist(userAdmin);
         testEntityManager.persist(user);
 
-        assertThat(userRepositoryAdapter.existsByLogin(userAdmin.getLogin())).isTrue();
-        assertThat(userRepositoryAdapter.existsByLogin(user.getLogin())).isTrue();
-        assertThat(userRepositoryAdapter.existsByLogin("un autre login")).isFalse();
+        assertThat(userRepositoryAdapter.existsByUsername(userAdmin.getUsername())).isTrue();
+        assertThat(userRepositoryAdapter.existsByUsername(user.getUsername())).isTrue();
+        assertThat(userRepositoryAdapter.existsByUsername("un autre username")).isFalse();
     }
 
     @Test
@@ -79,7 +79,7 @@ class UserRepositoryAdapterImplTest {
 
         final UserEntity userEntity = testEntityManager.find(UserEntity.class, user.id());
 
-        assertThat(userEntity.getLogin()).isEqualTo(userDto.login());
+        assertThat(userEntity.getUsername()).isEqualTo(userDto.username());
         assertThat(userEntity.getPassword()).isNotNull();
     }
 }

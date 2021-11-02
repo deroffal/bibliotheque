@@ -54,7 +54,7 @@ class UserControllerIT {
     @DisplayName("getByLogin : L'utilisateur n'existe pas.")
     void getUserByLoginRetourne404QuandLoginInconnu() throws Exception {
         final String login = "toto";
-        Mockito.doThrow(new UserNotFoundException(login)).when(userService).getByLogin(login);
+        Mockito.doThrow(new UserNotFoundException(login)).when(userService).getByUsername(login);
 
         mockMvc.perform(
             get("/user/" + login).header("Authorization", generateHeader())
@@ -68,14 +68,14 @@ class UserControllerIT {
     void getUserByLoginRetourne200EtUserQuandLoginConnu() throws Exception {
         final String login = "toto";
         final UserDto expectedUser = new UserDto(35L, login, "clm#^`|'!(,;''rt321201'", null);
-        when(userService.getByLogin(login)).thenReturn(Optional.of(expectedUser));
+        when(userService.getByUsername(login)).thenReturn(Optional.of(expectedUser));
 
         mockMvc.perform(
                 get("/user/" + login).header("Authorization", generateHeader())
         )
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.id", is(expectedUser.id().intValue())))
-            .andExpect(jsonPath("$.login", is(expectedUser.login())))
+            .andExpect(jsonPath("$.login", is(expectedUser.username())))
             .andExpect(jsonPath("$.password", is(expectedUser.password()))
             );
     }
@@ -84,7 +84,7 @@ class UserControllerIT {
     @DisplayName("getByLogin : Erreur interne.")
     void getUserByLoginRetourne500QuandErreurInterne() throws Exception {
         final String login = "toto";
-        doThrow(new NullPointerException("Ça a pété quelque part!")).when(userService).getByLogin(login);
+        doThrow(new NullPointerException("Ça a pété quelque part!")).when(userService).getByUsername(login);
 
         final MvcResult mvcResult = mockMvc.perform(
                 get("/user/" + login).accept(APPLICATION_JSON).header("Authorization", generateHeader())
@@ -104,7 +104,7 @@ class UserControllerIT {
         final String login = "toto";
         final UserDto userToCreate = new UserDto(null, login, null, null);
 
-        Mockito.doThrow(new UserAlreadyExistsException("login")).when(userService).create(any());
+        Mockito.doThrow(new UserAlreadyExistsException("username")).when(userService).create(any());
 
         final String userJson = objectMapper.writeValueAsString(userToCreate);
 
@@ -121,7 +121,7 @@ class UserControllerIT {
     @DisplayName("create : L'utilisateur n'existe pas encore.")
     void createUserRetourne201QuandCreation() throws Exception {
         final String login = "toto";
-        when(userService.getByLogin(login)).thenReturn(null);
+        when(userService.getByUsername(login)).thenReturn(null);
 
         final UserDto userToCreate = new UserDto(null, login, null, null);
         final String userJson = objectMapper.writeValueAsString(userToCreate);
@@ -134,12 +134,12 @@ class UserControllerIT {
         )
             .andExpect(status().isCreated())
             .andExpect(jsonPath("$.id", is(newUser.id().intValue())))
-            .andExpect(jsonPath("$.login", is(newUser.login())))
+            .andExpect(jsonPath("$.username", is(newUser.username())))
             .andReturn();
     }
 
     private static ArgumentMatcher<UserDto> sameLoginThan(final UserDto newUser) {
-        return userDto -> userDto.login().equals(newUser.login());
+        return userDto -> userDto.username().equals(newUser.username());
     }
 
     //Génère un header pour admin/admin
