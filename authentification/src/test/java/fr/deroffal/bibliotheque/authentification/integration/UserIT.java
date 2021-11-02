@@ -9,8 +9,6 @@ import static org.dbunit.PropertiesBasedJdbcDatabaseTester.DBUNIT_USERNAME;
 import java.util.Collection;
 import java.util.Map;
 
-import fr.deroffal.bibliotheque.authentification.securite.JwtTokenService;
-import fr.deroffal.bibliotheque.authentification.securite.details.JwtUserDetails;
 import fr.deroffal.bibliotheque.authentification.domain.model.UserDto;
 import org.dbunit.DBTestCase;
 import org.dbunit.dataset.IDataSet;
@@ -39,9 +37,6 @@ public class UserIT extends DBTestCase {
 
     @Autowired
     private TestRestTemplate restTemplate;
-
-    @Autowired
-    private JwtTokenService jwtTokenService;
 
     public UserIT() {
         super();
@@ -110,9 +105,6 @@ public class UserIT extends DBTestCase {
     //Génère un header pour admin/admin
     private HttpEntity<Object> getObjectHttpEntity() {
         final HttpHeaders headers = new HttpHeaders();
-        final JwtUserDetails userDetails = new JwtUserDetails("admin", "$2a$10$3AoDzKHV.ExSwFXq8SPjK.3qSozxVVngcB0Xd4iAQcVlvz4yBgh1e");
-        final String token = jwtTokenService.generateToken(userDetails);
-        headers.setBearerAuth(token);
         return new HttpEntity<>(headers);
     }
 }

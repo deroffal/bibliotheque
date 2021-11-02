@@ -20,8 +20,6 @@ import fr.deroffal.bibliotheque.authentification.application.UserAlreadyExistsEx
 import fr.deroffal.bibliotheque.authentification.application.UserNotFoundException;
 import fr.deroffal.bibliotheque.authentification.domain.model.UserDto;
 import fr.deroffal.bibliotheque.authentification.domain.service.UserService;
-import fr.deroffal.bibliotheque.authentification.securite.JwtTokenService;
-import fr.deroffal.bibliotheque.authentification.securite.details.JwtUserDetails;
 import fr.deroffal.bibliotheque.commons.exception.ExceptionMessage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -45,9 +43,6 @@ class UserControllerIT {
     private UserService userService;
 
     @Autowired
-    private JwtTokenService jwtTokenService;
-
-    @Autowired
     private ObjectMapper objectMapper;
 
     @Test
@@ -57,7 +52,7 @@ class UserControllerIT {
         Mockito.doThrow(new UserNotFoundException(login)).when(userService).getByUsername(login);
 
         mockMvc.perform(
-            get("/user/" + login).header("Authorization", generateHeader())
+            get("/user/" + login)
         ).andExpect(
             status().isNotFound()
         );
@@ -71,7 +66,7 @@ class UserControllerIT {
         when(userService.getByUsername(login)).thenReturn(Optional.of(expectedUser));
 
         mockMvc.perform(
-                get("/user/" + login).header("Authorization", generateHeader())
+                get("/user/" + login)
         )
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.id", is(expectedUser.id().intValue())))
@@ -87,7 +82,7 @@ class UserControllerIT {
         doThrow(new NullPointerException("Ça a pété quelque part!")).when(userService).getByUsername(login);
 
         final MvcResult mvcResult = mockMvc.perform(
-                get("/user/" + login).accept(APPLICATION_JSON).header("Authorization", generateHeader())
+                get("/user/" + login).accept(APPLICATION_JSON)
         )
             .andExpect(status().isInternalServerError())
             .andReturn();
@@ -109,7 +104,7 @@ class UserControllerIT {
         final String userJson = objectMapper.writeValueAsString(userToCreate);
 
         final MvcResult mvcResult = mockMvc.perform(
-                post("/user/").content(userJson).contentType(APPLICATION_JSON).header("Authorization", generateHeader())
+                post("/user/").content(userJson).contentType(APPLICATION_JSON)
         )
                 .andExpect(status().isConflict())
                 .andReturn();
@@ -130,7 +125,7 @@ class UserControllerIT {
         when(userService.create(argThat(sameLoginThan(newUser)))).thenReturn(newUser);
 
         mockMvc.perform(
-                post("/user/").content(userJson).contentType(APPLICATION_JSON).header("Authorization", generateHeader())
+                post("/user/").content(userJson).contentType(APPLICATION_JSON)
         )
             .andExpect(status().isCreated())
             .andExpect(jsonPath("$.id", is(newUser.id().intValue())))
@@ -140,11 +135,6 @@ class UserControllerIT {
 
     private static ArgumentMatcher<UserDto> sameLoginThan(final UserDto newUser) {
         return userDto -> userDto.username().equals(newUser.username());
-    }
-
-    //Génère un header pour admin/admin
-    private String generateHeader() {
-        return "Bearer " + jwtTokenService.generateToken(new JwtUserDetails("admin", "$2a$10$3AoDzKHV.ExSwFXq8SPjK.3qSozxVVngcB0Xd4iAQcVlvz4yBgh1e"));
     }
 
 }

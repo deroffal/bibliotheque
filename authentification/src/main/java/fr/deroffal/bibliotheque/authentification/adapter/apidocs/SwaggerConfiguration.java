@@ -1,4 +1,4 @@
-package fr.deroffal.bibliotheque.authentification;
+package fr.deroffal.bibliotheque.authentification.adapter.apidocs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
