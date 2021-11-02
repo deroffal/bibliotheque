@@ -18,6 +18,9 @@
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <lombok.version>1.18.22</lombok.version>
 
+        <postgresql.version>42.3.1</postgresql.version>
+        <liquibase.version>3.4.1</liquibase.version>
+
         <jjwt.version>0.9.1</jjwt.version>
         <java-jwt.version>3.18.2</java-jwt.version>
 
@@ -44,6 +47,17 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-core</artifactId>
+                <version>${liquibase.version}</version>
             </dependency>
 
             <dependency>

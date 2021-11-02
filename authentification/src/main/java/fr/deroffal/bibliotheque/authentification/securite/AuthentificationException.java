@@ -9,8 +9,6 @@ import org.springframework.http.HttpStatus;
 @Getter
 public class AuthentificationException extends BibliothequeRestException {
 
-    private static final long serialVersionUID = 3501259216479125381L;
-
     private final String messageClient;
 
     public AuthentificationException(final String messageClient, final Exception e) {

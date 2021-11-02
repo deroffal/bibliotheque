@@ -28,7 +28,7 @@ public class AuthentificationService {
                     HashMap.class,
                     () -> { throw new UsernameNotFoundException("Impossible de se connecter !"); }
             );
-            Tokens.AUTHENTIFICATION.setToken( post.get("token"));
+            Tokens.AUTHENTIFICATION.setToken( post.get("jwttoken"));
         }
         return Tokens.AUTHENTIFICATION.getToken();
     }

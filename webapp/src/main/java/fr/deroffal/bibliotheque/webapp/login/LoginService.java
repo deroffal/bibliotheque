@@ -25,18 +25,19 @@ public class LoginService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(final String username) {
         final String url = authentificationUrl + "/user/" + username;
+        final String token = authentificationService.authentification();
         final UserResponse response = httpService.get(
                 url,
-                Map.of("Authorization", "Bearer " + authentificationService.authentification()),
+                Map.of("Authorization", "Bearer " + token),
                 UserResponse.class,
                 () -> {
                     throw new UsernameNotFoundException("Inconnu!");
                 }
         );
         return User
-                .withUsername(response.getLogin())
-                .password(response.getPassword())
-                .roles(response.getRoles())
+                .withUsername(response.login())
+                .password(response.password())
+                .roles(response.roles())
                 .build();
     }
 }
