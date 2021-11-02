@@ -24,7 +24,8 @@
         <jjwt.version>0.9.1</jjwt.version>
         <java-jwt.version>3.18.2</java-jwt.version>
 
-        <swagger.version>2.10.5</swagger.version>
+        <swagger.version>3.0.0</swagger.version>
+        <swagger-ui.version>2.9.2</swagger-ui.version>
 
         <openpojo.version>0.9.1</openpojo.version>
         <dbunit.version>2.7.2</dbunit.version>
@@ -78,8 +79,13 @@
             </dependency>
             <dependency>
                 <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger-ui</artifactId>
+                <artifactId>springfox-boot-starter</artifactId>
                 <version>${swagger.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger-ui.version}</version>
             </dependency>
 
             <dependency>

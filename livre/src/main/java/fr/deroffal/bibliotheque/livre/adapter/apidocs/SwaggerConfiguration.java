@@ -1,4 +1,4 @@
-package fr.deroffal.bibliotheque.authentification;
+package fr.deroffal.bibliotheque.livre.adapter.apidocs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,10 +7,6 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
-/**
- * Path : /swagger-ui.html
- */
-//@formatter:off
 @Configuration
 public class SwaggerConfiguration {
 
@@ -22,5 +18,4 @@ public class SwaggerConfiguration {
             .paths(PathSelectors.any())
             .build();
     }
-
 }
