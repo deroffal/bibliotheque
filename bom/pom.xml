@@ -157,7 +157,7 @@
         <repository>
             <id>github</id>
             <name>github repo</name>
-            <url>https://maven.pkg.github.com/deroffal/bibliotheque/bom</url>
+            <url>https://maven.pkg.github.com/deroffal/bibliotheque</url>
         </repository>
     </distributionManagement>
 </project>
