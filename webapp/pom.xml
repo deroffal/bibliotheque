@@ -9,7 +9,7 @@
 
     <groupId>fr.deroffal</groupId>
     <artifactId>bibliotheque.webapp</artifactId>
-    <version>2.3</version>
+    <version>2.4-SNAPSHOT</version>
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
@@ -22,7 +22,7 @@
             <dependency>
                 <groupId>fr.deroffal</groupId>
                 <artifactId>bibliotheque.bom</artifactId>
-                <version>2.3</version>
+                <version>2.4-SNAPSHOT</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -121,9 +121,4 @@
             <url>https://maven.pkg.github.com/deroffal/bibliotheque/webapp</url>
         </repository>
     </distributionManagement>
-
-
-  <scm>
-    <tag>bibliotheque-2.3</tag>
-  </scm>
 </project>
