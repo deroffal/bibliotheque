@@ -9,13 +9,13 @@
 
     <groupId>fr.deroffal.bibliotheque</groupId>
     <artifactId>webapp</artifactId>
-    <version>3.0</version>
+    <version>3.1-SNAPSHOT</version>
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
-        <bibliotheque.version>3.0</bibliotheque.version>
+        <bibliotheque.version>3.1-SNAPSHOT</bibliotheque.version>
     </properties>
 
     <dependencyManagement>
@@ -122,8 +122,4 @@
             <url>https://maven.pkg.github.com/deroffal/bibliotheque</url>
         </repository>
     </distributionManagement>
-
-  <scm>
-    <tag>parent-3.0</tag>
-  </scm>
 </project>
