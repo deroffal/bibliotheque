@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>fr.deroffal</groupId>
-        <artifactId>bibliotheque</artifactId>
+        <groupId>fr.deroffal.bibliotheque</groupId>
+        <artifactId>parent</artifactId>
         <version>2.4-SNAPSHOT</version>
     </parent>
 
-    <artifactId>bibliotheque.bom</artifactId>
+    <artifactId>bom</artifactId>
     <version>2.4-SNAPSHOT</version>
     <packaging>pom</packaging>
 

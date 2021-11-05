@@ -9,8 +9,8 @@
         <relativePath />
     </parent>
 
-    <groupId>fr.deroffal</groupId>
-    <artifactId>bibliotheque.livre</artifactId>
+    <groupId>fr.deroffal.bibliotheque</groupId>
+    <artifactId>livre</artifactId>
     <version>2.4-SNAPSHOT</version>
 
     <properties>

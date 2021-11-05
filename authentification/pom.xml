@@ -9,8 +9,8 @@
         <relativePath />
     </parent>
 
-    <groupId>fr.deroffal</groupId>
-    <artifactId>bibliotheque.authentification</artifactId>
+    <groupId>fr.deroffal.bibliotheque</groupId>
+    <artifactId>authentification</artifactId>
     <version>2.4-SNAPSHOT</version>
 
     <properties>

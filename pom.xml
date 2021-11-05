@@ -11,8 +11,8 @@
         <module>webapp</module>
     </modules>
 
-    <groupId>fr.deroffal</groupId>
-    <artifactId>bibliotheque</artifactId>
+    <groupId>fr.deroffal.bibliotheque</groupId>
+    <artifactId>parent</artifactId>
     <version>2.4-SNAPSHOT</version>
     <description>Un bibliotheque web</description>
     <packaging>pom</packaging>
