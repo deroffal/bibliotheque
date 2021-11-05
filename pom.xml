@@ -19,7 +19,7 @@
     <packaging>pom</packaging>
 
     <scm>
-        <developerConnection>scm:git:git@github.com:deroffal/bibliotheque.git</developerConnection>
+        <developerConnection>scm:git:https://github.com/deroffal/bibliotheque.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
