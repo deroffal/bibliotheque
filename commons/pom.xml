@@ -10,13 +10,13 @@
 
     <groupId>fr.deroffal.bibliotheque</groupId>
     <artifactId>commons</artifactId>
-    <version>2.4-SNAPSHOT</version>
+    <version>2.4</version>
     <packaging>jar</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
-        <bibliotheque.version>2.4-SNAPSHOT</bibliotheque.version>
+        <bibliotheque.version>2.4</bibliotheque.version>
     </properties>
 
     <dependencyManagement>
@@ -89,4 +89,8 @@
             <url>https://maven.pkg.github.com/deroffal/bibliotheque</url>
         </repository>
     </distributionManagement>
+
+  <scm>
+    <tag>parent-2.4</tag>
+  </scm>
 </project>

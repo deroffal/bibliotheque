@@ -5,15 +5,15 @@
     <parent>
         <groupId>fr.deroffal.bibliotheque</groupId>
         <artifactId>parent</artifactId>
-        <version>2.4-SNAPSHOT</version>
+        <version>2.4</version>
     </parent>
 
     <artifactId>bom</artifactId>
-    <version>2.4-SNAPSHOT</version>
+    <version>2.4</version>
     <packaging>pom</packaging>
 
     <properties>
-        <bibliotheque.version>2.4-SNAPSHOT</bibliotheque.version>
+        <bibliotheque.version>2.4</bibliotheque.version>
 
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <lombok.version>1.18.22</lombok.version>
