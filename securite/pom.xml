@@ -18,14 +18,15 @@
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <bibliotheque.version>2.4-SNAPSHOT</bibliotheque.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>fr.deroffal</groupId>
-                <artifactId>bibliotheque.bom</artifactId>
-                <version>2.4-SNAPSHOT</version>
+                <groupId>fr.deroffal.bibliotheque</groupId>
+                <artifactId>bom</artifactId>
+                <version>${bibliotheque.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

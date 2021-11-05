@@ -16,14 +16,15 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
+        <bibliotheque.version>2.4-SNAPSHOT</bibliotheque.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>fr.deroffal</groupId>
-                <artifactId>bibliotheque.bom</artifactId>
-                <version>2.4-SNAPSHOT</version>
+                <groupId>fr.deroffal.bibliotheque</groupId>
+                <artifactId>bom</artifactId>
+                <version>${bibliotheque.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

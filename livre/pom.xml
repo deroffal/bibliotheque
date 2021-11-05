@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.5.6</version>
-        <relativePath />
+        <relativePath/>
     </parent>
 
     <groupId>fr.deroffal.bibliotheque</groupId>
@@ -16,14 +17,15 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
+        <bibliotheque.version>2.4-SNAPSHOT</bibliotheque.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>fr.deroffal</groupId>
-                <artifactId>bibliotheque.bom</artifactId>
-                <version>2.4-SNAPSHOT</version>
+                <groupId>fr.deroffal.bibliotheque</groupId>
+                <artifactId>bom</artifactId>
+                <version>${bibliotheque.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -32,9 +34,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>fr.deroffal</groupId>
-            <artifactId>bibliotheque.commons</artifactId>
-            <version>2.4-SNAPSHOT</version>
+            <groupId>fr.deroffal.bibliotheque</groupId>
+            <artifactId>commons</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>fr.deroffal.bibliotheque</groupId>
+            <artifactId>securite</artifactId>
         </dependency>
 
         <dependency>
@@ -53,12 +58,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>fr.deroffal</groupId>
-            <artifactId>bibliotheque.securite</artifactId>
-            <version>2.4-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -84,7 +83,7 @@
             <artifactId>springfox-swagger2</artifactId>
             <scope>compile</scope>
         </dependency>
-       <dependency>
+        <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
             <scope>compile</scope>

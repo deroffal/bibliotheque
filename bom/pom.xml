@@ -13,6 +13,8 @@
     <packaging>pom</packaging>
 
     <properties>
+        <bibliotheque.version>2.4-SNAPSHOT</bibliotheque.version>
+
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <lombok.version>1.18.22</lombok.version>
 
@@ -36,6 +38,25 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>fr.deroffal.bibliotheque</groupId>
+                <artifactId>commons</artifactId>
+                <version>${bibliotheque.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.deroffal.bibliotheque</groupId>
+                <artifactId>securite</artifactId>
+                <version>${bibliotheque.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
@@ -62,14 +83,6 @@
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-core</artifactId>
                 <version>${liquibase.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud-dependencies.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
             </dependency>
 
             <dependency>
