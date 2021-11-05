@@ -40,11 +40,12 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Build & Analyze
+      #FIXME pas de coverage ?
+      - name: Build and Analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B -U -P coverage clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+        run: mvn -B -U -P coverage clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=bibliothequer
 
       - name: Release & Publish
         run: mvn -B --settings settings.xml -Darguments=-DskipTests release:clean release:prepare release:perform
