@@ -50,6 +50,3 @@ jobs:
         run: mvn -B --settings settings.xml -Darguments=-DskipTests release:clean release:prepare release:perform
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Checkout tag
-        run: git checkout $(git describe --abbrev=0 --tags)

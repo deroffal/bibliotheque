@@ -1,0 +1,14 @@
+= Sommaire
+
+== link:authentification/README.adoc[Authentification]
+
+* Tests
+
+** Tests d'un RestController avec `MockMvc`
+** Tests d'intégration avec `DbUnit`
+** Tests unitaires sur un ensemble de beans Spring avec `@ContextConfiguration`
+** Pojo testing avec `openpojo`
+
+== link:securite/README.adoc[Sécurité]
+
+* link:securite/README.adoc[Sécurisation simplifiée d'une API avec un token JWT]

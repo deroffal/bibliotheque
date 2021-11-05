@@ -1,0 +1,3 @@
+= Bibliotheque - Authentification
+
+Une API qui expose un service pour créer ou récupérer un utilisateur.
