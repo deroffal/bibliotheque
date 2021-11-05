@@ -32,6 +32,7 @@
 
         <openpojo.version>0.9.1</openpojo.version>
         <dbunit.version>2.7.2</dbunit.version>
+        <archunit.version>0.22.0</archunit.version>
     </properties>
 
     <dependencyManagement>
@@ -100,15 +101,15 @@
             </dependency>
 
             <dependency>
-                <groupId>com.openpojo</groupId>
-                <artifactId>openpojo</artifactId>
-                <version>${openpojo.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>io.vavr</groupId>
                 <artifactId>vavr</artifactId>
                 <version>${vavr.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.openpojo</groupId>
+                <artifactId>openpojo</artifactId>
+                <version>${openpojo.version}</version>
             </dependency>
 
             <dependency>
@@ -117,6 +118,12 @@
                 <version>${dbunit.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.tngtech.archunit</groupId>
+                <artifactId>archunit-junit5</artifactId>
+                <version>${archunit.version}</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
