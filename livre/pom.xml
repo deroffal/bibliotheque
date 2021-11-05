@@ -125,4 +125,12 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>github repo</name>
+            <url>https://maven.pkg.github.com/deroffal/bibliotheque/livre</url>
+        </repository>
+    </distributionManagement>
 </project>

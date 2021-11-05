@@ -153,4 +153,11 @@
         </pluginManagement>
     </build>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>github repo</name>
+            <url>https://maven.pkg.github.com/deroffal/bibliotheque/bom</url>
+        </repository>
+    </distributionManagement>
 </project>

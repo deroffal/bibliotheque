@@ -80,4 +80,12 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>github repo</name>
+            <url>https://maven.pkg.github.com/deroffal/bibliotheque/commons</url>
+        </repository>
+    </distributionManagement>
 </project>

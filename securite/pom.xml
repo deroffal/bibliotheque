@@ -56,4 +56,13 @@
             <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>github repo</name>
+            <url>https://maven.pkg.github.com/deroffal/bibliotheque/securite</url>
+        </repository>
+    </distributionManagement>
+
 </project>
