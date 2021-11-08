@@ -1,21 +1,17 @@
 package fr.deroffal.bibliotheque.authentification.application;
 
-import fr.deroffal.bibliotheque.authentification.application.UserNotFoundException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
-
 class UserNotFoundExceptionTest {
 
-	@Test
-	@DisplayName("L'exception retourne le message et le code HTTP 404.")
-	void messageEtHttpStatus() {
-		UserNotFoundException e = new UserNotFoundException("identifiant");
+    @Test
+    @DisplayName("L'exception possède le nom de l'utilisateur")
+    void messageEtHttpStatus() {
+        final UserNotFoundException e = new UserNotFoundException("identifiant");
 
-		assertEquals(NOT_FOUND, e.getHttpStatus());
-		assertEquals("Utilisateur non-existant : identifiant", e.getMessageClient());
-	}
-
+        assertEquals("identifiant", e.getLogin());
+    }
 }

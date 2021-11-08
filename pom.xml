@@ -13,6 +13,7 @@
 
     <groupId>fr.deroffal.bibliotheque</groupId>
     <artifactId>parent</artifactId>
+    <name>bibliotheque-parent</name>
     <version>3.1-SNAPSHOT</version>
     <description>Une bibliotheque web</description>
     <packaging>pom</packaging>
@@ -31,7 +32,6 @@
         <sonar.organization>deroffal-github</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.moduleKey>${project.groupId}:${project.artifactId}</sonar.moduleKey>
-
 
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>

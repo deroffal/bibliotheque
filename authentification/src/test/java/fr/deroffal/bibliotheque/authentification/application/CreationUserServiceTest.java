@@ -48,9 +48,11 @@ class CreationUserServiceTest {
 
         when(userRepositoryAdapter.existsByUsername("admin")).thenReturn(true);
 
-        assertThatThrownBy(() -> creationUserService.create(demandeCreation)).isInstanceOf(UserAlreadyExistsException.class).matches(e -> {
+        assertThatThrownBy(() -> creationUserService.create(demandeCreation))
+            .isInstanceOf(UserAlreadyExistsException.class)
+            .matches(e -> {
             UserAlreadyExistsException expection = (UserAlreadyExistsException) e;
-            return expection.getMessageClient().equals("Utilisateur admin existe déjà!");
+            return expection.getLogin().equals("admin");
         });
     }
 }
