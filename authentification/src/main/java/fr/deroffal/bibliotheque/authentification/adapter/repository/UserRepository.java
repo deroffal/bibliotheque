@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-interface UserDao extends CrudRepository<UserEntity, Long> {
+interface UserRepository extends CrudRepository<UserEntity, Long> {
 
     @EntityGraph(attributePaths = "roles")
     Optional<UserEntity> findByUsername(final String login);

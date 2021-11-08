@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserRepositoryAdapterImpl implements UserRepositoryAdapter {
 
-    private final UserDao dao;
+    private final UserRepository dao;
     private final UserMapper userMapper;
 
     @Override
