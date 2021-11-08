@@ -26,13 +26,15 @@ public class UserControllerAdvice {
     @ExceptionHandler(value = UserAlreadyExistsException.class)
     @ResponseStatus(value = CONFLICT)
     public String userAlreadyExistsExceptionHandler(final UserAlreadyExistsException e, final WebRequest request) {
-        return traiterMessage(request, e);
+        log.error("Erreur lors de l'appel du service {} avec les paramètres {}", recupererUri(request), recupererParametres(request), e);
+        return String.format("Utilisateur %s déjà existant.", e.getLogin());
     }
 
     @ExceptionHandler(value = UserNotFoundException.class)
     @ResponseStatus(value = NOT_FOUND)
-    public String accessDeniedExceptionHandler(final UserNotFoundException e, final WebRequest request) {
-        return traiterMessage(request, e);
+    public String userNotFoundExceptionHandler(final UserNotFoundException e, final WebRequest request) {
+        log.error("Erreur lors de l'appel du service {} avec les paramètres {}", recupererUri(request), recupererParametres(request), e);
+        return String.format("Utilisateur %s inconnu.", e.getLogin());
     }
 
     private static String recupererParametres(final WebRequest request) {

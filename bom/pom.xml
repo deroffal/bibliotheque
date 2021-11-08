@@ -34,6 +34,7 @@
         <openpojo.version>0.9.1</openpojo.version>
         <dbunit.version>2.7.2</dbunit.version>
         <archunit.version>0.22.0</archunit.version>
+        <testcontainers.version>1.16.2</testcontainers.version>
     </properties>
 
     <dependencyManagement>
@@ -42,6 +43,13 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers-bom</artifactId>
+                <version>${testcontainers.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
