@@ -4,7 +4,7 @@
 
 * Tests
 
-** Tests d'un RestController avec `MockMvc`
+** Tests d'un RestController avec `WebMvcTest`
 ** Tests d'intégration avec `DbUnit`
 ** Tests unitaires sur un ensemble de beans Spring avec `@ContextConfiguration`
 ** Pojo testing avec `openpojo`

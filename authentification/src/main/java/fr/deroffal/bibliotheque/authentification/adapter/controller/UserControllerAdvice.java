@@ -1,9 +1,11 @@
 package fr.deroffal.bibliotheque.authentification.adapter.controller;
 
 import static java.util.stream.Collectors.joining;
+import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
+import fr.deroffal.bibliotheque.authentification.application.UserAlreadyExistsException;
 import fr.deroffal.bibliotheque.authentification.application.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,6 +20,12 @@ public class UserControllerAdvice {
     @ExceptionHandler(value = Exception.class)
     @ResponseStatus(value = INTERNAL_SERVER_ERROR)
     public String exceptionHandler(final Exception e, final WebRequest request) {
+        return traiterMessage(request, e);
+    }
+
+    @ExceptionHandler(value = UserAlreadyExistsException.class)
+    @ResponseStatus(value = CONFLICT)
+    public String userAlreadyExistsExceptionHandler(final UserAlreadyExistsException e, final WebRequest request) {
         return traiterMessage(request, e);
     }
 
