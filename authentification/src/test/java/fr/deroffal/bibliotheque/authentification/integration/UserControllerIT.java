@@ -1,9 +1,10 @@
 package fr.deroffal.bibliotheque.authentification.integration;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
+import static org.springframework.test.context.jdbc.SqlMergeMode.MergeMode.MERGE;
 
 import fr.deroffal.bibliotheque.authentification.domain.model.UserDto;
 import org.junit.jupiter.api.DisplayName;
@@ -15,9 +16,12 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlMergeMode;
 
+@SqlMergeMode(MERGE)
+@Sql("/integration/clean.sql")
 @TestPropertySource(locations = "classpath:application-test.properties")
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = RANDOM_PORT)
 class UserControllerIT {
 
     @LocalServerPort
@@ -26,8 +30,7 @@ class UserControllerIT {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    @Sql(executionPhase = BEFORE_TEST_METHOD, scripts = { "/integration/clean.sql",
-        "/integration/UserControllerIT/rechercherUtilisateurLoginConnu.sql" })
+    @Sql("/integration/UserControllerIT/rechercherUtilisateurLoginConnu.sql")
     @Test
     @DisplayName("Recherche d'un utilisateur : l'utilisateur est connu.")
     void rechercherUtilisateurLoginConnu() {
@@ -44,8 +47,7 @@ class UserControllerIT {
         assertThat(user.password()).isEqualTo("$2a$10$IvID3zGmRTLpIB/uCnjxleEmk0hUe6Gyr9oKX6UqAZkWrb6xvrmvC");
     }
 
-    @Sql(executionPhase = BEFORE_TEST_METHOD, scripts = { "/integration/clean.sql",
-        "/integration/UserControllerIT/rechercherUtilisateurLoginInconnu.sql" })
+    @Sql("/integration/UserControllerIT/rechercherUtilisateurLoginInconnu.sql")
     @Test
     @DisplayName("Recherche d'un utilisateur : l'utilisateur est inconnu.")
     void rechercherUtilisateurLoginInconnu() {
