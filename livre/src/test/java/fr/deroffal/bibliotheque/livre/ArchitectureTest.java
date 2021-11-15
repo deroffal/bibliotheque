@@ -22,13 +22,24 @@ class ArchitectureTest {
             .whereLayer("swagger").mayOnlyBeAccessedByLayers("apiDocsAdapter");
 
     @ArchTest
-    static final ArchRule securitiesDependencies_shouldResideIn_authentificationAdapter = layeredArchitecture()
+    static final ArchRule securitiesAuthDependencies_shouldResideIn_authentificationControllerAdapter = layeredArchitecture()
             .layer("springSecurity").definedBy( "org.springframework.security..")
-            .layer("bibliothequeSecuriteApi").definedBy( "fr.deroffal.bibliotheque.securite..")
-            .layer("authentificationController").definedBy( APP_ADAPTERS_BASE_PACKAGE+".controller")
-            .layer("authentificationAdapter").definedBy(APP_ADAPTERS_BASE_PACKAGE+".authentification")
-        .whereLayer("springSecurity").mayOnlyBeAccessedByLayers("authentificationAdapter", "bibliothequeSecuriteApi")
-        .whereLayer("bibliothequeSecuriteApi").mayOnlyBeAccessedByLayers("authentificationAdapter", "authentificationController");
+            .layer("bibliothequeAuthSecurityApi").definedBy( "fr.deroffal.bibliotheque.securite.auth..")
+            .layer("authentificationController").definedBy( APP_ADAPTERS_BASE_PACKAGE+".controller.authentification")
+        .whereLayer("bibliothequeAuthSecurityApi").mayOnlyBeAccessedByLayers( "authentificationController");
+
+    @ArchTest
+    static final ArchRule springSecurityDependencies_shouldResideIn_authentificationAdapter = layeredArchitecture()
+        .layer("springSecurity").definedBy( "org.springframework.security..")
+        .layer("bibliothequeSecuriteApi").definedBy( "fr.deroffal.bibliotheque.securite..")
+        .layer("authentificationAdapter").definedBy(APP_ADAPTERS_BASE_PACKAGE+".authentification")
+        .whereLayer("springSecurity").mayOnlyBeAccessedByLayers("authentificationAdapter", "bibliothequeSecuriteApi");
+
+    @ArchTest
+    static final ArchRule bibliothequeSecurityDetailsDependencies_shouldResideIn_authentificationAdapter = layeredArchitecture()
+        .layer("bibliothequeDetailsSecurityApi").definedBy( "fr.deroffal.bibliotheque.securite.details..")
+        .layer("authentificationAdapter").definedBy(APP_ADAPTERS_BASE_PACKAGE+".authentification")
+            .whereLayer("bibliothequeDetailsSecurityApi").mayOnlyBeAccessedByLayers("authentificationAdapter");
 
     @ArchTest
     static final ArchRule enforceHexagonalArchitechture = ArchRuleDefinition.classes().that().resideInAPackage(APP_DOMAIN_BASE_PACKAGE+"..")
@@ -36,7 +47,8 @@ class ArchitectureTest {
             APP_DOMAIN_BASE_PACKAGE+"..",
         "java.util..",
         "java.time..",
-        "java.lang.."
+        "java.lang..",
+        "kotlin.jvm.."
     );
     //@formatter:on
 }

@@ -1,8 +1,6 @@
-package fr.deroffal.bibliotheque.livre.adapter.controller
+package fr.deroffal.bibliotheque.livre.adapter.controller.authentification
 
 import fr.deroffal.bibliotheque.securite.auth.AuthentificationService
-import fr.deroffal.bibliotheque.securite.auth.JwtRequest
-import fr.deroffal.bibliotheque.securite.auth.JwtResponse
 import lombok.RequiredArgsConstructor
 import org.springframework.http.HttpStatus.OK
 import org.springframework.web.bind.annotation.*
@@ -14,7 +12,11 @@ class AuthentificationController(private val authentificationService: Authentifi
 
     @PostMapping("/authenticate")
     @ResponseStatus(OK)
-    fun authenticate(@RequestBody authenticationRequest: JwtRequest): JwtResponse {
-        return authentificationService.authenticate(authenticationRequest)
+    fun authenticate(@RequestBody request: JwtRequest): JwtResponse {
+        val token = authentificationService.authenticate(request.username, request.password)
+        return JwtResponse(token)
     }
 }
+
+data class JwtRequest(val username: String, val password: String)
+data class JwtResponse(val jwtToken: String)
