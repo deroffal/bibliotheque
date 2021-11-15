@@ -11,7 +11,7 @@
 
     <groupId>fr.deroffal.bibliotheque</groupId>
     <artifactId>securite</artifactId>
-    <version>3.1</version>
+    <version>3.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -20,7 +20,7 @@
 
         <gmavenplus-plugin.version>1.13.0</gmavenplus-plugin.version>
 
-        <bibliotheque.version>3.1</bibliotheque.version>
+        <bibliotheque.version>3.2-SNAPSHOT</bibliotheque.version>
     </properties>
 
     <dependencyManagement>
@@ -98,8 +98,4 @@
             <url>https://maven.pkg.github.com/deroffal/bibliotheque</url>
         </repository>
     </distributionManagement>
-
-  <scm>
-    <tag>parent-3.1</tag>
-  </scm>
 </project>
