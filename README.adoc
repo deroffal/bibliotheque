@@ -1,3 +1,3 @@
 = Bibliotheque
 
-TechLab Java, Spring Boot & Testing
+TechLab Java/Groovy/Kotlin, Spring Boot & Testing
