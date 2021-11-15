@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.5.6</version>
-        <relativePath/>
+        <relativePath />
     </parent>
 
     <groupId>fr.deroffal.bibliotheque</groupId>
     <artifactId>reservation</artifactId>
-    <version>3.1-SNAPSHOT</version>
+    <version>3.1</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
-        <bibliotheque.version>3.1-SNAPSHOT</bibliotheque.version>
+        <bibliotheque.version>3.1</bibliotheque.version>
     </properties>
 
     <dependencyManagement>
@@ -52,4 +51,8 @@
         </repository>
     </distributionManagement>
 
+
+  <scm>
+    <tag>parent-3.1</tag>
+  </scm>
 </project>

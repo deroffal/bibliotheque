@@ -15,13 +15,13 @@
     <groupId>fr.deroffal.bibliotheque</groupId>
     <artifactId>parent</artifactId>
     <name>bibliotheque-parent</name>
-    <version>3.1-SNAPSHOT</version>
+    <version>3.1</version>
     <description>Une bibliotheque web</description>
     <packaging>pom</packaging>
 
     <scm>
         <developerConnection>scm:git:https://github.com/deroffal/bibliotheque.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>parent-3.1</tag>
     </scm>
 
     <properties>
