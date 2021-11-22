@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service
 import java.time.Duration
 import java.util.function.Function
 
+import static io.jsonwebtoken.SignatureAlgorithm.HS512
+
 @Service
 class JwtTokenService {
 
@@ -37,7 +39,7 @@ class JwtTokenService {
     }
 
     String generateToken(final UserDetails userDetails, final Map<String, Object> additionalClaims = [:]) {
-        doGenerateToken(additionalClaims, userDetails.username)
+        doGenerateToken(userDetails.username, additionalClaims)
     }
 
     /**
@@ -46,13 +48,13 @@ class JwtTokenService {
      * //2. Sign the JWT using the HS512 algorithm and secret key.
      * //3. According to JWS Compact Serialization(https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41#section-3.1) compaction of the JWT to a URL-safe string
      **/
-    private String doGenerateToken(final Map<String, Object> claims, final String subject) {
+    private String doGenerateToken(final String subject, final Map<String, Object> claims) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY))
-                .signWith(SignatureAlgorithm.HS512, jwtConfig.secret)
+                .signWith(HS512, jwtConfig.secret)
                 .compact()
     }
 

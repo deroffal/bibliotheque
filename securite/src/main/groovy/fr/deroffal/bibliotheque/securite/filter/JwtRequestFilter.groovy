@@ -1,7 +1,6 @@
 package fr.deroffal.bibliotheque.securite.filter
 
 import groovy.util.logging.Slf4j
-import io.jsonwebtoken.ExpiredJwtException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetails
@@ -23,8 +22,8 @@ class JwtRequestFilter extends OncePerRequestFilter {
     private static final String AUTHORIZATION_HEADER_NAME = "Authorization"
 
     private final WebAuthenticationDetailsSource webAuthenticationDetailsSource = new WebAuthenticationDetailsSource()
-    private final UserDetailsService userDetailsService;
-    private final JwtTokenService jwtTokenService;
+    private final UserDetailsService userDetailsService
+    private final JwtTokenService jwtTokenService
 
     JwtRequestFilter(final UserDetailsService userDetailsService, final JwtTokenService jwtTokenService) {
         this.userDetailsService = userDetailsService
@@ -50,12 +49,11 @@ class JwtRequestFilter extends OncePerRequestFilter {
     private String getUsername(final String jwtToken) {
         try {
             return jwtToken != null ? jwtTokenService.getUsernameFromToken(jwtToken) : null
-        } catch (final IllegalArgumentException e) {
-            logger.debug("Unable to get JWT Token");
-        } catch (final ExpiredJwtException e) {
-            logger.debug("JWT Token has expired");
+        } catch (any) {
+            logger.debug("Impossible de récupérer le nom de l'utilisateur depuis le token $jwtToken", any)
+            return null
         }
-        return null
+
     }
 
     private void authenticate(final HttpServletRequest request, final String jwtToken, final String username) {
