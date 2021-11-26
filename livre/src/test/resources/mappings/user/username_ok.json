@@ -1,0 +1,13 @@
+{
+  "request": {
+    "urlPath": "/user/dupont",
+    "method": "GET"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyFileName": "user/dupont.json"
+  }
+}

@@ -1,6 +1,6 @@
 package fr.deroffal.bibliotheque.securite.auth
 
-import fr.deroffal.bibliotheque.securite.details.JwtUserDetails
+
 import fr.deroffal.bibliotheque.securite.filter.JwtTokenService
 import groovy.util.logging.Slf4j
 import org.springframework.security.authentication.AuthenticationManager
@@ -25,7 +25,7 @@ class AuthentificationService {
     String authenticate(final String username, final String password) {
         final Authentication auth = getAuthentication(username, password)
 
-        final UserDetails userDetails = (JwtUserDetails) auth.principal
+        final UserDetails userDetails = (UserDetails) auth.principal
         return jwtTokenService.generateToken(userDetails)
     }
 

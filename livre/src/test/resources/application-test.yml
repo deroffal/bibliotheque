@@ -1,0 +1,3 @@
+bibliotheque:
+  authentification:
+    url: http://localhost:8989

@@ -1,0 +1,13 @@
+{
+  "request": {
+    "urlPath": "/user/dupond",
+    "method": "GET"
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "Content-Type": "text/plain"
+    },
+    "body": "Utilisateur dupond inconnu."
+  }
+}

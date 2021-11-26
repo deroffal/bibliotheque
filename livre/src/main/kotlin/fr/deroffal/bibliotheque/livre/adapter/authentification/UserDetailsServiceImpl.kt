@@ -16,6 +16,6 @@ class UserDetailsServiceImpl(
     override fun loadUserByUsername(username: String): UserDetails =
         Try.of { userDetailsClient.loadUserByUsername(username) }
             .map { userDetailsMapper.toUserDetails(it) }
-            .getOrElseThrow(Supplier { UsernameNotFoundException(username) })
+            .getOrElseThrow(Supplier { UsernameNotFoundException("Utilisateur $username inconnu !") })
 
 }
