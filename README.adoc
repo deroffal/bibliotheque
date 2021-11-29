@@ -1,3 +1,5 @@
 = Bibliotheque
 
+image:https://sonarcloud.io/api/project_badges/measure?project=bibliotheque&metric=alert_status[link="https://sonarcloud.io/summary/new_code?id=bibliotheque"]
+
 TechLab Java/Groovy/Kotlin, Spring Boot & Testing

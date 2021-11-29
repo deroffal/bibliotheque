@@ -9,7 +9,7 @@
         <module>authentification</module>
         <module>livre</module>
         <module>reservation</module>
-        <module>webapp</module>
+<!--        <module>webapp</module>-->
     </modules>
 
     <groupId>fr.deroffal.bibliotheque</groupId>
