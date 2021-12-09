@@ -1,4 +1,4 @@
-package fr.deroffal.bibliotheque.authentification.application;
+package fr.deroffal.bibliotheque.authentification.application.cucumber;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;

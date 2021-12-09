@@ -1,5 +1,7 @@
-package fr.deroffal.bibliotheque.authentification.application;
+package fr.deroffal.bibliotheque.authentification.application.cucumber;
 
+import fr.deroffal.bibliotheque.authentification.application.CreationUserService;
+import fr.deroffal.bibliotheque.authentification.application.RecuperationUserService;
 import fr.deroffal.bibliotheque.authentification.domain.service.UserRepositoryAdapter;
 import fr.deroffal.bibliotheque.authentification.domain.service.UserService;
 import io.cucumber.spring.CucumberContextConfiguration;
