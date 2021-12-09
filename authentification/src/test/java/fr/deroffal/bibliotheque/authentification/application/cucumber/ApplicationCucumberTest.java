@@ -7,8 +7,9 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
     glue = { "fr.deroffal.bibliotheque.authentification" },
-    features = { "src/test/resources/application/" }
+    features = { "src/test/resources/application/" },
+    plugin = {"json:target/cucumber.json"}
 )
-public class ApplicationCucumberRunner {
+public class ApplicationCucumberTest {
 
 }

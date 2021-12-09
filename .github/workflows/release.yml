@@ -50,3 +50,12 @@ jobs:
         run: mvn -B --settings settings.xml -Darguments=-DskipTests release:clean release:prepare release:perform
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Docker & Push to DockerHub
+        run: echo "TODO ..."
+
+      - name: Living documentation
+        uses: actions/upload-artifact@v2
+        with:
+          name: living-documentation
+          path: authentification/target/cukedoctor/

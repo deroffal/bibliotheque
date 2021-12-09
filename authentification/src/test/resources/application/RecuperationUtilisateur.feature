@@ -1,4 +1,4 @@
-Feature: Récupération d'un utilisateur
+Feature: Utilisateur - récupération
 
   Cette feature décrit la récupération d'un utilisateur
 

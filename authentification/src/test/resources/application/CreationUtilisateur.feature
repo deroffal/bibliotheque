@@ -1,4 +1,4 @@
-Feature: Création d'un utilisateur
+Feature: Utilisateur - création
 
   Cette feature décrit la création d'un utilisateur
 
