@@ -9,8 +9,10 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "role_applicatif")
 public class RoleEntity {

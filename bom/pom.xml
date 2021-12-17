@@ -40,6 +40,7 @@
 
         <mockito-kotlin.version>4.0.0</mockito-kotlin.version>
         <kotest.version>4.6.3</kotest.version>
+        <equalsverifier.version>3.8</equalsverifier.version>
     </properties>
 
     <dependencyManagement>
@@ -135,6 +136,11 @@
                 <groupId>com.openpojo</groupId>
                 <artifactId>openpojo</artifactId>
                 <version>${openpojo.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>nl.jqno.equalsverifier</groupId>
+                <artifactId>equalsverifier</artifactId>
+                <version>${equalsverifier.version}</version>
             </dependency>
 
             <dependency>

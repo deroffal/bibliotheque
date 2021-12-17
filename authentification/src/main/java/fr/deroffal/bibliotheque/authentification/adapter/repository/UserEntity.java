@@ -14,8 +14,10 @@ import javax.persistence.Table;
 import java.util.Collection;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "utilisateur")
 public class UserEntity {
