@@ -2,17 +2,17 @@ package fr.deroffal.bibliotheque.authentification.domain.service;
 
 import java.util.Optional;
 
-import fr.deroffal.bibliotheque.authentification.domain.model.UserDto;
+import fr.deroffal.bibliotheque.authentification.domain.model.Utilisateur;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UtilisateurService {
 
     private final UserRepositoryAdapter userRepositoryAdapter;
 
-    public Optional<UserDto> getByUsername(final String username) {
+    public Optional<Utilisateur> getByUsername(final String username) {
         return userRepositoryAdapter.findByUsername(username);
     }
 
@@ -20,7 +20,7 @@ public class UserService {
         return userRepositoryAdapter.existsByUsername(login);
     }
 
-    public UserDto create(final UserDto userDto) {
-        return userRepositoryAdapter.create(userDto);
+    public Utilisateur create(final Utilisateur utilisateur) {
+        return userRepositoryAdapter.create(utilisateur);
     }
 }

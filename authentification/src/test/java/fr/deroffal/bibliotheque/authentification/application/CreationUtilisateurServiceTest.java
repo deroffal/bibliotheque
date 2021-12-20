@@ -6,9 +6,9 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
-import fr.deroffal.bibliotheque.authentification.domain.model.UserDto;
+import fr.deroffal.bibliotheque.authentification.domain.model.Utilisateur;
 import fr.deroffal.bibliotheque.authentification.domain.service.UserRepositoryAdapter;
-import fr.deroffal.bibliotheque.authentification.domain.service.UserService;
+import fr.deroffal.bibliotheque.authentification.domain.service.UtilisateurService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +17,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 
 @SpringBootTest
-@ContextConfiguration(classes = { CreationUserService.class, UserService.class })
-class CreationUserServiceTest {
+@ContextConfiguration(classes = { CreationUtilisateurService.class, UtilisateurService.class })
+class CreationUtilisateurServiceTest {
 
     @Autowired
-    private CreationUserService creationUserService;
+    private CreationUtilisateurService creationUtilisateurService;
 
     @MockBean
     private UserRepositoryAdapter userRepositoryAdapter;
@@ -29,26 +29,26 @@ class CreationUserServiceTest {
     @Test
     @DisplayName("Création d'un utilisateur en succès")
     void createUser_OK() {
-        final UserDto demandeCreation = new UserDto(null, "admin", "azerty", List.of("ADMIN"));
+        final Utilisateur demandeCreation = new Utilisateur(null, "admin", "azerty", List.of("ADMIN"));
 
         when(userRepositoryAdapter.existsByUsername("admin")).thenReturn(false);
 
-        final UserDto utilisateurCree = new UserDto(1L, "admin", "azerty", List.of("ADMIN"));
+        final Utilisateur utilisateurCree = new Utilisateur(1L, "admin", "azerty", List.of("ADMIN"));
         when(userRepositoryAdapter.create(demandeCreation)).thenReturn(utilisateurCree);
 
-        final UserDto userDto = creationUserService.create(demandeCreation);
+        final Utilisateur utilisateur = creationUtilisateurService.create(demandeCreation);
 
-        assertThat(userDto).isEqualTo(utilisateurCree);
+        assertThat(utilisateur).isEqualTo(utilisateurCree);
     }
 
     @Test
     @DisplayName("Création d'un utilisateur impossible car il existe déjà")
     void createUser_KO() {
-        final UserDto demandeCreation = new UserDto(null, "admin", "azerty", List.of("ADMIN"));
+        final Utilisateur demandeCreation = new Utilisateur(null, "admin", "azerty", List.of("ADMIN"));
 
         when(userRepositoryAdapter.existsByUsername("admin")).thenReturn(true);
 
-        assertThatThrownBy(() -> creationUserService.create(demandeCreation))
+        assertThatThrownBy(() -> creationUtilisateurService.create(demandeCreation))
             .isInstanceOf(UserAlreadyExistsException.class)
             .matches(e -> {
             UserAlreadyExistsException expection = (UserAlreadyExistsException) e;

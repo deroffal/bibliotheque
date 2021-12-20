@@ -15,7 +15,9 @@ import org.springframework.web.context.request.WebRequest;
 
 @Slf4j
 @RestControllerAdvice
-public class UserControllerAdvice {
+public class UtilisateurControllerAdvice {
+
+    private static final String MESSAGE_ERREUR_GENERIQUE = "Erreur lors de l'appel du service {} avec les paramètres {}";
 
     @ExceptionHandler(value = Exception.class)
     @ResponseStatus(value = INTERNAL_SERVER_ERROR)
@@ -26,14 +28,14 @@ public class UserControllerAdvice {
     @ExceptionHandler(value = UserAlreadyExistsException.class)
     @ResponseStatus(value = CONFLICT)
     public String userAlreadyExistsExceptionHandler(final UserAlreadyExistsException e, final WebRequest request) {
-        log.error("Erreur lors de l'appel du service {} avec les paramètres {}", recupererUri(request), recupererParametres(request), e);
+        log.error(MESSAGE_ERREUR_GENERIQUE, recupererUri(request), recupererParametres(request), e);
         return String.format("Utilisateur %s déjà existant.", e.getLogin());
     }
 
     @ExceptionHandler(value = UserNotFoundException.class)
     @ResponseStatus(value = NOT_FOUND)
     public String userNotFoundExceptionHandler(final UserNotFoundException e, final WebRequest request) {
-        log.error("Erreur lors de l'appel du service {} avec les paramètres {}", recupererUri(request), recupererParametres(request), e);
+        log.error(MESSAGE_ERREUR_GENERIQUE, recupererUri(request), recupererParametres(request), e);
         return String.format("Utilisateur %s inconnu.", e.getLogin());
     }
 
@@ -48,7 +50,7 @@ public class UserControllerAdvice {
     }
 
     private static String traiterMessage(final WebRequest request, final Exception exception) {
-        log.error("Erreur lors de l'appel du service {} avec les paramètres {}", recupererUri(request), recupererParametres(request), exception);
+        log.error(MESSAGE_ERREUR_GENERIQUE, recupererUri(request), recupererParametres(request), exception);
         return exception.getMessage();
     }
 }

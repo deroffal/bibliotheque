@@ -1,17 +1,17 @@
 package fr.deroffal.bibliotheque.authentification.application;
 
-import fr.deroffal.bibliotheque.authentification.domain.model.UserDto;
-import fr.deroffal.bibliotheque.authentification.domain.service.UserService;
+import fr.deroffal.bibliotheque.authentification.domain.model.Utilisateur;
+import fr.deroffal.bibliotheque.authentification.domain.service.UtilisateurService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CreationUserService {
+public class CreationUtilisateurService {
 
-    private final UserService userService;
+    private final UtilisateurService userService;
 
-    public UserDto create(final UserDto user) {
+    public Utilisateur create(final Utilisateur user) {
         final String login = user.username();
         if (userService.existsByLogin(login)) {
             throw new UserAlreadyExistsException(login);

@@ -3,9 +3,9 @@ package fr.deroffal.bibliotheque.authentification.adapter.controller;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
-import fr.deroffal.bibliotheque.authentification.application.CreationUserService;
-import fr.deroffal.bibliotheque.authentification.application.RecuperationUserService;
-import fr.deroffal.bibliotheque.authentification.domain.model.UserDto;
+import fr.deroffal.bibliotheque.authentification.application.CreationUtilisateurService;
+import fr.deroffal.bibliotheque.authentification.application.RecuperationUtilisateurService;
+import fr.deroffal.bibliotheque.authentification.domain.model.Utilisateur;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -21,22 +21,22 @@ import org.springframework.web.bind.annotation.RestController;
 @Api("/user")
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UtilisateurController {
 
-    private final RecuperationUserService recuperationUserService;
-    private final CreationUserService creationUserService;
+    private final RecuperationUtilisateurService recuperationUtilisateurService;
+    private final CreationUtilisateurService creationUtilisateurService;
 
     @ApiOperation(httpMethod = "GET", value = "Récupération d'un utilisateur")
     @GetMapping(value = "/{login}")
     @ResponseStatus(OK)
-    public UserDto getByLogin(@PathVariable final String login) {
-        return recuperationUserService.getByLogin(login);
+    public Utilisateur getByLogin(@PathVariable final String login) {
+        return recuperationUtilisateurService.getByLogin(login);
     }
 
     @ApiOperation(httpMethod = "POST", value = "Création d'un utilisateur")
     @PostMapping(value = "/")
     @ResponseStatus(CREATED)
-    public UserDto create(@RequestBody final UserDto userIn) {
-        return creationUserService.create(userIn);
+    public Utilisateur create(@RequestBody final Utilisateur userIn) {
+        return creationUtilisateurService.create(userIn);
     }
 }

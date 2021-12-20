@@ -6,7 +6,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.test.context.jdbc.SqlMergeMode.MergeMode.MERGE;
 
-import fr.deroffal.bibliotheque.authentification.domain.model.UserDto;
+import fr.deroffal.bibliotheque.authentification.domain.model.Utilisateur;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import org.springframework.test.context.jdbc.SqlMergeMode;
 @Sql("/integration/clean.sql")
 @TestPropertySource(locations = "classpath:application-test.properties")
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-class UserControllerIT {
+class UtilisateurControllerIT {
 
     @LocalServerPort
     private int port;
@@ -34,11 +34,11 @@ class UserControllerIT {
     @Test
     @DisplayName("Recherche d'un utilisateur : l'utilisateur est connu.")
     void rechercherUtilisateurLoginConnu() {
-        final ResponseEntity<UserDto> response = restTemplate.getForEntity(buildUrl("/user/user2"), UserDto.class);
+        final ResponseEntity<Utilisateur> response = restTemplate.getForEntity(buildUrl("/user/user2"), Utilisateur.class);
 
         assertThat(response.getStatusCode()).isEqualTo(OK);
 
-        final UserDto user = response.getBody();
+        final Utilisateur user = response.getBody();
 
         assertThat(user).isNotNull();
 

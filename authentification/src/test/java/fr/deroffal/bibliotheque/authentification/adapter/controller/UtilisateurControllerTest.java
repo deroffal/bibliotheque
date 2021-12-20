@@ -14,11 +14,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import fr.deroffal.bibliotheque.authentification.application.CreationUserService;
-import fr.deroffal.bibliotheque.authentification.application.RecuperationUserService;
+import fr.deroffal.bibliotheque.authentification.application.CreationUtilisateurService;
+import fr.deroffal.bibliotheque.authentification.application.RecuperationUtilisateurService;
 import fr.deroffal.bibliotheque.authentification.application.UserAlreadyExistsException;
 import fr.deroffal.bibliotheque.authentification.application.UserNotFoundException;
-import fr.deroffal.bibliotheque.authentification.domain.model.UserDto;
+import fr.deroffal.bibliotheque.authentification.domain.model.Utilisateur;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatcher;
@@ -29,7 +29,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 @WebMvcTest
-class UserControllerTest {
+class UtilisateurControllerTest {
 
     @Autowired
     private MockMvc mockMvc ;
@@ -38,16 +38,16 @@ class UserControllerTest {
     private ObjectMapper objectMapper;
 
     @MockBean
-    private RecuperationUserService recuperationUserService;
+    private RecuperationUtilisateurService recuperationUtilisateurService;
 
     @MockBean
-    private CreationUserService creationUserService;
+    private CreationUtilisateurService creationUtilisateurService;
 
     @Test
     @DisplayName("getByLogin : L'utilisateur n'existe pas.")
     void getUserByLoginRetourne404QuandLoginInconnu() throws Exception {
         final String login = "toto";
-        doThrow(new UserNotFoundException(login)).when(recuperationUserService).getByLogin(login);
+        doThrow(new UserNotFoundException(login)).when(recuperationUtilisateurService).getByLogin(login);
 
         mockMvc.perform(get("/user/" + login))
             .andExpect(status().isNotFound());
@@ -57,8 +57,8 @@ class UserControllerTest {
     @DisplayName("getByLogin : L'utilisateur existe.")
     void getUserByLoginRetourne200EtUserQuandLoginConnu() throws Exception {
         final String login = "toto";
-        final UserDto expectedUser = new UserDto(35L, login, "clm#^`|'!(,;''rt321201'", null);
-        when(recuperationUserService.getByLogin(login)).thenReturn(expectedUser);
+        final Utilisateur expectedUser = new Utilisateur(35L, login, "clm#^`|'!(,;''rt321201'", null);
+        when(recuperationUtilisateurService.getByLogin(login)).thenReturn(expectedUser);
 
         mockMvc.perform(get("/user/" + login))
             .andExpect(status().isOk())
@@ -72,7 +72,7 @@ class UserControllerTest {
     @DisplayName("getByLogin : Erreur interne.")
     void getUserByLoginRetourne500QuandErreurInterne() throws Exception {
         final String login = "toto";
-        doThrow(new NullPointerException("Ça a pété quelque part!")).when(recuperationUserService).getByLogin(login);
+        doThrow(new NullPointerException("Ça a pété quelque part!")).when(recuperationUtilisateurService).getByLogin(login);
 
         final MvcResult mvcResult = mockMvc.perform(get("/user/" + login).accept(APPLICATION_JSON))
             .andExpect(status().isInternalServerError())
@@ -86,9 +86,9 @@ class UserControllerTest {
     @DisplayName("create : L'utilisateur existe déjà.")
     void createUserRetourne409QuandDejaExistant() throws Exception {
         final String login = "toto";
-        final UserDto userToCreate = new UserDto(null, login, null, null);
+        final Utilisateur userToCreate = new Utilisateur(null, login, null, null);
 
-        doThrow(new UserAlreadyExistsException("username")).when(creationUserService).create(any());
+        doThrow(new UserAlreadyExistsException("username")).when(creationUtilisateurService).create(any());
 
         final String userJson = objectMapper.writeValueAsString(userToCreate);
 
@@ -101,13 +101,13 @@ class UserControllerTest {
     @DisplayName("create : L'utilisateur n'existe pas encore.")
     void createUserRetourne201QuandCreation() throws Exception {
         final String login = "toto";
-        when(recuperationUserService.getByLogin(login)).thenReturn(null);
+        when(recuperationUtilisateurService.getByLogin(login)).thenReturn(null);
 
-        final UserDto userToCreate = new UserDto(null, login, null, null);
+        final Utilisateur userToCreate = new Utilisateur(null, login, null, null);
         final String userJson = objectMapper.writeValueAsString(userToCreate);
 
-        final UserDto newUser = new UserDto(1L, login, null, null);
-        when(creationUserService.create(argThat(sameLoginThan(newUser)))).thenReturn(newUser);
+        final Utilisateur newUser = new Utilisateur(1L, login, null, null);
+        when(creationUtilisateurService.create(argThat(sameLoginThan(newUser)))).thenReturn(newUser);
 
         mockMvc.perform(post("/user/").content(userJson).contentType(APPLICATION_JSON))
             .andExpect(status().isCreated())
@@ -116,7 +116,7 @@ class UserControllerTest {
             .andReturn();
     }
 
-    private static ArgumentMatcher<UserDto> sameLoginThan(final UserDto newUser) {
+    private static ArgumentMatcher<Utilisateur> sameLoginThan(final Utilisateur newUser) {
         return userDto -> userDto.username().equals(newUser.username());
     }
 }

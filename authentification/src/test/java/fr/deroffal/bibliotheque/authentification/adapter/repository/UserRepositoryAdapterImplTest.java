@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 import java.util.Optional;
 
-import fr.deroffal.bibliotheque.authentification.domain.model.UserDto;
+import fr.deroffal.bibliotheque.authentification.domain.model.Utilisateur;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +43,9 @@ class UserRepositoryAdapterImplTest {
         userAdmin.setRoles(List.of(roleAdmin, roleUser));
         testEntityManager.persist(userAdmin);
 
-        final Optional<UserDto> admin = userRepositoryAdapter.findByUsername("admin");
+        final Optional<Utilisateur> admin = userRepositoryAdapter.findByUsername("admin");
         assertThat(admin).isNotEmpty();
-        final UserDto actualUser = admin.get();
+        final Utilisateur actualUser = admin.get();
         assertThat(actualUser.username()).isEqualTo("admin");
         assertThat(actualUser.password()).isEqualTo("azertyuiop");
         assertThat(actualUser.roles()).containsExactlyInAnyOrder("ADMIN", "USER");
@@ -73,13 +73,13 @@ class UserRepositoryAdapterImplTest {
     @Test
     @DisplayName("Création d'un utilisateur")
     void create() {
-        final UserDto userDto = new UserDto(null, "admin", "azertyuiop", null);
+        final Utilisateur utilisateur = new Utilisateur(null, "admin", "azertyuiop", null);
 
-        final UserDto user = userRepositoryAdapter.create(userDto);
+        final Utilisateur user = userRepositoryAdapter.create(utilisateur);
 
         final UserEntity userEntity = testEntityManager.find(UserEntity.class, user.id());
 
-        assertThat(userEntity.getUsername()).isEqualTo(userDto.username());
+        assertThat(userEntity.getUsername()).isEqualTo(utilisateur.username());
         assertThat(userEntity.getPassword()).isNotNull();
     }
 }

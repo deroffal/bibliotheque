@@ -6,9 +6,9 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 import java.util.Optional;
 
-import fr.deroffal.bibliotheque.authentification.domain.model.UserDto;
+import fr.deroffal.bibliotheque.authentification.domain.model.Utilisateur;
 import fr.deroffal.bibliotheque.authentification.domain.service.UserRepositoryAdapter;
-import fr.deroffal.bibliotheque.authentification.domain.service.UserService;
+import fr.deroffal.bibliotheque.authentification.domain.service.UtilisateurService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,11 +18,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 
 @SpringBootTest
-@ContextConfiguration(classes = { RecuperationUserService.class, UserService.class })
-class RecuperationUserServiceTest {
+@ContextConfiguration(classes = { RecuperationUtilisateurService.class, UtilisateurService.class })
+class RecuperationUtilisateurServiceTest {
 
     @Autowired
-    private RecuperationUserService recuperationUserService;
+    private RecuperationUtilisateurService recuperationUtilisateurService;
 
     @MockBean
     private UserRepositoryAdapter userRepositoryAdapter;
@@ -30,10 +30,10 @@ class RecuperationUserServiceTest {
     @Test
     @DisplayName("Récupération d'un utilisateur par son username")
     void getByLogin_avecResultat() {
-        final UserDto utilisateur = new UserDto(1L, "user", "ahmlzhe", List.of("USER"));
+        final Utilisateur utilisateur = new Utilisateur(1L, "user", "ahmlzhe", List.of("USER"));
         when(userRepositoryAdapter.findByUsername("user")).thenReturn(Optional.of(utilisateur));
 
-        final UserDto user = recuperationUserService.getByLogin("user");
+        final Utilisateur user = recuperationUtilisateurService.getByLogin("user");
 
         Assertions.assertThat(user).isEqualTo(utilisateur);
     }
@@ -43,7 +43,7 @@ class RecuperationUserServiceTest {
     void getByLogin_sansResultat() {
         when(userRepositoryAdapter.findByUsername("user")).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> recuperationUserService.getByLogin("user"))
+        assertThatThrownBy(() -> recuperationUtilisateurService.getByLogin("user"))
             .isInstanceOf(UserNotFoundException.class)
             .matches(e -> {
                 final UserNotFoundException exception = (UserNotFoundException)e;

@@ -1,7 +1,7 @@
 package fr.deroffal.bibliotheque.authentification.adapter.repository.mapping;
 
 import fr.deroffal.bibliotheque.authentification.adapter.repository.UserEntity;
-import fr.deroffal.bibliotheque.authentification.domain.model.UserDto;
+import fr.deroffal.bibliotheque.authentification.domain.model.Utilisateur;
 import fr.deroffal.bibliotheque.commons.mapping.MapperConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 @Mapper(config = MapperConfiguration.class, uses = { RoleMapper.class, PasswordMapper.class })
 public interface UserMapper {
 
-    UserDto toDto(final UserEntity user);
+    Utilisateur toDto(final UserEntity user);
 
     /**
      * Création d'en Entity pour un utilisateur.
@@ -22,5 +22,5 @@ public interface UserMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "roles", ignore = true)//FIXME ?
     @Mapping(target = "password", source = "password", qualifiedByName = "encodePassword")
-    UserEntity toEntityAndEncorePassword(final UserDto user);
+    UserEntity toEntityAndEncorePassword(final Utilisateur user);
 }

@@ -3,7 +3,7 @@ package fr.deroffal.bibliotheque.authentification.adapter.repository;
 import java.util.Optional;
 
 import fr.deroffal.bibliotheque.authentification.adapter.repository.mapping.UserMapper;
-import fr.deroffal.bibliotheque.authentification.domain.model.UserDto;
+import fr.deroffal.bibliotheque.authentification.domain.model.Utilisateur;
 import fr.deroffal.bibliotheque.authentification.domain.service.UserRepositoryAdapter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class UserRepositoryAdapterImpl implements UserRepositoryAdapter {
     private final UserMapper userMapper;
 
     @Override
-    public Optional<UserDto> findByUsername(final String username) {
+    public Optional<Utilisateur> findByUsername(final String username) {
         return dao.findByUsername(username).map(userMapper::toDto);
     }
 
@@ -26,8 +26,8 @@ public class UserRepositoryAdapterImpl implements UserRepositoryAdapter {
     }
 
     @Override
-    public UserDto create(final UserDto userDto) {
-        final UserEntity userEntity = userMapper.toEntityAndEncorePassword(userDto);
+    public Utilisateur create(final Utilisateur utilisateur) {
+        final UserEntity userEntity = userMapper.toEntityAndEncorePassword(utilisateur);
         final UserEntity user = dao.save(userEntity);
         return userMapper.toDto(user);
     }
