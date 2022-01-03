@@ -1,7 +1,6 @@
 package fr.deroffal.bibliotheque.livre.architecture
 
 import com.tngtech.archunit.junit.ArchTest
-import com.tngtech.archunit.library.Architectures.layeredArchitecture
 import com.tngtech.archunit.library.dependencies.SlicesRuleDefinition
 import fr.deroffal.bibliotheque.livre.appBasePackage
 import fr.deroffal.bibliotheque.livre.noInternalClassesOutsideOf
@@ -14,13 +13,6 @@ class ReglesArchitectureAdapter {
     val `Independance des adapters` = SlicesRuleDefinition.slices()
         .matching("$appBasePackage.(adapter).(*)").namingSlices("$1 '$2'")
         .should().notDependOnEachOther()
-
-
-    @ArchTest
-    val `Isolation des dependances de la configuration Swagger dans l'adapter apidocs` = layeredArchitecture()
-        .layer("swagger").definedBy("springfox.documentation..")
-        .layer("apiDocsAdapter").definedBy("$adapterBasePackage.apidocs")
-        .whereLayer("swagger").mayOnlyBeAccessedByLayers("apiDocsAdapter")
 
     @ArchTest
     val `Isolation des dependances Spring Web dans les adapters` = noInternalClassesOutsideOf("$adapterBasePackage..")

@@ -2,15 +2,15 @@ package fr.deroffal.bibliotheque.livre.adapter.repository
 
 import fr.deroffal.bibliotheque.commons.mapping.MapperConfiguration
 import fr.deroffal.bibliotheque.livre.domain.Livre
-import fr.deroffal.bibliotheque.livre.domain.LivreAdapter
+import fr.deroffal.bibliotheque.livre.domain.LivrePort
 import org.mapstruct.Mapper
 import org.springframework.stereotype.Component
 
 @Component
-class LivreAdapterImpl(
+class LivreAdapter(
     private val livreRepository: LivreRepository,
     private val livreMapper: LivreMapper
-) : LivreAdapter {
+) : LivrePort {
 
     override fun findById(id: String): Livre = livreRepository.findById(id).map { livreMapper.toLivre(it) }.orElseThrow()
 

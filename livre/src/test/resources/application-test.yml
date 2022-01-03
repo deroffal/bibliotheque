@@ -10,7 +10,10 @@ spring:
     password: sa
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
   main:
     allow-bean-definition-overriding: true
-  h2:
-    console:
+
+  liquibase:
+    enabled: false

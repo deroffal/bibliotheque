@@ -2,9 +2,9 @@ version: "3.9"
 services:
   db:
     image: postgres:14.1
-    container_name: "bibliotheque-authentification-db"
+    container_name: "bibliotheque-livre-db"
     environment:
-      POSTGRES_DB: bibliotheque-authentification-db
+      POSTGRES_DB: bibliotheque-livre-db
       POSTGRES_PASSWORD: pwd
     ports:
       - "5432:5432"

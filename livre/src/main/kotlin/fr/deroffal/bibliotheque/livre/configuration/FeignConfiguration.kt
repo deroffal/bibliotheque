@@ -1,4 +1,4 @@
-package fr.deroffal.bibliotheque.livre.adapter.clients
+package fr.deroffal.bibliotheque.livre.configuration
 
 import org.springframework.cloud.openfeign.EnableFeignClients
 import org.springframework.context.annotation.Configuration

@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1622038798156-00
+      author: deroffal
+      changes:
+        - sql:
+            dbms: 'postgresql'
+            sql: CREATE EXTENSION IF NOT EXISTS "uuid-ossp"

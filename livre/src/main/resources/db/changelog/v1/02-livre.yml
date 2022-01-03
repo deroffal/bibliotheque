@@ -1,0 +1,48 @@
+databaseChangeLog:
+  - property:
+      dbms: postgresql
+      name: uuid_type
+      value: uuid
+  - property:
+      dbms: postgresql
+      name: uuid_function
+      value: uuid_generate_v4()
+
+  - changeSet:
+      id: 1619798099106-00
+      author: deroffal
+      changes:
+        - createTable:
+            schemaName: public
+            tableName: livre
+            columns:
+              - column:
+                  name: id
+                  type: ${uuid_type}
+                  defaultValueComputed: ${uuid_function}
+                  remarks: id technique
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: livrePK
+              - column:
+                  name: titre
+                  type: VARCHAR(128)
+                  remarks: titre du livre
+              - column:
+                  name: genre
+                  type: VARCHAR(255)
+                  remarks: genre du livre
+              - column:
+                  name: creation_date
+                  type: timestamp with timezone
+                  remarks: date de creation
+  - changeSet:
+      id: 1619798099106-02
+      author: deroffal
+      changes:
+        - createIndex:
+            schemaName: public
+            tableName: livre
+            indexName: livre_genre_idx
+            column:
+              name: genre

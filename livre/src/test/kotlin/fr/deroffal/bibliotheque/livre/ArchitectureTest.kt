@@ -11,10 +11,12 @@ import com.tngtech.archunit.junit.ArchTests
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses
 import com.tngtech.archunit.lang.syntax.elements.GivenClassesConjunction
 import fr.deroffal.bibliotheque.livre.architecture.ReglesArchitectureAdapter
+import fr.deroffal.bibliotheque.livre.architecture.ReglesArchitectureConfiguration
 import fr.deroffal.bibliotheque.livre.architecture.ReglesArchitectureDomaine
 
 
 val appBasePackage: String = ArchitectureTest::class.java.`package`.name
+
 val resideInMyApp: DescribedPredicate<JavaClass> = resideInAPackage("$appBasePackage..")
 val noInternalClasses: GivenClassesConjunction = noClasses().that(resideInMyApp)
 fun noInternalClassesOutsideOf(vararg packages: String): GivenClassesConjunction = noInternalClasses.and(doNot(resideInAnyPackage(*packages)))
@@ -35,6 +37,10 @@ class ArchitectureTest {
 
     @ArchTest
     val adapterRules = ArchTests.`in`(ReglesArchitectureAdapter::class.java)
+
+
+    @ArchTest
+    val configurationRules = ArchTests.`in`(ReglesArchitectureConfiguration::class.java)
 
 }
 
