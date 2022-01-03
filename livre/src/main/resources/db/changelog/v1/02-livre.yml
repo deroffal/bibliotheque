@@ -13,7 +13,6 @@ databaseChangeLog:
       author: deroffal
       changes:
         - createTable:
-            schemaName: public
             tableName: livre
             columns:
               - column:
@@ -41,7 +40,6 @@ databaseChangeLog:
       author: deroffal
       changes:
         - createIndex:
-            schemaName: public
             tableName: livre
             indexName: livre_genre_idx
             column:

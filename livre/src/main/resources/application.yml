@@ -12,10 +12,13 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+        default_schema: livre
   datasource:
-    url: jdbc:postgresql://localhost:5432/bibliotheque-livre-db
+    url: jdbc:postgresql://localhost:5432/bibliotheque-db
     username: postgres
     password: pwd
+  liquibase:
+    default-schema: livre
 
 bibliotheque:
   authentification:
