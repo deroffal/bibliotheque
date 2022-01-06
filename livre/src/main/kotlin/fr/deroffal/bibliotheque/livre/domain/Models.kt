@@ -7,3 +7,7 @@ data class Livre(
     val titre: String,
     val genre: String
 )
+
+class LivreNotFoundException : RuntimeException() {
+
+}

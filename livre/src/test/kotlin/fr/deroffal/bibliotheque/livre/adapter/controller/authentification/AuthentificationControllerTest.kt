@@ -1,32 +1,58 @@
 package fr.deroffal.bibliotheque.livre.adapter.controller.authentification
 
+import fr.deroffal.bibliotheque.livre.adapter.controller.ControllerTestContextConfiguration
 import fr.deroffal.bibliotheque.securite.auth.AuthentificationService
-import io.kotest.matchers.shouldBe
+import io.mockk.every
 import org.junit.jupiter.api.Test
-import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.mock
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
+import org.springframework.http.MediaType.APPLICATION_JSON
+import org.springframework.security.test.context.support.WithMockUser
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf
+import org.springframework.test.context.ContextConfiguration
+import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 
+@WebMvcTest
+@WithMockUser
+@ContextConfiguration(classes = [ControllerTestContextConfiguration::class])
 internal class AuthentificationControllerTest {
+
+    @Autowired
+    private lateinit var mockMvc: MockMvc
+
+    @Autowired
+    private lateinit var authentificationService: AuthentificationService
 
     @Test
     fun `authenticate delegue l'authentification au service`() {
         //given:
-        val username = "username"
-        val password = "password"
-
-        val request = JwtRequest(username, password)
+        val username = "toto"
+        val password = "Azerty12*"
 
         //and:
         val expectedToken = "token"
-        val authentificationService = mock<AuthentificationService> {
-            on { it.authenticate(username, password) }.thenReturn(expectedToken)
-        }
+        every { authentificationService.authenticate(username, password) } returns expectedToken
 
         //when:
-        val authentificationController = AuthentificationController(authentificationService)
-        val response = authentificationController.authenticate(request)
+        val response = mockMvc.perform(
+            post("/authenticate")
+                .with(csrf())
+                .contentType(APPLICATION_JSON)
+                .content(
+                    """{
+                        |"username": "$username",
+                        |"password": "$password"
+                        |}""".trimMargin()
+                )
+        )
 
         //then:
-        response.jwtToken shouldBe expectedToken
+        response
+            .andExpect(status().isOk)
+            .andExpect(content().contentType(APPLICATION_JSON))
+            .andExpect(jsonPath("$.jwtToken").value(expectedToken))
+
     }
 }

@@ -15,6 +15,6 @@ data class LivreEntity(
     val genre: String
 )
 
-interface LivreRepository : PagingAndSortingRepository<LivreEntity, String> {
+interface LivreRepository : PagingAndSortingRepository<LivreEntity, UUID> {
     fun findAllByGenre(genre: String): Collection<LivreEntity>
 }

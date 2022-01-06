@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- https://docs.spring.io/spring-boot/docs/current/reference/html/howto-logging.html -->
+
+
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <logger name="com.tngtech" level="WARN"/>
+    <!--    <logger name="org.springframework.security" level="DEBUG"/>-->
+</configuration>

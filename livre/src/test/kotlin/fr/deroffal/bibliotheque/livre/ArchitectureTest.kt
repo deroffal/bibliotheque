@@ -5,6 +5,7 @@ import com.tngtech.archunit.base.DescribedPredicate.doNot
 import com.tngtech.archunit.core.domain.JavaClass
 import com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAPackage
 import com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAnyPackage
+import com.tngtech.archunit.core.importer.ImportOption
 import com.tngtech.archunit.junit.AnalyzeClasses
 import com.tngtech.archunit.junit.ArchTest
 import com.tngtech.archunit.junit.ArchTests
@@ -28,7 +29,9 @@ fun noInternalClassesOutsideOf(vararg packages: String): GivenClassesConjunction
         "org.springframework.security", "org.springframework.web", "org.springframework.http",
         "springfox.documentation",
         "javax.persistence", "org.springframework.data"
-    ]
+    ],
+    //pas les tests car mock des services dans les classes de config, WithMockUser, ...
+    importOptions = [ImportOption.DoNotIncludeTests::class]
 )
 class ArchitectureTest {
 
@@ -37,7 +40,6 @@ class ArchitectureTest {
 
     @ArchTest
     val adapterRules = ArchTests.`in`(ReglesArchitectureAdapter::class.java)
-
 
     @ArchTest
     val configurationRules = ArchTests.`in`(ReglesArchitectureConfiguration::class.java)
