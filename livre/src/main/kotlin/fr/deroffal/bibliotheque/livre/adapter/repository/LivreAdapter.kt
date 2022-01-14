@@ -19,12 +19,14 @@ class LivreAdapter(
 
     private fun Livre.toEntity() = livreMapper.toEntity(this)
     private fun LivreEntity.toLivre() = livreMapper.toLivre(this)
+
 }
 
 @Mapper(config = MapperConfiguration::class)
-interface LivreMapper {
+abstract class LivreMapper {
 
-    fun toLivre(entity: LivreEntity): Livre
-    fun toEntity(livre: Livre): LivreEntity
+    abstract fun toLivre(entity: LivreEntity): Livre
+
+    fun toEntity(livre: Livre): LivreEntity = LivreEntity(titre = livre.titre, genre = livre.genre)
 
 }
