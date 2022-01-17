@@ -16,6 +16,7 @@ class LivreAdapter(
     override fun findById(id: UUID): Optional<Livre> = livreRepository.findById(id).map { livreMapper.toLivre(it) }
     override fun findAllByGenre(genre: String): Collection<Livre> = livreRepository.findAllByGenre(genre).map { livreMapper.toLivre(it) }
     override fun create(livre: Livre) = livreRepository.save(livre.toEntity()).toLivre()
+    override fun findAll() = livreRepository.findAll().map { it.toLivre() }
 
     private fun Livre.toEntity() = livreMapper.toEntity(this)
     private fun LivreEntity.toLivre() = livreMapper.toLivre(this)

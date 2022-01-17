@@ -24,6 +24,8 @@
         <spring-cloud-dependencies.version>2020.0.4</spring-cloud-dependencies.version>
         <spring-cloud-contract.version>3.0.4</spring-cloud-contract.version>
 
+        <jackson-dataformat.version>2.9.9</jackson-dataformat.version>
+
         <jjwt.version>0.9.1</jjwt.version>
         <java-jwt.version>3.18.2</java-jwt.version>
 
@@ -98,6 +100,12 @@
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-core</artifactId>
                 <version>${liquibase.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-csv</artifactId>
+                <version>${jackson-dataformat.version}</version>
             </dependency>
 
             <dependency>

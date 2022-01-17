@@ -1,7 +1,6 @@
 package fr.deroffal.bibliotheque.livre.adapter.authentification
 
 import io.vavr.control.Try
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
@@ -13,9 +12,10 @@ class UserDetailsServiceImpl(
     private val userDetailsMapper: UserDetailsMapper
 ) : UserDetailsService {
 
-    override fun loadUserByUsername(username: String): UserDetails =
+    override fun loadUserByUsername(username: String) =
         Try.of { userDetailsClient.loadUserByUsername(username) }
             .map { userDetailsMapper.toUserDetails(it) }
+            .onFailure { println(it) }
             .getOrElseThrow(Supplier { UsernameNotFoundException("Utilisateur $username inconnu !") })
 
 }

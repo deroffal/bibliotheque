@@ -8,6 +8,4 @@ data class Livre(
     val genre: String
 )
 
-class LivreNotFoundException : RuntimeException() {
-
-}
+class LivreNotFoundException(val id: UUID) : RuntimeException()

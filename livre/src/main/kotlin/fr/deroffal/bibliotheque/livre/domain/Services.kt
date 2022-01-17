@@ -6,11 +6,12 @@ import java.util.*
 @Service
 class LivreService(
     private val livrePort: LivrePort
-) : LivreRetriever, LivreCreator {
+) : LivreRetriever, LivreAdministrationService {
 
-    override fun findById(id: UUID): Livre = livrePort.findById(id).orElseThrow { LivreNotFoundException() }
+    override fun findById(id: UUID): Livre = livrePort.findById(id).orElseThrow { LivreNotFoundException(id) }
     override fun findAllByGenre(genre: String) = livrePort.findAllByGenre(genre)
     override fun create(livre: Livre) = livrePort.create(livre).id
+    override fun findAll() = livrePort.findAll()
 
 }
 
@@ -18,6 +19,7 @@ interface LivrePort {
     fun findById(id: UUID): Optional<Livre>
     fun findAllByGenre(genre: String): Collection<Livre>
     fun create(livre: Livre): Livre
+    fun findAll(): Collection<Livre>
 }
 
 interface LivreRetriever {
@@ -25,6 +27,7 @@ interface LivreRetriever {
     fun findAllByGenre(genre: String): Collection<Livre>
 }
 
-interface LivreCreator {
+interface LivreAdministrationService {
     fun create(livre: Livre): UUID
+    fun findAll(): Collection<Livre>
 }

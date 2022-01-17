@@ -53,7 +53,7 @@ internal class LivreControllerTest {
         val uuid = UUID.randomUUID()
 
         //and:
-        every { livreRetriever.findById(uuid) } throws LivreNotFoundException()
+        every { livreRetriever.findById(uuid) } throws LivreNotFoundException(uuid)
 
         //when:
         val response = mockMvc.perform(get("/livre/$uuid"))

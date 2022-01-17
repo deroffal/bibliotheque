@@ -2,7 +2,7 @@ package fr.deroffal.bibliotheque.livre.adapter.controller
 
 import fr.deroffal.bibliotheque.livre.domain.LivreNotFoundException
 import fr.deroffal.bibliotheque.livre.domain.LivreRetriever
-import org.springframework.http.HttpStatus
+import org.springframework.http.HttpStatus.NOT_FOUND
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.context.request.WebRequest
 import java.util.*
@@ -25,8 +25,8 @@ class LivreController(
 class LivreControllerAdvice {
 
     @ExceptionHandler(value = [LivreNotFoundException::class])
-    @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    fun onLivreNonTrouveException(exception: LivreNotFoundException, webRequest: WebRequest): String {
-        return "livre non trouvé!"
+    @ResponseStatus(value = NOT_FOUND)
+    fun onLivreNonTrouveException(e: LivreNotFoundException, webRequest: WebRequest): String {
+        return "livre ${e.id} non trouvé!"
     }
 }

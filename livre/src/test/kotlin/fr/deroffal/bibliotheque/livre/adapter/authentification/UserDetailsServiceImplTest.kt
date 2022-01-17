@@ -10,8 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.TestPropertySource
 
-@ActiveProfiles("test")
-@TestPropertySource(locations = ["classpath:application-test.yml"])
+@ActiveProfiles("httpAdapterTest")
+@TestPropertySource(locations = ["classpath:application-httpAdapterTest.yml"])
 @SpringBootTest
 @AutoConfigureWireMock(port = 8989)
 internal class UserDetailsServiceImplTest {
