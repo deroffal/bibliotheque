@@ -10,7 +10,7 @@ class LivreService(
 
     override fun findById(id: UUID): Livre = livrePort.findById(id).orElseThrow { LivreNotFoundException(id) }
     override fun findAllByGenre(genre: String) = livrePort.findAllByGenre(genre)
-    override fun create(livre: Livre) = livrePort.create(livre).id
+    override fun create(livre: Livre) = livrePort.create(livre).id!!
     override fun findAll() = livrePort.findAll()
 
 }

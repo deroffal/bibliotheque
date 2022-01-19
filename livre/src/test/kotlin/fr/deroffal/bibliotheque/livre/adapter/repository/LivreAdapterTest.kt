@@ -46,9 +46,9 @@ internal class LivreAdapterTest {
     @Test
     fun `findAllByGenre retourne tous les elements d'un genre donne`() {
         //given:
-        val entity11 = newLivreEntity("Harry Potter", "Fantastique")
-        val entity12 = newLivreEntity("Le Seigneur des Anneaux", "Fantastique")
-        val entity21 = newLivreEntity("Dune", "Science-fiction")
+        newLivreEntity("Harry Potter", "Fantastique")
+        newLivreEntity("Le Seigneur des Anneaux", "Fantastique")
+        newLivreEntity("Dune", "Science-fiction")
 
         //when:
         val livres = livreAdapter.findAllByGenre("Fantastique")
