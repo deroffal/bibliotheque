@@ -26,9 +26,6 @@
 
         <jackson-dataformat.version>2.9.9</jackson-dataformat.version>
 
-        <jjwt.version>0.9.1</jjwt.version>
-        <java-jwt.version>3.18.2</java-jwt.version>
-
         <swagger.version>3.0.0</swagger.version>
         <swagger-ui.version>2.9.2</swagger-ui.version>
 
@@ -106,17 +103,6 @@
                 <groupId>com.fasterxml.jackson.dataformat</groupId>
                 <artifactId>jackson-dataformat-csv</artifactId>
                 <version>${jackson-dataformat.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt</artifactId>
-                <version>${jjwt.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.auth0</groupId>
-                <artifactId>java-jwt</artifactId>
-                <version>${java-jwt.version}</version>
             </dependency>
 
             <dependency>

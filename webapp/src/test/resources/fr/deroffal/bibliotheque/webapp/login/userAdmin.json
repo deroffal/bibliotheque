@@ -1,9 +1,0 @@
-{
-    "id": 1,
-    "login": "admin",
-    "password": "$2a$10$3AoDzKHV.ExSwFXq8SPjK.3qSozxVVngcB0Xd4iAQcVlvz4yBgh1e",
-    "roles": [
-        "ADMIN",
-        "USER"
-    ]
-}

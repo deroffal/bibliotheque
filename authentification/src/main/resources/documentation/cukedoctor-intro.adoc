@@ -1,3 +1,0 @@
-= Bibliothèque / projet authentification
-
-Voici la documentation liée aux tests Cucumber éxécutés dans le sous-projet `authentification`.

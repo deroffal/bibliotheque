@@ -1,6 +1,6 @@
 package fr.deroffal.bibliotheque.livre.adapter.repository
 
-import fr.deroffal.bibliotheque.commons.mapping.MapperConfiguration
+import fr.deroffal.bibliotheque.livre.configuration.MapperConfiguration
 import fr.deroffal.bibliotheque.livre.domain.Livre
 import fr.deroffal.bibliotheque.livre.domain.LivrePort
 import fr.deroffal.bibliotheque.livre.domain.Page

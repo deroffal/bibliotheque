@@ -19,11 +19,6 @@ class ReglesArchitectureAdapter {
         .should().dependOnClassesThat().resideInAnyPackage("org.springframework.web..", "org.springframework.http..")
 
     @ArchTest
-    val `Isolation des dependances Spring Security & Bibliotheque-Securite dans le controller authentification` =
-        noInternalClassesOutsideOf("$adapterBasePackage.controller.authentification", "$adapterBasePackage.authentification")
-            .should().dependOnClassesThat().resideInAnyPackage("org.springframework.security..", "fr.deroffal.bibliotheque.securite..")
-
-    @ArchTest
     val `Isolation des dependances aux bases de donnees dans l'adapter repository` = noInternalClassesOutsideOf("$adapterBasePackage.repository")
         .should().dependOnClassesThat().resideInAnyPackage("javax.persistence..", "org.springframework.data..", "org.hibernate..")
 

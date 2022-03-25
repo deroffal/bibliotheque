@@ -70,10 +70,10 @@ jobs:
       - name: Push to DockerHub
         run: |
           PROJECT_VERSION=${{ steps.checkout-tag.outputs.PROJECT_VERSION }}
-          echo "tag authentification"
-          docker tag deroffal/bibliotheque-authentification:latest deroffal/bibliotheque-authentification:${PROJECT_VERSION}
-          docker push deroffal/bibliotheque-authentification:${PROJECT_VERSION}
-          docker push deroffal/bibliotheque-authentification:latest
+          echo "tag reservation"
+          docker tag deroffal/bibliotheque-reservation:latest deroffal/bibliotheque-reservation:${PROJECT_VERSION}
+          docker push deroffal/bibliotheque-reservation:${PROJECT_VERSION}
+          docker push deroffal/bibliotheque-reservation:latest
           echo "tag livre"
           docker tag deroffal/bibliotheque-livre:latest deroffal/bibliotheque-livre:${PROJECT_VERSION}
           docker push deroffal/bibliotheque-livre:${PROJECT_VERSION}

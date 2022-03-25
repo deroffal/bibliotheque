@@ -19,19 +19,3 @@ spring:
     password: pwd
   liquibase:
     default-schema: livre
-
-bibliotheque:
-  authentification:
-    url: http://localhost:8091
-
-jwt:
-  secret: lJXtk18CBKOyMxuLDZj1ACQqM4jdLTUAIUNng3PmLLbRSPbAraqdGzzDEazFYIZql1MsgHYHVIkUpkjhJcs0EOcGiBdJtsmJXssO
-
-securite:
-  authentification:
-    listeBlanche:
-      - '/authenticate'
-      - '/swagger-ui.html'
-      - '/swagger-resources/**'
-      - '/v2/api-docs'
-      - '/webjars/**'

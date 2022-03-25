@@ -1,6 +1,6 @@
 package fr.deroffal.bibliotheque.livre.adapter.controller.administration
 
-import fr.deroffal.bibliotheque.commons.mapping.MapperConfiguration
+import fr.deroffal.bibliotheque.livre.configuration.MapperConfiguration
 import fr.deroffal.bibliotheque.livre.domain.Livre
 import fr.deroffal.bibliotheque.livre.domain.LivreAdministrationService
 import org.mapstruct.Mapper

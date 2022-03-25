@@ -1,7 +1,7 @@
 package fr.deroffal.bibliotheque.livre.adapter.controller.administration
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder
-import fr.deroffal.bibliotheque.commons.mapping.MapperConfiguration
+import fr.deroffal.bibliotheque.livre.configuration.MapperConfiguration
 import fr.deroffal.bibliotheque.livre.domain.Livre
 import org.mapstruct.Mapper
 
