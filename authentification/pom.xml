@@ -11,12 +11,12 @@
 
     <groupId>fr.deroffal.bibliotheque</groupId>
     <artifactId>authentification</artifactId>
-    <version>3.3</version>
+    <version>3.4-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
-        <bibliotheque.version>3.3</bibliotheque.version>
+        <bibliotheque.version>3.4-SNAPSHOT</bibliotheque.version>
     </properties>
 
     <dependencyManagement>
@@ -296,8 +296,4 @@
             <url>https://maven.pkg.github.com/deroffal/bibliotheque</url>
         </repository>
     </distributionManagement>
-
-  <scm>
-    <tag>parent-3.3</tag>
-  </scm>
 </project>
