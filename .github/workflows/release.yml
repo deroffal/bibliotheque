@@ -53,7 +53,7 @@ jobs:
         run: mvn -B -U -P coverage clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=bibliotheque
 
       - name: Release & Publish
-        run: mvn -B --settings settings.xml -Darguments=-DskipTests release:clean release:prepare release:perform
+        run: mvn -B --settings settings.xml -Darguments="-Dmaven.javadoc.skip=true -DskipTests=true" release:clean release:prepare release:perform
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
