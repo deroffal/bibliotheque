@@ -10,13 +10,13 @@
 
     <groupId>fr.deroffal.bibliotheque</groupId>
     <artifactId>commons</artifactId>
-    <version>3.2</version>
+    <version>3.3-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
-        <bibliotheque.version>3.2</bibliotheque.version>
+        <bibliotheque.version>3.3-SNAPSHOT</bibliotheque.version>
     </properties>
 
     <dependencyManagement>
@@ -139,8 +139,4 @@
             <url>https://maven.pkg.github.com/deroffal/bibliotheque</url>
         </repository>
     </distributionManagement>
-
-  <scm>
-    <tag>parent-3.2</tag>
-  </scm>
 </project>

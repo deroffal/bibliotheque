@@ -11,14 +11,14 @@
 
     <groupId>fr.deroffal.bibliotheque</groupId>
     <artifactId>livre</artifactId>
-    <version>3.2</version>
+    <version>3.3-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
         <kotlin.version>1.6.10</kotlin.version>
         <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
-        <bibliotheque.version>3.2</bibliotheque.version>
+        <bibliotheque.version>3.3-SNAPSHOT</bibliotheque.version>
 
         <mapstruct.version>1.4.2.Final</mapstruct.version>
     </properties>
@@ -368,8 +368,4 @@
             <url>https://maven.pkg.github.com/deroffal/bibliotheque</url>
         </repository>
     </distributionManagement>
-
-  <scm>
-    <tag>parent-3.2</tag>
-  </scm>
 </project>
