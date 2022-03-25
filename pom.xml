@@ -9,7 +9,7 @@
         <module>securite</module>
         <module>authentification</module>
         <module>livre</module>
-        <module>reservation</module>
+<!--        <module>reservation</module>-->
         <!--        <module>webapp</module>-->
     </modules>
 
