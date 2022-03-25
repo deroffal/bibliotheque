@@ -16,8 +16,16 @@ class LivreController(
     @GetMapping("/{uuid}")
     fun getById(@PathVariable uuid: UUID) = livreRetriever.findById(uuid)
 
-    @GetMapping("/genre")
+    @GetMapping("/genre/")
     fun getByGenre(genre: String) = livreRetriever.findAllByGenre(genre)
+
+    @GetMapping("/")
+    fun getAll(
+        @RequestParam(defaultValue = "0") page: Int,
+        @RequestParam(defaultValue = "20") size: Int,
+        @RequestParam(defaultValue = "id") sortBy: String,
+        @RequestParam(defaultValue = "asc") direction: String,
+    ) = livreRetriever.findAllPaginated(page, size, sortBy, direction)
 
 }
 
